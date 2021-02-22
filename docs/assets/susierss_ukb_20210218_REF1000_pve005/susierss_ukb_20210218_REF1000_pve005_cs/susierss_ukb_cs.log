@@ -1,0 +1,78 @@
+[1] "susie_suff_ERTRUE_L10_ldin_AZFALSE"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.9929  0.9946  0.9950  0.9950  0.9954  0.9984 
+lambda:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+     NA      NA      NA     NaN      NA      NA     600 
+[1] "susie_rss_ERTRUE_L10_ldin_AZFALSE"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.8787  0.9925  1.0000  0.9905  1.0000  1.0000 
+lambda:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+     NA      NA      NA     NaN      NA      NA     600 
+[1] "susie_rss_ERTRUE_L10_ldin_AZTRUE"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.8581  0.9770  1.0000  0.9846  1.0000  1.0000 
+lambda:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+     NA      NA      NA     NaN      NA      NA     600 
+[1] "susie_rss_ERTRUE_L10_ldrefout_AZFALSE"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+lambda:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+     NA      NA      NA     NaN      NA      NA     600 
+[1] "susie_rss_ERTRUE_L10_ldrefout_AZTRUE"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+lambda:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+     NA      NA      NA     NaN      NA      NA     600 
+[1] "susie_rss_lambda_ERTRUE_L10_ldin_AZFALSE"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.8785  0.9891  1.0000  0.9895  1.0000  1.0000 
+lambda:
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.000e+00 7.460e-10 2.360e-09 1.557e-07 5.813e-09 2.095e-05 
+[1] "susie_rss_lambda_ERTRUE_L10_ldin_AZTRUE"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.8579  0.9734  1.0000  0.9834  1.0000  1.0000 
+lambda:
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.000e+00 7.290e-10 2.527e-09 1.824e-07 8.644e-09 9.150e-06 
+[1] "susie_rss_lambda_ERTRUE_L10_ldrefout_AZFALSE"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.9549  0.9973  0.9983  0.9974  0.9990  0.9997 
+lambda:
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0002556 0.0009596 0.0016757 0.0025743 0.0027169 0.0451337 
+[1] "susie_rss_lambda_ERFALSE_L10_ldrefout_AZFALSE"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.9549  0.9973  0.9983  0.9974  0.9990  0.9997 
+lambda:
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0002556 0.0009596 0.0016757 0.0025743 0.0027169 0.0451337 
+[1] "susie_rss_lambda_ERTRUE_L10_ldrefout_AZTRUE"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.8006  0.9966  0.9994  0.9959  0.9999  1.0000 
+lambda:
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+4.000e-08 6.841e-05 6.438e-04 2.650e-03 3.335e-03 5.550e-02 
+[1] "susie_rss_lambda_ERFALSE_L10_ldrefout_AZTRUE"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.9445  0.9967  0.9994  0.9973  0.9999  1.0000 
+lambda:
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+4.000e-08 6.841e-05 6.438e-04 2.650e-03 3.335e-03 5.550e-02 
+
