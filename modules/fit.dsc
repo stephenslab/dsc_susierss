@@ -79,7 +79,7 @@ susie_suff: fit_susie_suff.R
   s_init: NA
   n: $N_sample
   N_ref: $N_ref
-  L: 5, 10
+  L: 10
   ld: $ld
   estimate_residual_variance: TRUE, FALSE
   (add_z, ld_method): (FALSE,"in_sample")
@@ -101,13 +101,14 @@ susie_rss: initialize.R + R(if(is.na(init)){
   @CONF: R_libs = (susieR, data.table)
   sumstats: $sumstats
   ld: $ld
-  L: 5, 10
+  L: 10
   n: $N_sample
   N_ref: $N_ref
   estimate_residual_variance: TRUE, FALSE
   z_ld_weight: NA
   add_z: FALSE, TRUE
   ld_method: "in_sample", "refin_sample", "refout_sample"
+  rcor: FALSE, TRUE
   init: NA
   $fitted: res$fitted
   $posterior: res$posterior
@@ -129,13 +130,14 @@ susie_rss_lambda: initialize.R + R(if(is.na(init)){
   @CONF: R_libs = (susieR, data.table)
   sumstats: $sumstats
   ld: $ld
-  L: 5, 10
+  L: 10
   n: $N_sample
   N_ref: $N_ref
   lamb: "estimate"
   estimate_residual_variance: TRUE, FALSE
   add_z: FALSE, TRUE
   ld_method: "in_sample", "refin_sample", "refout_sample"
+  rcor: FALSE, TRUE
   init: NA
   $fitted: res$fitted
   $posterior: res$posterior

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#SBATCH --time=24:00:00
+#SBATCH --partition=broadwl
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --mem=40G
+
+cd ~/GitHub/dsc_susierss
+
+Rscript results/susierss_ukb_20210218_REF1000_pve005/query.R
+
