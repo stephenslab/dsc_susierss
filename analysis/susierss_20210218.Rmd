@@ -21,11 +21,11 @@ The results are similar. Estimating residual variance gives slightly higher powe
 
 ## Power vs FDR
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.ERTRUE_ld_AZ.png)
+![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.ERTRUE_ldout_AZ.png)
 
 ## CS
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/susierss_ukb_cs.rds_plots.png)
+![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/susierss_ukb_cs_plots.png)
 
 
 
