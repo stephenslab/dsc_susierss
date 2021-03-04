@@ -4,6 +4,7 @@
 .Ruserdata
 .Rapp.history
 .DS_Store
+genotype_dir/
 analysis/figure
 analysis/*png
 analysis/*html
