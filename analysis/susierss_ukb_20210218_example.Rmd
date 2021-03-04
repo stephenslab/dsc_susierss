@@ -1,0 +1,102 @@
+---
+title: "Example"
+author: "Yuxin Zou"
+date: "2/18/2021"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+There is one signal in the simulated data.
+
+```{r}
+library(susieR)
+library(data.table)
+dat <- dscrutils:::load_inputs(c('output/susierss_ukb_REF1000_pve005/small_data/small_data_37.rds',
+                                 'output/susierss_ukb_REF1000_pve005/sim_gaussian/small_data_37_sim_gaussian_1.rds',
+                                 'output/susierss_ukb_REF1000_pve005/get_sumstats/small_data_37_sim_gaussian_1_get_sumstats_1.rds'), 
+                               dscrutils:::read_dsc)
+N_sample = dat$N_sample
+N_ref = dat$N_ref
+ld = dat$ld
+b = dat$meta$true_coef
+z = dat$sumstats$bhat/dat$sumstats$shat
+idx = which(b!=0)
+plot(z)
+points(idx, z[idx], col='red', pch=16)
+```
+
+Using in sample LD:
+```{r}
+rin = as.matrix(fread(ld[['in_sample']]));
+m1 = susie_rss(z, rin)
+susie_plot(m1, y='PIP',b=b)
+eigenrin = eigen(rin, symmetric = T)
+eigenrin$values[abs(eigenrin$values) < 1e-08] = 0
+colspace = which(eigenrin$values > 0)
+znull = crossprod(eigenrin$vectors[,-colspace], z) # U2^T z
+lambda = sum(znull^2)/length(znull)
+```
+
+The estimated lambda is
+```{r}
+lambda
+```
+
+Using ref sample LD:
+
+```{r}
+rrefout = as.matrix(fread(ld[['refout_sample']]));
+m2 = susie_rss(z, rrefout)
+susie_plot(m2, y='PIP',b=b)
+eigenrout = eigen(rrefout, symmetric = T)
+eigenrout$values[abs(eigenrout$values) < 1e-08] = 0
+colspace = which(eigenrout$values > 0)
+znull = crossprod(eigenrout$vectors[,-colspace], z) # U2^T z
+lambdaout = sum(znull^2)/length(znull)
+```
+
+The estimated lambda is
+```{r}
+lambdaout
+```
+
+Using ref sample LD with $zz^T$ correction (correlation matrix):
+
+```{r}
+rrefoutz = cov2cor(rrefout*(N_ref-1) + tcrossprod(z));
+rrefoutz = (rrefoutz + t(rrefoutz))/2;
+m3 = susie_rss(z, rrefoutz, max_iter=2000, L=10)
+susie_plot(m3, y='PIP',b=b)
+eigenroutz = eigen(rrefoutz, symmetric = T)
+eigenroutz$values[abs(eigenroutz$values) < 1e-08] = 0
+colspace = which(eigenroutz$values > 0)
+znull = crossprod(eigenroutz$vectors[,-colspace], z) # U2^T z
+lambdaoutz = sum(znull^2)/length(znull)
+```
+
+The estimated lambda is
+```{r}
+lambdaoutz
+```
+
+Using ref sample LD with $zz^T$ correction (covariance matrix):
+
+```{r}
+rrefoutzcov = (rrefout*(N_ref-1) + tcrossprod(z))/N_ref;
+rrefoutzcov = (rrefoutzcov + t(rrefoutzcov))/2;
+m4 = susie_rss(z, rrefoutzcov, max_iter=2000, L=10)
+susie_plot(m4, y='PIP',b=b)
+eigenroutzcov = eigen(rrefoutzcov, symmetric = T)
+eigenroutzcov$values[abs(eigenroutzcov$values) < 1e-08] = 0
+colspace = which(eigenroutzcov$values > 0)
+znull = crossprod(eigenroutzcov$vectors[,-colspace], z) # U2^T z
+lambdaoutzcov = sum(znull^2)/length(znull)
+```
+
+The estimated lambda is
+```{r}
+lambdaoutzcov
+```
+
+
