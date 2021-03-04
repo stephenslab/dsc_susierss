@@ -49,6 +49,12 @@ small_data:
   mem_per_instance: 50G
   time_per_instance: 30m
 
+small_data_gtex:
+  time_per_instance: 10m
+  instances_per_node: 10
+  instances_per_job: 50
+  mem_per_instance: 2G
+
 sim_gaussian:
   instances_per_job: 30
   instances_per_node: 2
@@ -61,44 +67,56 @@ get_sumstats:
   mem_per_instance: 5G
   time_per_instance: 30m
 
-susie:
-  time_per_instance: 240m
-  instances_per_job: 5
-  instances_per_node: 5
-  mem_per_instance: 10G
-
-susie_suff:
-  time_per_instance: 121m
-  instances_per_job: 5
-  instances_per_node: 5
-  mem_per_instance: 5G
-
-susie_rss:
+method_susie: 
   time_per_instance: 1h
   instances_per_job: 30
   instances_per_node: 10
   mem_per_instance: 2G
-
-susie_rss_lambda:
+  
+method_finemap:
+  cpus_per_instance: 1
   time_per_instance: 2h
-  instances_per_job: 5
-  instances_per_node: 5
+  instances_per_job: 10
+  instances_per_node: 10
   mem_per_instance: 5G
 
-finemap:
-  time_per_instance: 121m
+method_finemap_gtex:
+  cpus_per_instance: 1
+  time_per_instance: 2h
+  instances_per_job: 10
+  instances_per_node: 10
   mem_per_instance: 5G
 
+method_finemapv4:
+  cpus_per_instance: 1
+  time_per_instance: 2h
+  instances_per_job: 10
+  instances_per_node: 10
+  mem_per_instance: 5G
+  
+method_finemapv4_gtex:
+  cpus_per_instance: 1
+  time_per_instance: 2h
+  instances_per_job: 10
+  instances_per_node: 10
+  mem_per_instance: 5G
+  
 finemapv3:
   time_per_instance: 121m
   mem_per_instance: 5G
 
-caviar:
+method_caviar:
   cpus_per_instance: 2
   time_per_instance: 6h
   instances_per_job: 5
   mem_per_instance: 5G
 
+method_caviar_gtex:
+  cpus_per_instance: 2
+  time_per_instance: 6h
+  instances_per_job: 5
+  mem_per_instance: 5G
+  
 dap_z:
   time_per_instance: 61m
   mem_per_instance: 6G
@@ -120,5 +138,8 @@ score_finemapv3:
   time_per_instance: 2m
   instances_per_job: 400
 
+score_finemapv4:
+  time_per_instance: 2m
+  instances_per_job: 400
 
 

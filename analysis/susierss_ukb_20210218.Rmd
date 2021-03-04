@@ -1,0 +1,86 @@
+---
+title: "SuSiE-RSS UKB"
+author: "Yuxin Zou"
+date: "2/18/2021"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+This simulation uses UKB genotype data. We extract the genotype regions based on height GWAS result. There are 200 regions, each with 1000 SNPs. We sample 50,000 individuals to simulate the data. We sample another 1000 samples to get reference LD matrix. We simulate data with 1,2,3 signals and PVE 0.005. We run susie_rss with L=10. We run FINEMAP and CAVIAR with oracle number of signals.
+
+We first check the impact of estimaing residual variance.
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.residual_suff.png){width=30%} ![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.residual_rss.png){width=30%} ![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.residual_rss_lambda.png){width=30%}
+
+The results are similar. Estimating residual variance gives slightly higher power. We estimate residual variance in the following comparisons.
+
+## PIP Calibration
+
+SuSiE-RSS
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_susierss.png)
+
+SuSiE-RSS-lambda
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_susiersslambda.png)
+
+CAVIAR
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_caviar.png)
+
+FINEMAP v1.1
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_fmv1.png)
+
+FINEMAP v1.4
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_fmv4.png)
+
+## Power vs FDR
+
+Using in sample LD
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/ukb_roc.pr.ERTRUE_ldin_methods.png)
+
+SuSiE-RSS with reference LD
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc_lambda.pr.ERTRUE_ld.png)
+
+SuSiE-RSS-lambda with reference LD
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc_lambda.pr.ERTRUE_ld.png)
+
+CAVIAR with reference LD
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/caviar_ukb_roc.pr_ld.png)
+
+FINEMAP v1.1 with reference LD
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/finemapv1_ukb_roc.pr_ld.png)
+
+FINEMAP v1.4 with reference LD
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/finemapv4_ukb_roc.pr_ld.png)
+
+## CS
+
+Overall
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/ukb_cs_plots.png)
+
+1 signal
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/ukb_cs_s1_plots.png)
+
+2 signals
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/ukb_cs_s2_plots.png)
+
+3 signals
+
+![](~/GitHub/dsc_susierss/docs/assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/ukb_cs_s3_plots.png)
+
+
+
+

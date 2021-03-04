@@ -1,184 +1,189 @@
-[1] "susie_suff_ERTRUE_ldin_AZFALSE_rcorNA"
+[1] "susie_suff_ERTRUE_ldin_AZFALSE_rcorNA_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.9929  0.9946  0.9950  0.9950  0.9954  0.9984 
-lambda:
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-     NA      NA      NA     NaN      NA      NA     600 
-[1] "susie_suff_ERFALSE_ldin_AZFALSE_rcorNA"
+[1] "susie_suff_ERFALSE_ldin_AZFALSE_rcorNA_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       1       1       1       1       1       1 
-lambda:
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-     NA      NA      NA     NaN      NA      NA     600 
-[1] "susie_rss_ERTRUE_ldin_AZTRUE_rcorFALSE"
+[1] "susie_rss_ERTRUE_ldin_AZTRUE_rcorFALSE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.8545  0.9644  1.0000  0.9803  1.0000  1.0000 
-lambda:
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-     NA      NA      NA     NaN      NA      NA     600 
-[1] "susie_rss_ERFALSE_ldin_AZTRUE_rcorFALSE"
+[1] "susie_rss_ERFALSE_ldin_AZTRUE_rcorFALSE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       1       1       1       1       1       1 
-lambda:
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-     NA      NA      NA     NaN      NA      NA     600 
-[1] "susie_rss_ERTRUE_ldrefout_AZTRUE_rcorFALSE"
+[1] "susie_rss_ERTRUE_ldrefout_AZTRUE_rcorFALSE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.8179  0.9450  1.0000  0.9708  1.0000  1.0000 
-lambda:
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-     NA      NA      NA     NaN      NA      NA     600 
-[1] "susie_rss_ERFALSE_ldrefout_AZTRUE_rcorFALSE"
+[1] "susie_rss_ERFALSE_ldrefout_AZTRUE_rcorFALSE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       1       1       1       1       1       1 
-lambda:
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-     NA      NA      NA     NaN      NA      NA     600 
-[1] "susie_rss_ERTRUE_ldin_AZFALSE_rcorTRUE"
+[1] "susie_rss_ERTRUE_ldin_AZFALSE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.8787  0.9925  1.0000  0.9905  1.0000  1.0000 
-lambda:
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-     NA      NA      NA     NaN      NA      NA     600 
-[1] "susie_rss_ERFALSE_ldin_AZFALSE_rcorTRUE"
+[1] "susie_rss_ERFALSE_ldin_AZFALSE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       1       1       1       1       1       1 
-lambda:
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-     NA      NA      NA     NaN      NA      NA     600 
-[1] "susie_rss_ERTRUE_ldin_AZTRUE_rcorTRUE"
+[1] "susie_rss_ERTRUE_ldin_AZTRUE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.8581  0.9770  1.0000  0.9846  1.0000  1.0000 
-lambda:
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-     NA      NA      NA     NaN      NA      NA     600 
-[1] "susie_rss_ERFALSE_ldin_AZTRUE_rcorTRUE"
+[1] "susie_rss_ERFALSE_ldin_AZTRUE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       1       1       1       1       1       1 
-lambda:
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-     NA      NA      NA     NaN      NA      NA     600 
-[1] "susie_rss_ERTRUE_ldrefout_AZFALSE_rcorTRUE"
+[1] "susie_rss_ERTRUE_ldrefout_AZFALSE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       1       1       1       1       1       1 
-lambda:
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-     NA      NA      NA     NaN      NA      NA     600 
-[1] "susie_rss_ERFALSE_ldrefout_AZFALSE_rcorTRUE"
+[1] "susie_rss_ERFALSE_ldrefout_AZFALSE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       1       1       1       1       1       1 
-lambda:
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-     NA      NA      NA     NaN      NA      NA     600 
-[1] "susie_rss_ERTRUE_ldrefout_AZTRUE_rcorTRUE"
+[1] "susie_rss_ERTRUE_ldrefout_AZTRUE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       1       1       1       1       1       1 
-lambda:
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-     NA      NA      NA     NaN      NA      NA     600 
-[1] "susie_rss_ERFALSE_ldrefout_AZTRUE_rcorTRUE"
+[1] "susie_rss_ERFALSE_ldrefout_AZTRUE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       1       1       1       1       1       1 
-lambda:
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-     NA      NA      NA     NaN      NA      NA     600 
-[1] "susie_rss_lambda_ERTRUE_ldin_AZTRUE_rcorFALSE"
+[1] "susie_rss_lambda_ERTRUE_ldin_AZTRUE_rcorFALSE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.8543  0.9613  1.0000  0.9791  1.0000  1.0000 
 lambda:
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 0.000e+00 7.103e-10 2.199e-09 4.616e-08 5.420e-09 2.255e-06 
-[1] "susie_rss_lambda_ERFALSE_ldin_AZTRUE_rcorFALSE"
+[1] "susie_rss_lambda_ERFALSE_ldin_AZTRUE_rcorFALSE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       1       1       1       1       1       1 
 lambda:
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 0.000e+00 7.103e-10 2.199e-09 4.616e-08 5.420e-09 2.255e-06 
-[1] "susie_rss_lambda_ERTRUE_ldrefout_AZTRUE_rcorFALSE"
+[1] "susie_rss_lambda_ERTRUE_ldrefout_AZTRUE_rcorFALSE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.8179  0.9454  1.0000  0.9710  1.0000  1.0000 
 lambda:
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 1.400e-16 2.335e-14 9.863e-14 5.110e-13 3.308e-13 4.311e-11 
-[1] "susie_rss_lambda_ERFALSE_ldrefout_AZTRUE_rcorFALSE"
+[1] "susie_rss_lambda_ERFALSE_ldrefout_AZTRUE_rcorFALSE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       1       1       1       1       1       1 
 lambda:
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 1.400e-16 2.335e-14 9.863e-14 5.110e-13 3.308e-13 4.311e-11 
-[1] "susie_rss_lambda_ERTRUE_ldin_AZFALSE_rcorTRUE"
+[1] "susie_rss_lambda_ERTRUE_ldin_AZFALSE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.8785  0.9891  1.0000  0.9895  1.0000  1.0000 
 lambda:
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 0.000e+00 7.460e-10 2.360e-09 1.557e-07 5.813e-09 2.095e-05 
-[1] "susie_rss_lambda_ERFALSE_ldin_AZFALSE_rcorTRUE"
+[1] "susie_rss_lambda_ERFALSE_ldin_AZFALSE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       1       1       1       1       1       1 
 lambda:
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 0.000e+00 7.460e-10 2.360e-09 1.557e-07 5.813e-09 2.095e-05 
-[1] "susie_rss_lambda_ERTRUE_ldin_AZTRUE_rcorTRUE"
+[1] "susie_rss_lambda_ERTRUE_ldin_AZTRUE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.8579  0.9734  1.0000  0.9834  1.0000  1.0000 
 lambda:
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 0.000e+00 7.290e-10 2.527e-09 1.824e-07 8.644e-09 9.150e-06 
-[1] "susie_rss_lambda_ERFALSE_ldin_AZTRUE_rcorTRUE"
+[1] "susie_rss_lambda_ERFALSE_ldin_AZTRUE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       1       1       1       1       1       1 
 lambda:
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 0.000e+00 7.290e-10 2.527e-09 1.824e-07 8.644e-09 9.150e-06 
-[1] "susie_rss_lambda_ERTRUE_ldrefout_AZFALSE_rcorTRUE"
+[1] "susie_rss_lambda_ERTRUE_ldrefout_AZFALSE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.9549  0.9973  0.9983  0.9974  0.9990  0.9997 
 lambda:
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 0.0002556 0.0009596 0.0016757 0.0025743 0.0027169 0.0451337 
-[1] "susie_rss_lambda_ERFALSE_ldrefout_AZFALSE_rcorTRUE"
+[1] "susie_rss_lambda_ERFALSE_ldrefout_AZFALSE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.9549  0.9973  0.9983  0.9974  0.9990  0.9997 
 lambda:
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 0.0002556 0.0009596 0.0016757 0.0025743 0.0027169 0.0451337 
-[1] "susie_rss_lambda_ERTRUE_ldrefout_AZTRUE_rcorTRUE"
+[1] "susie_rss_lambda_ERTRUE_ldrefout_AZTRUE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.8006  0.9966  0.9994  0.9959  0.9999  1.0000 
 lambda:
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 4.000e-08 6.841e-05 6.438e-04 2.650e-03 3.335e-03 5.550e-02 
-[1] "susie_rss_lambda_ERFALSE_ldrefout_AZTRUE_rcorTRUE"
+[1] "susie_rss_lambda_ERFALSE_ldrefout_AZTRUE_rcorTRUE_scalezNA"
 sigma2:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.9445  0.9967  0.9994  0.9973  0.9999  1.0000 
 lambda:
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 4.000e-08 6.841e-05 6.438e-04 2.650e-03 3.335e-03 5.550e-02 
-null device 
-          1 
+[1] "susie_rss_scale_ERTRUE_ldrefout_AZTRUE_rcorTRUE_scalezmax"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+[1] "susie_rss_scale_ERTRUE_ldrefout_AZTRUE_rcorFALSE_scalezmax"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+[1] "susie_rss_scale_ERTRUE_ldrefout_AZTRUE_rcorTRUE_scalezratio"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+[1] "susie_rss_scale_ERTRUE_ldrefout_AZTRUE_rcorFALSE_scalezratio"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+[1] "susie_rss_lambda_scale_ERTRUE_ldrefout_AZTRUE_rcorTRUE_scalezmax"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+lambda:
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+5.610e-11 1.510e-08 4.143e-08 8.088e-08 1.003e-07 2.118e-06 
+[1] "susie_rss_lambda_scale_ERTRUE_ldrefout_AZTRUE_rcorFALSE_scalezmax"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+lambda:
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+6.700e-12 1.003e-09 4.712e-09 2.492e-08 1.388e-08 2.110e-06 
+[1] "susie_rss_lambda_scale_ERTRUE_ldrefout_AZTRUE_rcorTRUE_scalezratio"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+lambda:
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+4.200e-11 3.240e-08 3.021e-07 1.291e-06 1.574e-06 2.933e-05 
+[1] "susie_rss_lambda_scale_ERTRUE_ldrefout_AZTRUE_rcorFALSE_scalezratio"
+sigma2:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+lambda:
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+3.400e-13 5.844e-11 2.472e-10 1.281e-09 8.311e-10 1.068e-07 
+[1] "FINEMAPv1.4_ldin_AZFALSE_scalezNA"
+[1] "FINEMAPv1.4_ldrefout_AZFALSE_scalezNA"
+[1] "FINEMAPv1.4_ldrefout_AZTRUE_scalezNA"
+[1] "FINEMAPv1.4_ldrefout_AZTRUE_scalezmax"
+[1] "FINEMAPv1.4_ldrefout_AZTRUE_scalezratio"

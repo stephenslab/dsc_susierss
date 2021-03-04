@@ -34,7 +34,7 @@ run_caviar <- function(z, LD_file, args = "", prefix="data")
 
   # `set` of snps
   set <- readLines(cfg$set)
-  set_ordered <- left_join(data_frame(snp = set), snp, by = "snp") %>% 
+  set_ordered <- left_join(data.frame(snp = set), snp, by = "snp") %>% 
     arrange(rank) %$% snp
   return(list(snp=snp, set=set_ordered))
 }

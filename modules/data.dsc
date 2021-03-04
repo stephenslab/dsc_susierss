@@ -48,3 +48,32 @@ summarize_ld: lib_regression_simulator.py + \
   ld_file: $ld
   $ld_plot: file(png)
   $top_idx: res
+
+full_data_gtex: sim_utils.R + data_gtex.R
+  tag: "full"
+  dataset: Shell{head -250 ${data_file}}
+  subset: NULL
+  subsample: ${prop_samples}
+  ld_sample_file: file(sample.ld)
+  ld_out_file: file(out.ld)
+  maf_thresh: 0.05
+  $X_sample: X.sample
+  $X_out: X.out
+  $Y: data$Y
+  $N_sample: nrow(X.sample)
+  $N_ref: nrow(X.out)
+  $maf: list(in_sample=maf.sample, out_sample=maf.out)
+  $meta: data$meta
+  $ld: list(in_sample=ld_sample_file, out_sample=ld_out_file)
+  $r_refin_2dist: NA
+  $r_refout_2dist: r.out.2dist
+  $r_refin_Mdist: NA
+  $r_refout_Mdist: r.out.Mdist
+  $X_file: ''
+  $sample_file: ''
+  $snp_file: ''
+
+small_data_gtex(full_data_gtex):
+  tag: "1k"
+  subset: 1000
+  
