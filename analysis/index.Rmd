@@ -8,4 +8,4 @@ editor_options:
   chunk_output_type: console
 ---
 
-* Simulation using UKB [result](susierss_20210218.html)
+* Simulation using UKB [result](susierss_ukb_20210218.html)
