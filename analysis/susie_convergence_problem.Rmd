@@ -45,7 +45,7 @@ susie_plot(f1, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_g
 summary(f1)
 ```
 
-The correlation between CS1 (SNP 236), CS3 (SNP 233) and the missed causal SNP 234 is
+The SNPs in CS1 and CS3 are partially correlated with SNP 234. The correlation between them is
 ```{r}
 d1$ld[c(233, 234, 236), c(233, 234, 236)]
 ```
@@ -92,7 +92,7 @@ The SNP with strongest marginal association is 222. The correlation between caus
 ```{r}
 d2$ld[c(222, idx), c(222, idx)]
 ```
-Using L = 10, the susie model gives 3 CSs. (I used susie_suff_stat, which gives the same result as susie.)
+Using L = 10, the susie model gives 1 CS.
 ```{r}
 f3 = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, L=10, track_fit = T)
 susie_plot(f3, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f3), 4)))
