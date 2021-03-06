@@ -224,7 +224,8 @@ system(paste0("convert -flatten -density 120 ", output, '.', type,'.ERTRUE_ldin_
 pdf(paste0(output_caviar,'.', type,'_ld.pdf'), width=10, height=10, pointsize=15)
 i = 1
 labels = vector()
-for (method in c('CAVIAR_ldin_AZFALSE_rcorTRUE',
+for (method in c('susie_suff_ERTRUE_ldin_AZFALSE_rcorNA_scalezNA',
+                 'CAVIAR_ldin_AZFALSE_rcorTRUE',
                  'CAVIAR_ldrefout_AZFALSE_rcorTRUE',
                  'CAVIAR_ldrefout_AZTRUE_rcorTRUE',
                  'CAVIAR_ldrefout_AZTRUE_rcorFALSE'
@@ -249,11 +250,125 @@ system(paste0("convert -flatten -density 120 ", output_caviar, '.', type,'_ld.pd
 pdf(paste0(output_fm,'.', type,'_ld.pdf'), width=10, height=10, pointsize=15)
 i = 1
 labels = vector()
-for (method in c('FINEMAPv1.1_ldin_AZFALSE_scalezNA',
+for (method in c('susie_suff_ERTRUE_ldin_AZFALSE_rcorNA_scalezNA',
+                 'FINEMAPv1.1_ldin_AZFALSE_scalezNA',
                  'FINEMAPv1.1_ldrefout_AZFALSE_scalezNA',
                  'FINEMAPv1.1_ldrefout_AZTRUE_scalezNA'
                  # 'FINEMAPv1.1_ldrefout_AZTRUE_scalezmax',
                  # 'FINEMAPv1.1_ldrefout_AZTRUE_scalezratio'
+)) {
+  yy = make_smooth((1 - tb[[method]][[type]][,1]), tb[[method]][[type]][,2])
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = ylab, xlab = xlab, main = main, bty='l',
+         lwd = 2, xlim = c(0,xlim), ylim = c(0,ylim))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,xlim), ylim = c(0,ylim))
+  }
+  add_text(tb[[method]][[type]][,3], yy$x, yy$y, 0.95, colors[i])
+  labels[i] = rename[[method]]
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=1, cex=0.6)
+dev.off()
+system(paste0("convert -flatten -density 120 ", output_fm, '.', type,'_ld.pdf', " ",
+              output_fm, '.', type, '_ld.png'))
+
+## FINEMAPv1.4
+pdf(paste0(output_fmv4,'.', type,'_ld.pdf'), width=10, height=10, pointsize=15)
+i = 1
+labels = vector()
+for (method in c('susie_suff_ERTRUE_ldin_AZFALSE_rcorNA_scalezNA',
+                 'FINEMAPv1.4_ldin_AZFALSE_scalezNA',
+                 'FINEMAPv1.4_ldrefout_AZFALSE_scalezNA',
+                 'FINEMAPv1.4_ldrefout_AZTRUE_scalezNA'
+                 # 'FINEMAPv1.4_ldrefout_AZTRUE_scalezmax',
+                 # 'FINEMAPv1.4_ldrefout_AZTRUE_scalezratio'
+)) {
+  yy = make_smooth((1 - tb[[method]][[type]][,1]), tb[[method]][[type]][,2])
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = ylab, xlab = xlab, main = main, bty='l',
+         lwd = 2, xlim = c(0,xlim), ylim = c(0,ylim))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,xlim), ylim = c(0,ylim))
+  }
+  add_text(tb[[method]][[type]][,3], yy$x, yy$y, 0.95, colors[i])
+  labels[i] = rename[[method]]
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=1, cex=0.6)
+dev.off()
+system(paste0("convert -flatten -density 120 ", output_fmv4, '.', type,'_ld.pdf', " ",
+              output_fmv4, '.', type, '_ld.png'))
+
+## susierss
+pdf(paste0(output_susierss,'.', type,'.ERTRUE_ld.pdf'), width=10, height=10, pointsize=15)
+i = 1
+labels = vector()
+for (method in c('susie_suff_ERTRUE_ldin_AZFALSE_rcorNA_scalezNA',
+                 'susie_rss_ERTRUE_ldin_AZFALSE_rcorTRUE_scalezNA',
+                 'susie_rss_ERTRUE_ldrefout_AZFALSE_rcorTRUE_scalezNA',
+                 'susie_rss_ERTRUE_ldrefout_AZTRUE_rcorTRUE_scalezNA',
+                 'susie_rss_ERTRUE_ldrefout_AZTRUE_rcorFALSE_scalezNA'
+                 # 'susie_rss_scale_ERTRUE_ldrefout_AZTRUE_rcorTRUE_scalezmax'
+)) {
+  yy = make_smooth((1 - tb[[method]][[type]][,1]), tb[[method]][[type]][,2])
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = ylab, xlab = xlab, main = main, bty='l',
+         lwd = 2, xlim = c(0,xlim), ylim = c(0,ylim))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,xlim), ylim = c(0,ylim))
+  }
+  add_text(tb[[method]][[type]][,3], yy$x, yy$y, 0.95, colors[i])
+  labels[i] = rename[[method]]
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=1, cex=0.6)
+dev.off()
+system(paste0("convert -flatten -density 120 ", output_susierss, '.', type,'.ERTRUE_ld.pdf', " ",
+              output_susierss, '.', type, '.ERTRUE_ld.png'))
+
+## susiersslambda
+pdf(paste0(output_susierss,'_lambda.', type,'.ERTRUE_ld.pdf'), width=10, height=10, pointsize=15)
+i = 1
+labels = vector()
+for (method in c('susie_suff_ERTRUE_ldin_AZFALSE_rcorNA_scalezNA',
+                 'susie_rss_lambda_ERTRUE_ldin_AZFALSE_rcorTRUE_scalezNA',
+                 'susie_rss_lambda_ERTRUE_ldrefout_AZFALSE_rcorTRUE_scalezNA',
+                 'susie_rss_lambda_ERTRUE_ldrefout_AZTRUE_rcorTRUE_scalezNA',
+                 'susie_rss_lambda_ERTRUE_ldrefout_AZTRUE_rcorFALSE_scalezNA'
+                 # 'susie_rss_lambda_scale_ERTRUE_ldrefout_AZTRUE_rcorTRUE_scalezmax'
+                 # 'susie_rss_lambda_scale_ERTRUE_ldrefout_AZTRUE_rcorFALSE_scalezmax',
+                 # 'susie_rss_lambda_scale_ERTRUE_ldrefout_AZTRUE_rcorTRUE_scalezratio',
+                 # 'susie_rss_lambda_scale_ERTRUE_ldrefout_AZTRUE_rcorFALSE_scalezratio'
+)) {
+  yy = make_smooth((1 - tb[[method]][[type]][,1]), tb[[method]][[type]][,2])
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = ylab, xlab = xlab, main = main, bty='l',
+         lwd = 2, xlim = c(0,xlim), ylim = c(0,ylim))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,xlim), ylim = c(0,ylim))
+  }
+  add_text(tb[[method]][[type]][,3], yy$x, yy$y, 0.95, colors[i])
+  labels[i] = rename[[method]]
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=1, cex=0.6)
+dev.off()
+system(paste0("convert -flatten -density 120 ", output_susierss, '_lambda.', type,'.ERTRUE_ld.pdf', " ",
+              output_susierss, '_lambda.', type, '.ERTRUE_ld.png'))
+
+#############################
+## scale
+
+## FINEMAPv1.1
+pdf(paste0(output_fm,'.', type,'_ld_scale.pdf'), width=10, height=10, pointsize=15)
+i = 1
+labels = vector()
+for (method in c('FINEMAPv1.1_ldin_AZFALSE_scalezNA',
+                 'FINEMAPv1.1_ldrefout_AZFALSE_scalezNA',
+                 'FINEMAPv1.1_ldrefout_AZTRUE_scalezNA',
+                 'FINEMAPv1.1_ldrefout_AZTRUE_scalezmax',
+                 'FINEMAPv1.1_ldrefout_AZTRUE_scalezratio'
 )) {
   yy = make_smooth((1 - tb[[method]][[type]][,1]), tb[[method]][[type]][,2])
   if (i == 1) {
@@ -354,6 +469,9 @@ dev.off()
 system(paste0("convert -flatten -density 120 ", output_susierss, '_lambda.', type,'.ERTRUE_ld.pdf', " ",
               output_susierss, '_lambda.', type, '.ERTRUE_ld.png'))
 
+
+
+
 ############################
 ## susierss
 pdf(paste0(output_susierss,'.', type,'.ERTRUE_ldrefin.pdf'), width=10, height=10, pointsize=15)
@@ -411,5 +529,6 @@ legend("bottomright", legend=labels, col=colors[1:i], lty=1, cex=0.6)
 dev.off()
 system(paste0("convert -flatten -density 120 ", output_susierss, '_lambda.', type,'.ERTRUE_ld.pdf', " ",
               output_susierss, '_lambda.', type, '.ERTRUE_ld.png'))
+
 
 
