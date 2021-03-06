@@ -54,9 +54,9 @@ d1$ld[c(233, 234, 236), c(233, 234, 236)]
 susie_plot_iteration(f1, L=3, 'assets/susie_convergence_problem/susie_convergence_problem_d1_f1', pos=c(233, 234, 236, 287, 291))
 ```
 
-variable | 1   | 2   | 3   | 4   | 5 
----------|-----|-----|-----|-----|-----
-SNP      | 233 | 234 | 236 | 287 | 291
+variable | 1   | 2 (C)| 3   | 4 (C)  | 5 
+---------|-----|------|-----|--------|-----
+SNP      | 233 | 234  | 236 | 287    | 291
 
 ```{r}
 knitr::include_graphics("assets/susie_convergence_problem/susie_convergence_problem_d1_f1.gif", error = FALSE)
@@ -67,6 +67,10 @@ Using L = 2, we find the correct CSs, and the ELBO is larger.
 f2 = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, L=2, track_fit = T)
 susie_plot(f2, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f2), 3)))
 ```
+
+variable | 1   | 2 (C)| 3   | 4 (C)  | 5 
+---------|-----|------|-----|--------|-----
+SNP      | 233 | 234  | 236 | 287    | 291
 
 ```{r, eval=FALSE}
 susie_plot_iteration(f2, L=2, 'assets/susie_convergence_problem/susie_convergence_problem_d1_f2', pos=c(233, 234, 236, 287, 291))
@@ -82,7 +86,7 @@ lasso.b = fit.lasso$beta[,max(which(fit.lasso$df <= 10))]
 beta_idx = which(lasso.b != 0)
 plot(fit.lasso, label=T)
 ```
-LASSO identifies SNP 234 with non-zero effect.
+LASSO identifies SNP 234 with non-zero effect, and it doesn't include SNP 233.
 
 ```{r}
 sinit = susieR::susie_init_coef(beta_idx, lasso.b[beta_idx], length(b))
@@ -120,6 +124,10 @@ susie_plot(f3, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_g
 ```
 It identifies the top SNP. 
 
+variable | 1   | 2 (C)| 3 (C) | 4 (C)  
+---------|-----|------|-------|--------
+SNP      | 222 | 252  | 340   | 375
+
 ```{r, eval=FALSE}
 susie_plot_iteration(f3, L=10, 'assets/susie_convergence_problem/susie_convergence_problem_d2_f3', pos=c(222, idx))
 ```
@@ -150,7 +158,8 @@ lasso.b = fit.lasso$beta[,max(which(fit.lasso$df <= 10))]
 beta_idx = which(lasso.b != 0)
 plot(fit.lasso, label=T)
 ```
-LASSO identifies SNP 375 with non-zero effect.
+
+LASSO identifies one causal SNP 375 with non-zero effect. It also identifies SNP 222.
 
 ```{r}
 sinit = susieR::susie_init_coef(beta_idx, lasso.b[beta_idx], length(b))
@@ -160,3 +169,11 @@ resinit = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, s_
 susie_plot(resinit, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(resinit), 3)))
 ```
 
+The priors for other CSs shrink to 0 at the first iteration.
+
+```{r, eval=FALSE}
+susie_plot_iteration(resinit, L=nrow(resinit$alpha), 'assets/susie_convergence_problem/susie_convergence_problem_d2_finitlasso', pos=sort(c(beta_idx, idx)))
+```
+```{r}
+knitr::include_graphics("assets/susie_convergence_problem/susie_convergence_problem_d2_finitlasso.gif", error = FALSE)
+```
