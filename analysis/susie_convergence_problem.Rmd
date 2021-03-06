@@ -75,6 +75,23 @@ susie_plot_iteration(f2, L=2, 'assets/susie_convergence_problem/susie_convergenc
 knitr::include_graphics("assets/susie_convergence_problem/susie_convergence_problem_d1_f2.gif", error = FALSE)
 ```
 
+We try to initialize using LASSO solution:
+```{r}
+fit.lasso = glmnet::glmnet(d1$X, d1$y, family="gaussian", alpha=1, dfmax = 10)
+lasso.b = fit.lasso$beta[,max(which(fit.lasso$df <= 10))]
+beta_idx = which(lasso.b != 0)
+plot(fit.lasso, label=T)
+```
+LASSO identifies SNP 234 with non-zero effect.
+
+```{r}
+sinit = susieR::susie_init_coef(beta_idx, lasso.b[beta_idx], length(b))
+resinit = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, s_init = sinit,
+                          estimate_residual_variance = T,estimate_prior_variance = TRUE,
+                          max_iter = 200, track_fit = T)
+susie_plot(resinit, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(resinit), 3)))
+```
+
 ## Data 2
 
 The region contains 1001 SNPs. There are three causals at 252, 340, 375.
@@ -124,5 +141,22 @@ sinit = susieR::susie_init_coef(idx, beta_val, length(b))
 finittrue = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, track_fit = T, s_init = sinit,
                             estimate_residual_variance = T,estimate_prior_variance = TRUE, max_iter = 200)
 susie_plot(finittrue, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(finittrue), 4)))
+```
+
+We try to initialize using LASSO solution:
+```{r}
+fit.lasso = glmnet::glmnet(d2$X, d2$y, family="gaussian", alpha=1, dfmax = 10)
+lasso.b = fit.lasso$beta[,max(which(fit.lasso$df <= 10))]
+beta_idx = which(lasso.b != 0)
+plot(fit.lasso, label=T)
+```
+LASSO identifies SNP 375 with non-zero effect.
+
+```{r}
+sinit = susieR::susie_init_coef(beta_idx, lasso.b[beta_idx], length(b))
+resinit = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, s_init = sinit,
+                          estimate_residual_variance = T,estimate_prior_variance = TRUE,
+                          max_iter = 200, track_fit = T)
+susie_plot(resinit, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(resinit), 3)))
 ```
 
