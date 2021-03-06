@@ -518,16 +518,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree8aa8c36ac53500cf3f453f58887efc5b2afb2d7etargetblank8aa8c36a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/8aa8c36ac53500cf3f453f58887efc5b2afb2d7e" target="_blank">8aa8c36</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree311e2c9274cc3caba43264273f0a2cc096fb751etargetblank311e2c9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/311e2c9274cc3caba43264273f0a2cc096fb751e" target="_blank">311e2c9</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree8aa8c36ac53500cf3f453f58887efc5b2afb2d7etargetblank8aa8c36a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree311e2c9274cc3caba43264273f0a2cc096fb751etargetblank311e2c9a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/8aa8c36ac53500cf3f453f58887efc5b2afb2d7e" target="_blank">8aa8c36</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/311e2c9274cc3caba43264273f0a2cc096fb751e" target="_blank">311e2c9</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -542,6 +542,7 @@ Untracked files:
     Untracked:  data/susie_convergence_problem.rds
 
 Unstaged changes:
+    Modified:   analysis/index.Rmd
     Deleted:    genotype_dir
 
 </code></pre>
@@ -586,6 +587,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/311e2c9274cc3caba43264273f0a2cc096fb751e/analysis/susie_convergence_problem.Rmd" target="_blank">311e2c9</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-03-06
+</td>
+<td>
+wflow_publish(“analysis/susie_convergence_problem.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/9c68be014924d59d772417393e4af7b6a424bd71/docs/susie_convergence_problem.html" target="_blank">9c68be0</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-03-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/zouyuxin/dsc_susierss/blob/8aa8c36ac53500cf3f453f58887efc5b2afb2d7e/analysis/susie_convergence_problem.Rmd" target="_blank">8aa8c36</a>
 </td>
 <td>
@@ -622,6 +657,43 @@ log10p = -log10(pnorm(-abs(d1$z))*2)
 plot(log10p, pch = 16, xlab = &#39;SNPs&#39;, ylab = &#39;-log10 p value&#39;)
 points(idx, log10p[idx], col=&#39;red&#39;, pch = 16)</code></pre>
 <p><img src="figure/susie_convergence_problem.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/9c68be014924d59d772417393e4af7b6a424bd71/docs/figure/susie_convergence_problem.Rmd/unnamed-chunk-2-1.png" target="_blank">9c68be0</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-03-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>The SNP with strongest marginal association is 236. The correlation between causal SNPs and top SNP is</p>
 <pre class="r"><code>d1$ld[c(234, 236, 287), c(234, 236, 287)]</code></pre>
 <pre><code>          V234        V236        V287
@@ -632,6 +704,43 @@ points(idx, log10p[idx], col=&#39;red&#39;, pch = 16)</code></pre>
 <pre class="r"><code>f1 = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, L=3, track_fit = T)
 susie_plot(f1, y=&#39;PIP&#39;, b=b, add_legend = T, main=paste0(&#39;ELBO: &#39;, round(susie_get_objective(f1), 4)))</code></pre>
 <p><img src="figure/susie_convergence_problem.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/9c68be014924d59d772417393e4af7b6a424bd71/docs/figure/susie_convergence_problem.Rmd/unnamed-chunk-4-1.png" target="_blank">9c68be0</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-03-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>summary(f1)</code></pre>
 <pre><code>
 Variables in credible sets:
@@ -654,7 +763,7 @@ Credible sets summary:
 [1,]  1.0000000 0.5996649 -0.2407775
 [2,]  0.5996649 1.0000000  0.5642378
 [3,] -0.2407775 0.5642378  1.0000000</code></pre>
-<pre class="r"><code>susie_plot_iteration(f1, L=3, &#39;output/susie_convergence_problem_d1_f1&#39;, pos=c(233, 234, 236, 287, 291))</code></pre>
+<pre class="r"><code>susie_plot_iteration(f1, L=3, &#39;assets/susie_convergence_problem/susie_convergence_problem_d1_f1&#39;, pos=c(233, 234, 236, 287, 291))</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -678,16 +787,53 @@ Credible sets summary:
 </tbody>
 </table>
 <div class="figure">
-<img src="output/susie_convergence_problem_d1_f1.gif" alt="" />
+<img src="assets/susie_convergence_problem/susie_convergence_problem_d1_f1.gif" alt="" />
 <p class="caption">PIP plot at each iteration</p>
 </div>
 <p>Using L = 2, we find the correct CSs, and the ELBO is larger.</p>
 <pre class="r"><code>f2 = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, L=2, track_fit = T)
 susie_plot(f2, y=&#39;PIP&#39;, b=b, add_legend = T, main=paste0(&#39;ELBO: &#39;, round(susie_get_objective(f2), 3)))</code></pre>
 <p><img src="figure/susie_convergence_problem.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>susie_plot_iteration(f2, L=2, &#39;output/susie_convergence_problem_d1_f2&#39;, pos=c(233, 234, 236, 287, 291))</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/9c68be014924d59d772417393e4af7b6a424bd71/docs/figure/susie_convergence_problem.Rmd/unnamed-chunk-8-1.png" target="_blank">9c68be0</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-03-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>susie_plot_iteration(f2, L=2, &#39;assets/susie_convergence_problem/susie_convergence_problem_d1_f2&#39;, pos=c(233, 234, 236, 287, 291))</code></pre>
 <div class="figure">
-<img src="output/susie_convergence_problem_d1_f2.gif" alt="" />
+<img src="assets/susie_convergence_problem/susie_convergence_problem_d1_f2.gif" alt="" />
 <p class="caption">PIP plot at each iteration</p>
 </div>
 </div>
@@ -705,6 +851,43 @@ log10p = -log10(pnorm(-abs(d2$z))*2)
 plot(log10p, pch = 16, xlab = &#39;SNPs&#39;, ylab = &#39;-log10 p value&#39;)
 points(idx, log10p[idx], col=&#39;red&#39;, pch = 16)</code></pre>
 <p><img src="figure/susie_convergence_problem.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/9c68be014924d59d772417393e4af7b6a424bd71/docs/figure/susie_convergence_problem.Rmd/unnamed-chunk-10-1.png" target="_blank">9c68be0</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-03-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>The SNP with strongest marginal association is 222. The correlation between causal SNPs and top SNP is</p>
 <pre class="r"><code>d2$ld[c(222, idx), c(222, idx)]</code></pre>
 <pre><code>          V222       V252        V340        V375
@@ -715,10 +898,48 @@ points(idx, log10p[idx], col=&#39;red&#39;, pch = 16)</code></pre>
 <p>Using L = 10, the susie model gives 3 CSs. (I used susie_suff_stat, which gives the same result as susie.)</p>
 <pre class="r"><code>f3 = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, L=10, track_fit = T)
 susie_plot(f3, y=&#39;PIP&#39;, b=b, add_legend = T, main=paste0(&#39;ELBO: &#39;, round(susie_get_objective(f3), 4)))</code></pre>
-<p><img src="figure/susie_convergence_problem.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /> It identifies the top SNP.</p>
-<pre class="r"><code>susie_plot_iteration(f3, L=10, &#39;output/susie_convergence_problem_d2_f3&#39;, pos=c(222, idx))</code></pre>
+<p><img src="figure/susie_convergence_problem.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/9c68be014924d59d772417393e4af7b6a424bd71/docs/figure/susie_convergence_problem.Rmd/unnamed-chunk-12-1.png" target="_blank">9c68be0</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-03-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>It identifies the top SNP.</p>
+<pre class="r"><code>susie_plot_iteration(f3, L=10, &#39;assets/susie_convergence_problem/susie_convergence_problem_d2_f3&#39;, pos=c(222, idx))</code></pre>
 <div class="figure">
-<img src="output/susie_convergence_problem_d2_f3.gif" alt="" />
+<img src="assets/susie_convergence_problem/susie_convergence_problem_d2_f3.gif" alt="" />
 <p class="caption">PIP plot at each iteration</p>
 </div>
 <p>Using L = 3, it converges to the same solution as L = 10.</p>
@@ -726,6 +947,43 @@ susie_plot(f3, y=&#39;PIP&#39;, b=b, add_legend = T, main=paste0(&#39;ELBO: &#39
                      estimate_residual_variance = T, estimate_prior_variance = T)
 susie_plot(f4, y=&#39;PIP&#39;, b=b, add_legend = T, main=paste0(&#39;ELBO: &#39;, round(susie_get_objective(f4), 4)))</code></pre>
 <p><img src="figure/susie_convergence_problem.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/9c68be014924d59d772417393e4af7b6a424bd71/docs/figure/susie_convergence_problem.Rmd/unnamed-chunk-14-1.png" target="_blank">9c68be0</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-03-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>We initialize at the truth,</p>
 <pre class="r"><code>beta_val = b[idx]
 sinit = susieR::susie_init_coef(idx, beta_val, length(b))
@@ -733,6 +991,43 @@ finittrue = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, 
                             estimate_residual_variance = T,estimate_prior_variance = TRUE, max_iter = 200)
 susie_plot(finittrue, y=&#39;PIP&#39;, b=b, add_legend = T, main=paste0(&#39;ELBO: &#39;, round(susie_get_objective(finittrue), 4)))</code></pre>
 <p><img src="figure/susie_convergence_problem.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/9c68be014924d59d772417393e4af7b6a424bd71/docs/figure/susie_convergence_problem.Rmd/unnamed-chunk-15-1.png" target="_blank">9c68be0</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-03-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
