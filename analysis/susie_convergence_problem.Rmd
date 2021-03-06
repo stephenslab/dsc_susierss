@@ -58,7 +58,7 @@ variable | 1   | 2   | 3   | 4   | 5
 ---------|-----|-----|-----|-----|-----
 SNP      | 233 | 234 | 236 | 287 | 291
 
-![PIP plot at each iteration](assets/susie_convergence_problem/susie_convergence_problem_d1_f1.gif)
+![](assets/susie_convergence_problem/susie_convergence_problem_d1_f1.gif)
 
 Using L = 2, we find the correct CSs, and the ELBO is larger.
 ```{r}
@@ -69,7 +69,7 @@ susie_plot(f2, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_g
 ```{r, eval=FALSE}
 susie_plot_iteration(f2, L=2, 'assets/susie_convergence_problem/susie_convergence_problem_d1_f2', pos=c(233, 234, 236, 287, 291))
 ```
-![PIP plot at each iteration](assets/susie_convergence_problem/susie_convergence_problem_d1_f2.gif)
+![](assets/susie_convergence_problem/susie_convergence_problem_d1_f2.gif)
 
 ## Data 2
 
@@ -102,7 +102,7 @@ It identifies the top SNP.
 ```{r, eval=FALSE}
 susie_plot_iteration(f3, L=10, 'assets/susie_convergence_problem/susie_convergence_problem_d2_f3', pos=c(222, idx))
 ```
-![PIP plot at each iteration](assets/susie_convergence_problem/susie_convergence_problem_d2_f3.gif)
+![](assets/susie_convergence_problem/susie_convergence_problem_d2_f3.gif)
 
 Using L = 3, it converges to the same solution as L = 10.
 ```{r}
