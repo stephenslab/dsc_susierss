@@ -1,0 +1,122 @@
+---
+title: "SuSiE RSS convergence problem"
+author: "Yuxin Zou"
+date: "3/6/2021"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+We observe the convergence problem for SuSiE in simulation. We illustrate 2 data here.
+
+```{r}
+library(susieR)
+dat = readRDS('data/susie_convergence_problem.rds')
+```
+
+## Data 1
+
+The region contains 1001 SNPs. There are two causals at 234, 287.
+
+```{r}
+d1 = dat$d1
+b = d1$true_coef
+idx = which(b!=0)
+
+par(mfrow=c(1,2))
+plot(d1$z, pch = 16, xlab = 'SNPs', ylab = 'z')
+points(idx, d1$z[idx], col='red', pch = 16)
+log10p = -log10(pnorm(-abs(d1$z))*2)
+plot(log10p, pch = 16, xlab = 'SNPs', ylab = '-log10 p value')
+points(idx, log10p[idx], col='red', pch = 16)
+```
+
+The SNP with strongest marginal association is 236. The correlation between causal SNPs and top SNP is
+```{r}
+d1$ld[c(234, 236, 287), c(234, 236, 287)]
+```
+
+Using L = 3, the susie model gives 3 CSs. (I used susie_suff_stat, which gives the same result as susie.)
+```{r}
+f1 = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, L=3, track_fit = T)
+susie_plot(f1, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f1), 4)))
+```
+```{r}
+summary(f1)
+```
+
+The correlation between CS1 (SNP 236), CS3 (SNP 233) and the missed causal SNP 234 is
+```{r}
+d1$ld[c(233, 234, 236), c(233, 234, 236)]
+```
+
+```{r, eval=FALSE}
+susie_plot_iteration(f1, L=3, 'output/susie_convergence_problem_d1_f1', pos=c(233, 234, 236, 287, 291))
+```
+
+variable | 1   | 2   | 3   | 4   | 5 
+---------|-----|-----|-----|-----|-----
+SNP      | 233 | 234 | 236 | 287 | 291
+
+![PIP plot at each iteration](output/susie_convergence_problem_d1_f1.gif)
+
+Using L = 2, we find the correct CSs, and the ELBO is larger.
+```{r}
+f2 = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, L=2, track_fit = T)
+susie_plot(f2, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f2), 3)))
+```
+
+```{r, eval=FALSE}
+susie_plot_iteration(f2, L=2, 'output/susie_convergence_problem_d1_f2', pos=c(233, 234, 236, 287, 291))
+```
+![PIP plot at each iteration](output/susie_convergence_problem_d1_f2.gif)
+
+## Data 2
+
+The region contains 1001 SNPs. There are three causals at 252, 340, 375.
+
+```{r}
+d2 = dat$d2
+b = d2$true_coef
+idx = which(b!=0)
+
+par(mfrow=c(1,2))
+plot(d2$z, pch = 16, xlab = 'SNPs', ylab = 'z')
+points(idx, d2$z[idx], col='red', pch = 16)
+log10p = -log10(pnorm(-abs(d2$z))*2)
+plot(log10p, pch = 16, xlab = 'SNPs', ylab = '-log10 p value')
+points(idx, log10p[idx], col='red', pch = 16)
+```
+
+The SNP with strongest marginal association is 222. The correlation between causal SNPs and top SNP is
+```{r}
+d2$ld[c(222, idx), c(222, idx)]
+```
+Using L = 10, the susie model gives 3 CSs. (I used susie_suff_stat, which gives the same result as susie.)
+```{r}
+f3 = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, L=10, track_fit = T)
+susie_plot(f3, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f3), 4)))
+```
+It identifies the top SNP. 
+
+```{r, eval=FALSE}
+susie_plot_iteration(f3, L=10, 'output/susie_convergence_problem_d2_f3', pos=c(222, idx))
+```
+![PIP plot at each iteration](output/susie_convergence_problem_d2_f3.gif)
+
+Using L = 3, it converges to the same solution as L = 10.
+```{r}
+f4 = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, L=3, track_fit = T,
+                     estimate_residual_variance = T, estimate_prior_variance = T)
+susie_plot(f4, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f4), 4)))
+```
+
+We initialize at the truth,
+```{r}
+beta_val = b[idx]
+sinit = susieR::susie_init_coef(idx, beta_val, length(b))
+finittrue = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, track_fit = T, s_init = sinit,
+                            estimate_residual_variance = T,estimate_prior_variance = TRUE, max_iter = 200)
+susie_plot(finittrue, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(finittrue), 4)))
+```
+
