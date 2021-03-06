@@ -11,3 +11,5 @@ editor_options:
 * Simulation using UKB [result](susierss_ukb_20210218.html)
  
     [example](susierss_ukb_20210218_example.html)
+    
+    [susie convergence problem](susie_convergence_problem.html)
