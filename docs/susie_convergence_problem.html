@@ -518,16 +518,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree345c9d1ecebd39993393024d8267a9bd5a618c15targetblank345c9d1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/345c9d1ecebd39993393024d8267a9bd5a618c15" target="_blank">345c9d1</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree9fa95fc8fff3b558d65aeaed5ae867739ee6945ftargetblank9fa95fca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/9fa95fc8fff3b558d65aeaed5ae867739ee6945f" target="_blank">9fa95fc</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree345c9d1ecebd39993393024d8267a9bd5a618c15targetblank345c9d1a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree9fa95fc8fff3b558d65aeaed5ae867739ee6945ftargetblank9fa95fca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/345c9d1ecebd39993393024d8267a9bd5a618c15" target="_blank">345c9d1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/9fa95fc8fff3b558d65aeaed5ae867739ee6945f" target="_blank">9fa95fc</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -583,6 +583,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/9fa95fc8fff3b558d65aeaed5ae867739ee6945f/analysis/susie_convergence_problem.Rmd" target="_blank">9fa95fc</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-03-06
+</td>
+<td>
+wflow_publish(“analysis/susie_convergence_problem.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/53796af48be2f556198898b14894c55565f4d622/docs/susie_convergence_problem.html" target="_blank">53796af</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-03-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1557,6 +1591,62 @@ zouyuxin
 <pre class="r"><code>susie_plot_iteration(resinit, L=nrow(resinit$alpha), &#39;assets/susie_convergence_problem/susie_convergence_problem_d2_finitlasso&#39;, pos=sort(c(beta_idx, idx)))</code></pre>
 <pre class="r"><code>knitr::include_graphics(&quot;assets/susie_convergence_problem/susie_convergence_problem_d2_finitlasso.gif&quot;, error = FALSE)</code></pre>
 <p><img src="assets/susie_convergence_problem/susie_convergence_problem_d2_finitlasso.gif" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-susie_convergence_problem_d2_finitlasso">
+Past versions of susie_convergence_problem_d2_finitlasso.gif
+</button>
+</p>
+<div id="fig-susie_convergence_problem_d2_finitlasso" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/afbca11a48362419e4fd7eb77a62c94e33c82ddd/docs/assets/susie_convergence_problem/susie_convergence_problem_d2_finitlasso.gif" target="_blank">afbca11</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-03-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We try LASSO with CV:</p>
+<pre class="r"><code>fit.lassocv = glmnet::cv.glmnet(d2$X, d2$y, family=&quot;gaussian&quot;, alpha=1)
+lassocv.b = as.vector(coef(fit.lassocv, s = &quot;lambda.min&quot;))[-1]
+beta_idx &lt;- sort(abs(lassocv.b), index.return=TRUE, decreasing=TRUE)$ix[1:10]</code></pre>
+<p>The LASSO solution does not contain any causal SNPs.</p>
+<pre class="r"><code>sinit = susieR::susie_init_coef(beta_idx, lassocv.b[beta_idx], length(b))
+resinit = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, s_init = sinit,
+                          estimate_residual_variance = T,estimate_prior_variance = TRUE,
+                          max_iter = 200, track_fit = T)
+susie_plot(resinit, y=&#39;PIP&#39;, b=b, add_legend = T, main=paste0(&#39;ELBO: &#39;, round(susie_get_objective(resinit), 3)))</code></pre>
+<p><img src="figure/susie_convergence_problem.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We try mr.ash initialize with LASSO cv solution.</p>
+<pre class="r"><code>library(mr.ash.alpha)
+fmrash = mr.ash(d2$X, d2$y, beta.init = lassocv.b)</code></pre>
+<pre><code>Mr.ASH terminated at iteration 20.</code></pre>
+<p>Mr.ash identifies SNP 222.</p>
+<pre class="r"><code>plot(fmrash$beta)
+points(idx, fmrash$beta[idx], col=&#39;red&#39;, pch=16)</code></pre>
+<p><img src="figure/susie_convergence_problem.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1580,7 +1670,7 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] susieR_0.10.0   workflowr_1.6.2
+[1] mr.ash.alpha_0.1-36 susieR_0.10.0       workflowr_1.6.2    
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.6       plyr_1.8.6       pillar_1.4.7     compiler_4.0.3  
