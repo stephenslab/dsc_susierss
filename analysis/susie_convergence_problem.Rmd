@@ -177,3 +177,35 @@ susie_plot_iteration(resinit, L=nrow(resinit$alpha), 'assets/susie_convergence_p
 ```{r}
 knitr::include_graphics("assets/susie_convergence_problem/susie_convergence_problem_d2_finitlasso.gif", error = FALSE)
 ```
+
+We try LASSO with CV:
+```{r}
+fit.lassocv = glmnet::cv.glmnet(d2$X, d2$y, family="gaussian", alpha=1)
+lassocv.b = as.vector(coef(fit.lassocv, s = "lambda.min"))[-1]
+beta_idx <- sort(abs(lassocv.b), index.return=TRUE, decreasing=TRUE)$ix[1:10]
+```
+
+The LASSO solution does not contain any causal SNPs.
+
+```{r}
+sinit = susieR::susie_init_coef(beta_idx, lassocv.b[beta_idx], length(b))
+resinit = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, s_init = sinit,
+                          estimate_residual_variance = T,estimate_prior_variance = TRUE,
+                          max_iter = 200, track_fit = T)
+susie_plot(resinit, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(resinit), 3)))
+```
+
+We try mr.ash initialize with LASSO cv solution.
+```{r}
+library(mr.ash.alpha)
+fmrash = mr.ash(d2$X, d2$y, beta.init = lassocv.b)
+```
+
+Mr.ash identifies SNP 222.
+
+```{r}
+plot(fmrash$beta)
+points(idx, fmrash$beta[idx], col='red', pch=16)
+```
+
+
