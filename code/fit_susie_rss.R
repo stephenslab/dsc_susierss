@@ -1,8 +1,4 @@
 library(susieR)
-library(data.table)
-
-z = as.matrix(sumstats$bhat/sumstats$shat);
-r = as.matrix(fread(ld[[ld_method]]));
 
 susie_rss_analyze = function(z, R, L, z_ld_weight, s_init, estimate_residual_variance) {
   fit = tryCatch(susie_rss(z, R, L=L,
@@ -35,30 +31,4 @@ susie_rss_multiple = function(Z, R, L, z_ld_weight, s_init, estimate_residual_va
   }
   return(list(fitted=fitted, posterior=posterior))
 }
-
-library(data.table);
-z = as.matrix(sumstats$bhat/sumstats$shat);
-r = as.matrix(fread(ld[[ld_method]]));
-if(!is.na(z_ld_weight)){
-  res = susie_rss_multiple(z, r, L, z_ld_weight, s_init, estimate_residual_variance)
-}else{
-  if(add_z){
-    if(ld_method == 'refin_sample' || ld_method == 'refout_sample'){
-      if (is.null(N_ref)) stop("Cannot use add_z out sample LD when N_out is not available (NULL)")
-      r = (r*(N_ref-1) + tcrossprod(z))/N_ref;
-      if(rcor){
-        r = cov2cor(r);
-      }
-      r = (r + t(r))/2;
-    }else{
-      r = (r*(n-1) + tcrossprod(z))/n;
-      if(rcor){
-        r = cov2cor(r);
-      }
-      r = (r + t(r))/2;
-    }
-  }
-  res = susie_rss_multiple(z, r, L, 0, s_init, estimate_residual_variance)
-}
-
 

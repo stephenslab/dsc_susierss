@@ -31,17 +31,3 @@ susie_suff_multiple = function(Bhat,Shat,R, n, L, s_init, estimate_residual_vari
   return(list(fitted=fitted, posterior=posterior))
 }
 
-library(data.table)
-z = sumstats$bhat/sumstats$shat;
-r = as.matrix(fread(ld[[ld_method]]));
-if(add_z){
-  if(ld_method == 'refin_sample' || ld_method == 'refout_sample'){
-    if (is.null(N_ref)) stop("Cannot use add_z out sample LD when N_out is not available (NULL)")
-    r = cov2cor(r*(N_ref-1) + tcrossprod(z));
-    r = (r + t(r))/2;
-  }else{
-    r = cov2cor(r*(n-1) + tcrossprod(z));
-    r = (r + t(r))/2;
-  }
-}
-res = susie_suff_multiple(sumstats$bhat, sumstats$shat, r, n, L, s_init, estimate_residual_variance)

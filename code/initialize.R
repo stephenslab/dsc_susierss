@@ -18,14 +18,17 @@ init_lasso = function(X, Y, L){
   p = ncol(X)
   s = list()
   for (r in 1:ncol(Y)){
-    fit.lasso = glmnet::glmnet(X, Y[,r], family="gaussian", alpha=1, dfmax = L)
-    lasso.b = fit.lasso$beta[,max(which(fit.lasso$df <= L))]
-    beta_idx = which(lasso.b != 0)
+    fit.lassocv = glmnet::cv.glmnet(X, Y[,r], family="gaussian", alpha=1)
+    lassocv.b = as.vector(coef(fit.lassocv, s = "lambda.min"))[-1]
+    beta_idx <- sort(abs(lassocv.b), index.return=TRUE, decreasing=TRUE)$ix[1:L]
+    beta_idx = beta_idx[lassocv.b[beta_idx]!=0]
+    # fit.lasso = glmnet::glmnet(X, Y[,r], family="gaussian", alpha=1, dfmax = L)
+    # lasso.b = fit.lasso$beta[,max(which(fit.lasso$df <= L))]
+    # beta_idx = which(lasso.b != 0)
     if(length(beta_idx) == 0){
       s[[r]] = NA
     }else{
-      sumstat = susieR:::univariate_regression(X[, beta_idx], Y[,r])
-      s[[r]] = susieR::susie_init_coef(beta_idx, sumstat$betahat, p)
+      s[[r]] = susieR::susie_init_coef(beta_idx, lassocv.b[beta_idx], p)
     }    
   }
   return(s)
@@ -52,15 +55,19 @@ init_rss_lasso = function(Z, R, L){
   eigenR = eigen(R, symmetric = T)
   eigenR$values[abs(eigenR$values) < 1e-08] = 0
   P = t(eigenR$vectors[,eigenR$values!=0]) * eigenR$values[eigenR$values!=0]^(-0.5)
-
+  X = t(eigenR$vectors[,eigenR$values!=0]) * eigenR$values[eigenR$values!=0]^(0.5)
   for (r in 1:ncol(Z)){
-    fit.lasso = glmnet::glmnet(t(eigenR$vectors[,eigenR$values!=0]) * eigenR$values[eigenR$values!=0]^(0.5), P%*%Z[,r], family="gaussian", alpha=1, dfmax = L)
-    lasso.b = fit.lasso$beta[,max(which(fit.lasso$df <= L))]
-    beta_idx = which(lasso.b != 0)
+    fit.lassocv = glmnet::cv.glmnet(X, P%*%Z[,r], family="gaussian", alpha=1, standardize = FALSE, intercept = FALSE)
+    lassocv.b = as.vector(coef(fit.lassocv, s = "lambda.min"))
+    beta_idx <- sort(abs(lassocv.b), index.return=TRUE, decreasing=TRUE)$ix[1:L]
+    beta_idx = beta_idx[lassocv.b[beta_idx]!=0]
+    # fit.lasso = glmnet::glmnet(X, P%*%Z[,r], family="gaussian", alpha=1, dfmax = L)
+    # lasso.b = fit.lasso$beta[,max(which(fit.lasso$df <= L))]
+    # beta_idx = which(lasso.b != 0)
     if(length(beta_idx) == 0){
       s[[r]] = NA
     }else{
-      s[[r]] = susieR::susie_init_coef(beta_idx, Z[beta_idx, r], p)
+      s[[r]] = susieR::susie_init_coef(beta_idx, lassocv.b[beta_idx, r], p)
     }
   }
   return(s)

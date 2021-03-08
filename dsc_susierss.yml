@@ -72,7 +72,56 @@ method_susie:
   instances_per_job: 30
   instances_per_node: 10
   mem_per_instance: 2G
+
+susie_init:
+  queue: stephenslab
+  time_per_instance: 1h
+  instances_per_job: 30
+  instances_per_node: 10
+  mem_per_instance: 2G
   
+susie_suff:
+  time_per_instance: 1h
+  instances_per_job: 10
+  instances_per_node: 10
+  mem_per_instance: 10G
+
+susie_suff_init:
+  time_per_instance: 1h
+  instances_per_job: 30
+  instances_per_node: 10
+  mem_per_instance: 2G
+
+susie_suff_addz:
+  time_per_instance: 1h
+  instances_per_job: 10
+  instances_per_node: 10
+  mem_per_instance: 10G
+
+susie_rss:
+  time_per_instance: 1h
+  instances_per_job: 30
+  instances_per_node: 10
+  mem_per_instance: 2G
+
+susie_rss_addz:
+  time_per_instance: 1h
+  instances_per_job: 30
+  instances_per_node: 10
+  mem_per_instance: 2G
+
+susie_rss_suff:
+  time_per_instance: 1h
+  instances_per_job: 30
+  instances_per_node: 10
+  mem_per_instance: 2G
+
+susie_rss_suff_addz:
+  time_per_instance: 1h
+  instances_per_job: 30
+  instances_per_node: 10
+  mem_per_instance: 2G
+
 method_finemap:
   cpus_per_instance: 1
   time_per_instance: 2h
