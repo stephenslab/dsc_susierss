@@ -54,15 +54,15 @@ input = paste0('susierss_ukb_REF1000_pve005_init_20210307_pip_extraction/susie_p
 
 output = paste0('susierss_ukb_REF1000_pve005_init_20210307_roc/susie_init_roc')
 
-# dat = readRDS(input)
-# 
-# print("Computing ROC data ...")
-# tb = list()
-# for (method in names(dat)) {
-#   print(method)
-#   tb[[method]] = roc_data(dat[[method]])
-# }
-# saveRDS(tb, paste0(output, '.rds'))
+dat = readRDS(input)
+
+print("Computing ROC data ...")
+tb = list()
+for (method in names(dat)) {
+  print(method)
+  tb[[method]] = roc_data(dat[[method]])
+}
+saveRDS(tb, paste0(output, '.rds'))
 
 # ## plot
 tb = readRDS(paste0(output, '.rds'))
