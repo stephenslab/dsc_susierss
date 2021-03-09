@@ -458,16 +458,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree5c02cb49ddecbd027103eb68cbbf6936afa1b37ftargetblank5c02cb4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/5c02cb49ddecbd027103eb68cbbf6936afa1b37f" target="_blank">5c02cb4</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree40a70c4d7f5ad02b775b2091f4a0f83cf930924ctargetblank40a70c4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/40a70c4d7f5ad02b775b2091f4a0f83cf930924c" target="_blank">40a70c4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree5c02cb49ddecbd027103eb68cbbf6936afa1b37ftargetblank5c02cb4a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree40a70c4d7f5ad02b775b2091f4a0f83cf930924ctargetblank40a70c4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/5c02cb49ddecbd027103eb68cbbf6936afa1b37f" target="_blank">5c02cb4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/40a70c4d7f5ad02b775b2091f4a0f83cf930924c" target="_blank">40a70c4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -524,6 +524,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/40a70c4d7f5ad02b775b2091f4a0f83cf930924c/analysis/susie_ukb_20210307_convergence.Rmd" target="_blank">40a70c4</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-03-09
+</td>
+<td>
+wflow_publish(“analysis/susie_ukb_20210307_convergence.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/e4db5656db4834941b289780f8baaf84d5ec083a/docs/susie_ukb_20210307_convergence.html" target="_blank">e4db565</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-03-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -616,7 +650,7 @@ wflow_publish(“analysis/susie_ukb_20210307_convergence.Rmd”)
 </div>
 </div>
 </div>
-<p>This simulation uses UKB genotype data. We extract the genotype regions based on height GWAS result. There are 200 regions, each with 1000 SNPs. We sample 50,000 individuals to simulate the data. We simulate data with 1,2,3 signals and PVE 0.005. We run susie_suff_stat. We estimate residual and prior variance. We try susie_suff_stat with different initialization, ‘null’ = default initialization; ‘oracle’ = initialize at truth. We run susie_suff_stat with L = 10. We run FINEMAP with oracle number of signals.</p>
+<p>This simulation uses UKB genotype data. We extract the genotype regions based on height GWAS result. There are 200 regions, each with 1000 SNPs. We sample 50,000 individuals to simulate the data. We simulate data with 1,2,3 signals and PVE 0.005. We run susie/susie_suff_stat with L=10. We estimate residual and prior variance. We try different initialization, ‘null’ = default initialization; ‘oracle’ = initialize at truth, ‘lasso’ = initialize using LASSO CV solution. We run FINEMAP with oracle number of signals.</p>
 <div id="power-vs-fdr" class="section level2">
 <h2>Power vs FDR</h2>
 <p><img src="assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_roc/susie_init_roc.pr.susiesuff.ERTRUE.png" /></p>
