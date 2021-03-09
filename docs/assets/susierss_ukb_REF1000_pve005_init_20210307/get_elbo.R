@@ -2,7 +2,7 @@
 
 input = 'susierss_ukb_REF1000_pve005_init_20210307.2.rds'
 
-output_susie = 'susie_ukb_elbo'
+output_susie = 'susierss_ukb_REF1000_pve005_init_20210307_elbo/susie_ukb_elbo'
 
 # dat = readRDS(input)
 # res = list()
@@ -43,6 +43,32 @@ output_susie = 'susie_ukb_elbo'
 # saveRDS(res, paste0(output_susie, '.rds'))
 
 res = readRDS(paste0(output_susie, '.rds'))
+
+## null vs lasso
+pdf(paste0(output_susie,'_nullvslasso.pdf'), width=10, height=10, pointsize=15)
+plot(res$susie_suff_initnull$elbo, res$susie_suff_initlasso$elbo, 
+     xlab='default initialization', ylab='LASSO CV initialization', main='ELBO')
+abline(0,1)
+dev.off()
+system(paste0("convert -flatten -density 120 ", output_susie, '_nullvslasso.pdf', " ",
+              output_susie, '_nullvslasso.png'))
+## null vs true
+pdf(paste0(output_susie,'_nullvstrue.pdf'), width=10, height=10, pointsize=15)
+plot(res$susie_suff_initnull$elbo, res$susie_suff_initoracle$elbo, 
+     xlab='default initialization', ylab='Truth initialization', main='ELBO')
+abline(0,1)
+dev.off()
+system(paste0("convert -flatten -density 120 ", output_susie, '_nullvstrue.pdf', " ",
+              output_susie, '_nullvstrue.png'))
+
+## lasso vs true
+pdf(paste0(output_susie,'_lassovstrue.pdf'), width=10, height=10, pointsize=15)
+plot(res$susie_suff_initlasso$elbo, res$susie_suff_initoracle$elbo, 
+     xlab='LASSO CV initialization', ylab='Truth initialization', main='ELBO')
+abline(0,1)
+dev.off()
+system(paste0("convert -flatten -density 120 ", output_susie, '_lassovstrue.pdf', " ",
+              output_susie, '_lassovstrue.png'))
 
 res_susie_initnull = do.call(cbind.data.frame, res$susie_initnull) 
 res_susie_initlasso = do.call(cbind.data.frame, res$susie_initlasso) 

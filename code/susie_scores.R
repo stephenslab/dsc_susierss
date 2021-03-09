@@ -67,7 +67,11 @@ susie_scores_multiple = function(res, truth) {
     valid[r] = out$valid
     top[r] = out$top
     overlap[r] = out$has_overlap
-    s2[r] = res[[r]]$sigma2
+    if(is.null(res[[r]]$sigma2)){
+      s2[r] = NA
+    }else{
+      s2[r] = res[[r]]$sigma2
+    }
     if(is.null(res[[r]]$lambda)){
       lambda[r] = NA
     }else{
