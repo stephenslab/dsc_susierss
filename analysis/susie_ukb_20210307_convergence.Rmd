@@ -33,7 +33,7 @@ Overall
 
 ## ELBO
 
-![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_elbo/susie_ukb_elbo_nullvslasso.png){width=30%} ![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_esusie_ukb_elbo_nullvstrue.png){width=30%} ![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_elbo/susie_ukb_elbo_lassovstrue.png){width=30%}
+![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_elbo/susie_ukb_elbo_nullvslasso.png){width=30%} ![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_elbo/susie_ukb_elbo_nullvstrue.png){width=30%} ![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_elbo/susie_ukb_elbo_lassovstrue.png){width=30%}
 
 
 
