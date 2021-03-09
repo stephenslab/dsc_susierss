@@ -12,4 +12,6 @@ editor_options:
  
     [example](susierss_ukb_20210218_example.html)
     
+    [susie convergence benchmark](susie_ukb_20210307_convergence.html)
+    
     [susie convergence problem](susie_convergence_problem.html)
