@@ -11,29 +11,29 @@ This simulation uses UKB genotype data. We extract the genotype regions based on
 
 ## Power vs FDR
 
-![](../docs/assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_roc/susie_init_roc.pr.susiesuff.ERTRUE.png)
+![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_roc/susie_init_roc.pr.susiesuff.ERTRUE.png)
 
 ## CS
 
 Overall
 
-![](../docs/assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_cs/susie_ss_cs_plots.png)
+![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_cs/susie_ss_cs_plots.png)
 
 1 signal
 
-![](../docs/assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_cs/susie_ss_cs_s1_plots.png)
+![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_cs/susie_ss_cs_s1_plots.png)
 
 2 signals
 
-![](../docs/assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_cs/susie_ss_cs_s2_plots.png)
+![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_cs/susie_ss_cs_s2_plots.png)
 
 3 signals
 
-![](../docs/assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_cs/susie_ss_cs_s3_plots.png)
+![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_cs/susie_ss_cs_s3_plots.png)
 
 ## ELBO
 
-![](../docs/assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_elbo/susie_ukb_elbo_nullvslasso.png){width=30%} ![](../docs/assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_esusie_ukb_elbo_nullvstrue.png){width=30%} ![](../docs/assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_elbo/susie_ukb_elbo_lassovstrue.png){width=30%}
+![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_elbo/susie_ukb_elbo_nullvslasso.png){width=30%} ![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_esusie_ukb_elbo_nullvstrue.png){width=30%} ![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_elbo/susie_ukb_elbo_lassovstrue.png){width=30%}
 
 
 
