@@ -7,12 +7,20 @@ output:
     code_folding: hide
 ---
 
-We observe the convergence problem for SuSiE in simulation. We illustrate 2 data here.
+We observe the convergence problem for SuSiE in simulation. We illustrate 3 data here.
+
+For the first one, the default initialization doesn't work, LASSO initialization works.
+
+For the second one, the default initialization doesn't work, LASSO initialization doesn't work.
+
+For the third one, the default initialization works, LASSO initialization doesn't work.
 
 ```{r}
 library(susieR)
-dat = readRDS('data/susie_convergence_problem.rds')
+dat = readRDS('data/susie_convergence_problem6.rds')
 ```
+
+There are 6 data in 'susie_convergence_problem6.rds'. 
 
 ## Data 1
 
@@ -64,8 +72,8 @@ knitr::include_graphics("assets/susie_convergence_problem/susie_convergence_prob
 
 Using L = 2, we find the correct CSs, and the ELBO is larger.
 ```{r}
-f2 = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, L=2, track_fit = T)
-susie_plot(f2, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f2), 3)))
+f12 = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, L=2, track_fit = T)
+susie_plot(f12, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f12), 3)))
 ```
 
 variable | 1   | 2 (C)| 3   | 4 (C)  | 5 
@@ -73,7 +81,7 @@ variable | 1   | 2 (C)| 3   | 4 (C)  | 5
 SNP      | 233 | 234  | 236 | 287    | 291
 
 ```{r, eval=FALSE}
-susie_plot_iteration(f2, L=2, 'assets/susie_convergence_problem/susie_convergence_problem_d1_f2', pos=c(233, 234, 236, 287, 291))
+susie_plot_iteration(f12, L=2, 'assets/susie_convergence_problem/susie_convergence_problem_d1_f2', pos=c(233, 234, 236, 287, 291))
 ```
 ```{r}
 knitr::include_graphics("assets/susie_convergence_problem/susie_convergence_problem_d1_f2.gif", error = FALSE)
@@ -90,10 +98,34 @@ LASSO identifies SNP 234 with non-zero effect, and it doesn't include SNP 233.
 
 ```{r}
 sinit = susieR::susie_init_coef(beta_idx, lasso.b[beta_idx], length(b))
-resinit = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, s_init = sinit,
+f1lasso = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, s_init = sinit,
                           estimate_residual_variance = T,estimate_prior_variance = TRUE,
                           max_iter = 200, track_fit = T)
-susie_plot(resinit, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(resinit), 3)))
+susie_plot(f1lasso, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f1lasso), 3)))
+```
+
+We try L0Learn.
+```{r}
+library(L0Learn)
+set.seed(1)
+L0fit = L0Learn.cvfit(d1$X, d1$y, penalty = "L0")
+lambdaIndex = which.min(L0fit$cvMeans[[1]]) 
+L0coef = as.numeric(coef(L0fit$fit, lambda = L0fit$fit$lambda[[1]][lambdaIndex]))
+effect.beta = L0coef[which(L0coef!=0)][-1]
+effect.index = (which(L0coef!=0)-1)[-1] 
+length(effect.beta)
+```
+```{r}
+effect.beta[1:4]
+effect.index[1:4]
+```
+
+```{r}
+s.init = susie_init_coef(effect.index, effect.beta, length(b))
+f1L0.fit = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, s_init = s.init,
+                          estimate_residual_variance = T,estimate_prior_variance = TRUE,
+                          max_iter = 200, track_fit = T)
+susie_plot(f1L0.fit, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f1L0.fit), 3)))
 ```
 
 ## Data 2
@@ -119,8 +151,8 @@ d2$ld[c(222, idx), c(222, idx)]
 ```
 Using L = 10, the susie model gives 1 CS.
 ```{r}
-f3 = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, L=10, track_fit = T)
-susie_plot(f3, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f3), 4)))
+f2 = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, L=10, track_fit = T)
+susie_plot(f2, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f2), 4)))
 ```
 It identifies the top SNP. 
 
@@ -129,7 +161,7 @@ variable | 1   | 2 (C)| 3 (C) | 4 (C)
 SNP      | 222 | 252  | 340   | 375
 
 ```{r, eval=FALSE}
-susie_plot_iteration(f3, L=10, 'assets/susie_convergence_problem/susie_convergence_problem_d2_f3', pos=c(222, idx))
+susie_plot_iteration(f2, L=10, 'assets/susie_convergence_problem/susie_convergence_problem_d2_f3', pos=c(222, idx))
 ```
 ```{r}
 knitr::include_graphics("assets/susie_convergence_problem/susie_convergence_problem_d2_f3.gif", error = FALSE)
@@ -137,18 +169,18 @@ knitr::include_graphics("assets/susie_convergence_problem/susie_convergence_prob
 
 Using L = 3, it converges to the same solution as L = 10.
 ```{r}
-f4 = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, L=3, track_fit = T,
+f23 = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, L=3, track_fit = T,
                      estimate_residual_variance = T, estimate_prior_variance = T)
-susie_plot(f4, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f4), 4)))
+susie_plot(f23, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f23), 4)))
 ```
 
 We initialize at the truth,
 ```{r}
 beta_val = b[idx]
 sinit = susieR::susie_init_coef(idx, beta_val, length(b))
-finittrue = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, track_fit = T, s_init = sinit,
+f2true = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, track_fit = T, s_init = sinit,
                             estimate_residual_variance = T,estimate_prior_variance = TRUE, max_iter = 200)
-susie_plot(finittrue, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(finittrue), 4)))
+susie_plot(f2true, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f2true), 4)))
 ```
 
 We try to initialize using LASSO solution:
@@ -163,16 +195,16 @@ LASSO identifies one causal SNP 375 with non-zero effect. It also identifies SNP
 
 ```{r}
 sinit = susieR::susie_init_coef(beta_idx, lasso.b[beta_idx], length(b))
-resinit = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, s_init = sinit,
+f2lasso = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, s_init = sinit,
                           estimate_residual_variance = T,estimate_prior_variance = TRUE,
                           max_iter = 200, track_fit = T)
-susie_plot(resinit, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(resinit), 3)))
+susie_plot(f2lasso, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f2lasso), 3)))
 ```
 
 The priors for other CSs shrink to 0 at the first iteration.
 
 ```{r, eval=FALSE}
-susie_plot_iteration(resinit, L=nrow(resinit$alpha), 'assets/susie_convergence_problem/susie_convergence_problem_d2_finitlasso', pos=sort(c(beta_idx, idx)))
+susie_plot_iteration(f2lasso, L=nrow(resinit$alpha), 'assets/susie_convergence_problem/susie_convergence_problem_d2_finitlasso', pos=sort(c(beta_idx, idx)))
 ```
 ```{r}
 knitr::include_graphics("assets/susie_convergence_problem/susie_convergence_problem_d2_finitlasso.gif", error = FALSE)
@@ -189,10 +221,10 @@ The LASSO solution does not contain any causal SNPs.
 
 ```{r}
 sinit = susieR::susie_init_coef(beta_idx, lassocv.b[beta_idx], length(b))
-resinit = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, s_init = sinit,
+f2lassosv = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, s_init = sinit,
                           estimate_residual_variance = T,estimate_prior_variance = TRUE,
                           max_iter = 200, track_fit = T)
-susie_plot(resinit, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(resinit), 3)))
+susie_plot(f2lassosv, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f2lassosv), 3)))
 ```
 
 We try mr.ash initialize with LASSO cv solution.
@@ -207,5 +239,68 @@ Mr.ash identifies SNP 222.
 plot(fmrash$beta)
 points(idx, fmrash$beta[idx], col='red', pch=16)
 ```
+
+We try L0Learn.
+```{r}
+set.seed(1)
+L0fit = L0Learn.cvfit(d2$X, d2$y, penalty = "L0")
+lambdaIndex = which.min(L0fit$cvMeans[[1]]) 
+L0coef = as.numeric(coef(L0fit$fit, lambda = L0fit$fit$lambda[[1]][lambdaIndex]))
+effect.beta = L0coef[which(L0coef!=0)][-1]
+effect.index = (which(L0coef!=0)-1)[-1] 
+length(effect.beta)
+```
+
+```{r}
+s.init = susie_init_coef(effect.index, effect.beta, length(b))
+f2L0.fit = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d1$n, s_init = s.init,
+                          estimate_residual_variance = T,estimate_prior_variance = TRUE,
+                          max_iter = 200, track_fit = T)
+susie_plot(f2L0.fit, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f2L0.fit), 3)))
+```
+
+## Data 3
+
+The region contains 1001 SNPs. There are two causals at 435, 450. Default initialization works. LASSO initialization doesn't work.
+
+```{r}
+d3 = dat$d3
+b = d3$true_coef
+idx = which(b!=0)
+
+par(mfrow=c(1,2))
+plot(d3$z, pch = 16, xlab = 'SNPs', ylab = 'z')
+points(idx, d3$z[idx], col='red', pch = 16)
+log10p = -log10(pnorm(-abs(d3$z))*2)
+plot(log10p, pch = 16, xlab = 'SNPs', ylab = '-log10 p value')
+points(idx, log10p[idx], col='red', pch = 16)
+```
+
+With default initialization:
+```{r}
+f3 = susie_suff_stat(XtX = d3$XtX, Xty = d3$Xty, yty = d3$yty, n = d3$n, L=10, track_fit = T)
+susie_plot(f3, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f3), 4)))
+```
+
+With LASSO with CV initialization:
+```{r}
+fit.lassocv = glmnet::cv.glmnet(d3$X, d3$y, family="gaussian", alpha=1)
+lassocv.b = as.vector(coef(fit.lassocv, s = "lambda.min"))[-1]
+beta_idx <- sort(abs(lassocv.b), index.return=TRUE, decreasing=TRUE)$ix[1:10]
+beta_idx = beta_idx[lassocv.b[beta_idx]!=0]
+```
+LASSO picks the following SNPs:
+```{r}
+beta_idx
+```
+
+```{r}
+sinit = susieR::susie_init_coef(beta_idx, lassocv.b[beta_idx], length(b))
+f3lasso = susie_suff_stat(XtX = d3$XtX, Xty = d3$Xty, yty = d3$yty, n = d3$n, s_init = sinit,
+                          estimate_residual_variance = T,estimate_prior_variance = TRUE,
+                          max_iter = 200, track_fit = T)
+susie_plot(f3lasso, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f3lasso), 3)))
+```
+
 
 
