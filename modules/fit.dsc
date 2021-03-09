@@ -193,7 +193,7 @@ susie_rss: initialize.R + adjustld.R + fit_susie_rss.R + R(if(is.na(init)){
 
 susie_rss_addz(susie_rss):
   ld_method: "refout_sample"
-  addz: TRUE
+  add_z: TRUE
   rcor: FALSE, TRUE
   fullrank: FALSE
 
@@ -203,7 +203,7 @@ susie_rss_gtex(susie_rss):
 
 susie_rss_addz_gtex(susie_rss_gtex):
   ld_method: "out_sample"
-  addz: TRUE
+  add_z: TRUE
   rcor: FALSE, TRUE
   
 susie_rss_init(susie_rss):
@@ -238,7 +238,7 @@ susie_rss_suff_gtex(susie_rss_suff):
 
 susie_rss_suff_addz_gtex(susie_rss_suff):
   ld_method: "out_sample"
-  addz: TRUE
+  add_z: TRUE
   rcor: FALSE, TRUE
   fullrank: FALSE
   
@@ -258,15 +258,22 @@ susie_rss_lambda: initialize.R + adjustld.R + fit_susie_rss_lambda.R + R(if(is.n
   N_ref: $N_ref
   lamb: "estimate"
   estimate_residual_variance: TRUE, FALSE
-  add_z: FALSE, TRUE
+  add_z: FALSE
   ld_method: "in_sample", "refin_sample", "refout_sample"
-  rcor: FALSE, TRUE
+  fullrank: FALSE, TRUE
+  rcor: FALSE
   init: NA
   $fitted: res$fitted
   $posterior: res$posterior
   
 susie_rss_lambda_gtex(susie_rss_lambda):
   ld_method: "in_sample", "out_sample"
+  
+susie_rss_lambda_addz_gtex(susie_rss_lambda_gtex):
+  ld_method: 'out_sample'
+  add_z: TRUE
+  fullrank: FALSE
+  rcor: FALSE, TRUE
   
 susie_rss_lambda_init(susie_rss_lambda):
   init: NA, 'oracle', 'lasso'

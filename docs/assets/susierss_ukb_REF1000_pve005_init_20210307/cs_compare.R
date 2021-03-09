@@ -107,7 +107,7 @@ rates$method = factor(rates$method, levels = c('susie_initnull', 'susie_initorac
                                                "susie_suff_initoracle", "susie_suff_initlasso" ,
                                                'FINEMAPv1.4'))
 rates_s = rates[c(1:3,7),]
-p1 = plot_panel(rates_s, c('coverage', 'coverage'), legend=F) 
+p1 = plot_panel(rates_s, c('coverage', 'coverage'), legend=F)
 p2 = plot_panel(rates_s, c('power', 'power'), legend=F)
 p3 = plot_panel(rates_s, c('size', 'median number of variables'), legend=F)
 p4 = plot_panel(rates_s, c('purity', 'median of purity'), legend=F)
@@ -118,7 +118,7 @@ dev.off()
 system(paste0("convert -flatten -density 120 ", paste0(output, '_plots.pdf'), " ", paste0(output, '_plots.png')))
 
 rates_ss = rates[c(4:7),]
-p1 = plot_panel(rates_ss, c('coverage', 'coverage'), legend=F) 
+p1 = plot_panel(rates_ss, c('coverage', 'coverage'), legend=F)
 p2 = plot_panel(rates_ss, c('power', 'power'), legend=F)
 p3 = plot_panel(rates_ss, c('size', 'median number of variables'), legend=F)
 p4 = plot_panel(rates_ss, c('purity', 'median of purity'), legend=F)
@@ -134,10 +134,10 @@ for(s in 1:3){
   res_susierss = readRDS(paste0(output_susie, '_s',s,'.rds'))
   res_susierssnull = readRDS(paste0('../susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/susierss_ukb_cs_s',s,'.rds'))
   res_susierssnull = list('susie_suff_initnull' = res_susierssnull$susie_suff_ERTRUE_ldin_AZFALSE_rcorNA_scalezNA)
-  
+
   res_fm = readRDS(paste0('../susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/finemapv4_ukb_cs_s',s,'.rds'))
   res_fm = list('FINEMAPv1.4' = res_fm$FINEMAPv1.4_ldin_AZFALSE_scalezNA)
-  
+
   res = c(res_susierss, res_susierssnull, res_fm)
   rates = matrix(unlist(res), length(res), byrow = T)
   rownames(rates) = names(res)
@@ -146,12 +146,12 @@ for(s in 1:3){
   rates = as.data.frame(rates)
   rates$method = rownames(rates)
   rates$method[1] = 'susie_initnull'
-  
-  rates$method = factor(rates$method, levels = c('susie_initnull', 'susie_initoracle', 
+
+  rates$method = factor(rates$method, levels = c('susie_initnull', 'susie_initoracle',
                                                  'susie_initlasso', 'susie_suff_initnull',
                                                  'susie_suff_initoracle', 'susie_suff_initlasso',
                                                  'FINEMAPv1.4'))
-  
+
   rates_s = rates[c(1:3,7),]
   p1 = plot_panel(rates_s, c('coverage', 'coverage'), legend=F)
   p2 = plot_panel(rates_s, c('power', 'power'), legend=F)
@@ -162,7 +162,7 @@ for(s in 1:3){
   grid.arrange(p1,p2,p3,p4, ncol=4, widths=c(3,3,3,3))
   dev.off()
   system(paste0("convert -flatten -density 120 ", paste0(output, '_s',s,'_plots.pdf'), " ", paste0(output, '_s',s,'_plots.png')))
-  
+
   rates_ss = rates[c(4:7),]
   p1 = plot_panel(rates_ss, c('coverage', 'coverage'), legend=F)
   p2 = plot_panel(rates_ss, c('power', 'power'), legend=F)

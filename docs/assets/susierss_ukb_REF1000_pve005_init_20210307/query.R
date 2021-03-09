@@ -8,8 +8,10 @@ out_susie = dscrutils::dscquery('output/susierss_ukb_REF1000_pve005_rss_20210307
                                       'ss_init.DSC_TIME',
                                       'score_susie', 'score_susie.total', 'score_susie.valid',
                                       'score_susie.size', 'score_susie.purity', 'score_susie.converged', 
-                                      'score_susie.pip', 'score_susie.sigma2', 'score_susie.lamb'),
-                          module.output.files = c('ss_init'), groups=c('ss_init: susie_init, susie_suff_init'),
+                                      'score_susie.objective','score_susie.pip', 
+                                      'score_susie.sigma2', 'score_susie.lamb'),
+                          module.output.files = c('sim_gaussian','ss_init', 'score_susie'), 
+                          groups=c('ss_init: susie_init, susie_suff_init'),
                           ignore.missing.files = TRUE)
 
 saveRDS(out_susie, 

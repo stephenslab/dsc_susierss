@@ -54,15 +54,15 @@ input = paste0('susierss_ukb_REF1000_pve005_init_20210307_pip_extraction/susie_p
 
 output = paste0('susierss_ukb_REF1000_pve005_init_20210307_roc/susie_init_roc')
 
-dat = readRDS(input)
-
-print("Computing ROC data ...")
-tb = list()
-for (method in names(dat)) {
-  print(method)
-  tb[[method]] = roc_data(dat[[method]])
-}
-saveRDS(tb, paste0(output, '.rds'))
+# dat = readRDS(input)
+# 
+# print("Computing ROC data ...")
+# tb = list()
+# for (method in names(dat)) {
+#   print(method)
+#   tb[[method]] = roc_data(dat[[method]])
+# }
+# saveRDS(tb, paste0(output, '.rds'))
 
 # ## plot
 tb = readRDS(paste0(output, '.rds'))
@@ -71,6 +71,7 @@ tb_initna = list(susie_suff_initnull = tb_other[['susie_suff_ERTRUE_ldin_AZFALSE
 tb_fm = list(FINEMAPv1.1 = tb_other[['FINEMAPv1.1_ldin_AZFALSE_scalezNA']],
              FINEMAPv1.4 = tb_other[['FINEMAPv1.4_ldin_AZFALSE_scalezNA']])
 tb = c(tb_initna, tb, tb_fm)
+names(tb)[2] = 'susie_initnull'
 type = 'pr'
 main = "FDR vs Power"
 ylab = "power"
@@ -99,11 +100,12 @@ dev.off()
 system(paste0("convert -flatten -density 120 ", output, '.', type,'.susiesuff.ERTRUE.pdf', " ",
               output, '.', type, '.susiesuff.ERTRUE.png'))
 
+
 ## susie
 pdf(paste0(output,'.', type,'.susie.ERTRUE.pdf'), width=10, height=10, pointsize=15)
 i = 1
 labels = vector()
-for (method in c('susie_initNA', 'susie_initoracle', 'susie_initlasso',
+for (method in c('susie_initnull', 'susie_initoracle', 'susie_initlasso',
                  "FINEMAPv1.1", "FINEMAPv1.4")) {
   yy = make_smooth((1 - tb[[method]][[type]][,1]), tb[[method]][[type]][,2])
   if (i == 1) {
