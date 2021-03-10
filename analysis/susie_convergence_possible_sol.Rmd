@@ -38,21 +38,27 @@ susie_plot(f1, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_g
 ```
 ```{r}
 f1 = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, L=10, track_fit = T)
-## remove SNP in CS from f1
-for( cs in 1:length(f1$sets$cs)){
-  pw = rep(1, length(b))
-  pw[f1$sets$cs[[cs]]] = 0
-  f1s2 = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, L=10, track_fit = T, prior_weights = pw)
-  sinit2 = f1s2[c('alpha', 'mu', 'mu2')]
-  # sinit2 = lapply(sinit2, function(x) x[f1s2$sets$cs_index,])
-  # sinit2$alpha = rbind(sinit2$alpha, f1$alpha[f1$sets$cs_index,])
-  # sinit2$mu = rbind(sinit2$mu, f1$mu[f1$sets$cs_index,])
-  # sinit2$mu2 = rbind(sinit2$mu2, f1$mu2[f1$sets$cs_index,])
-  class(sinit2) <- c("susie","list")
-  ## initialize at f1s2
-  f1s3 = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, L=10, track_fit = T, s_init = sinit2)
-  susie_plot(f1s3, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f1s3), 4)))
+check = TRUE
+while(check){
+  m = list()
+  for(cs in 1:length(f1$sets$cs)){
+    pw = rep(1, length(b))
+    pw[f1$sets$cs[[cs]]] = 0
+    f1s2 = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, L=10, track_fit = T, prior_weights = pw)
+    sinit2 = f1s2[c('alpha', 'mu', 'mu2')]
+    class(sinit2) = 'susie'
+    f1s3 = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, L=10, track_fit = T, s_init = sinit2)
+    m = c(m, list(f1s3))
+  }
+  elbo = sapply(m, function(x) susie_get_objective(x))
+  if((max(elbo) - susie_get_objective(f1)) <= 0){
+    check=FALSE
+  }else{
+    f1 = m[[which.max(elbo)]]
+  }
 }
+susie_plot(f1, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f1), 4)))
+
 ```
 
 Scale XtX, Xty, yty, n by 0.5
@@ -98,21 +104,26 @@ susie_plot(f2, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_g
 
 ```{r}
 f2 = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, L=10, track_fit = T)
-## remove SNP in CS from f2
-for( cs in 1:length(f2$sets$cs)){
-  pw = rep(1, length(b))
-  pw[f2$sets$cs[[cs]]] = 0
-  f2s2 = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, L=10, track_fit = T, prior_weights = pw)
-  sinit2 = f2s2[c('alpha', 'mu', 'mu2')]
-  # sinit2 = lapply(sinit2, function(x) x[f2s2$sets$cs_index,])
-  # sinit2$alpha = rbind(sinit2$alpha, f2$alpha[f2$sets$cs_index,])
-  # sinit2$mu = rbind(sinit2$mu, f2$mu[f2$sets$cs_index,])
-  # sinit2$mu2 = rbind(sinit2$mu2, f2$mu2[f2$sets$cs_index,])
-  class(sinit2) <- c("susie","list")
-  ## initialize at f2s2
-  f2s3 = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, L=10, track_fit = T, s_init = sinit2)
-  susie_plot(f2s3, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f2s3), 4)))
+check = TRUE
+while(check){
+  m = list()
+  for(cs in 1:length(f2$sets$cs)){
+    pw = rep(1, length(b))
+    pw[f2$sets$cs[[cs]]] = 0
+    f2s2 = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, L=10, track_fit = T, prior_weights = pw)
+    sinit2 = f2s2[c('alpha', 'mu', 'mu2')]
+    class(sinit2) = 'susie'
+    f2s3 = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, L=10, track_fit = T, s_init = sinit2)
+    m = c(m, list(f2s3))
+  }
+  elbo = sapply(m, function(x) susie_get_objective(x))
+  if((max(elbo) - susie_get_objective(f2)) <= 0){
+    check=FALSE
+  }else{
+    f2 = m[[which.max(elbo)]]
+  }
 }
+susie_plot(f2, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f2), 4)))
 ```
 
 Scale XtX, Xty, yty, n by 0.1
@@ -157,21 +168,26 @@ susie_plot(f6, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_g
 
 ```{r}
 f6 = susie_suff_stat(XtX = d6$XtX, Xty = d6$Xty, yty = d6$yty, n = d6$n, L=10, track_fit = T)
-## remove SNP in CS from f6
-for( cs in 1:length(f6$sets$cs)){
-  pw = rep(1, length(b))
-  pw[f6$sets$cs[[cs]]] = 0
-  f6s2 = susie_suff_stat(XtX = d6$XtX, Xty = d6$Xty, yty = d6$yty, n = d6$n, L=10, track_fit = T, prior_weights = pw)
-  sinit2 = f6s2[c('alpha', 'mu', 'mu2')]
-  # sinit2 = lapply(sinit2, function(x) x[f6s2$sets$cs_index,])
-  # sinit2$alpha = rbind(sinit2$alpha, f6$alpha[f6$sets$cs_index,])
-  # sinit2$mu = rbind(sinit2$mu, f6$mu[f6$sets$cs_index,])
-  # sinit2$mu2 = rbind(sinit2$mu2, f6$mu2[f6$sets$cs_index,])
-  class(sinit2) <- c("susie","list")
-  ## initialize at f6s2
-  f6s3 = susie_suff_stat(XtX = d6$XtX, Xty = d6$Xty, yty = d6$yty, n = d6$n, L=10, track_fit = T, s_init = sinit2)
-  susie_plot(f6s3, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f6s3), 4)))
+check = TRUE
+while(check){
+  m = list()
+  for(cs in 1:length(f6$sets$cs)){
+    pw = rep(1, length(b))
+    pw[f6$sets$cs[[cs]]] = 0
+    f6s2 = susie_suff_stat(XtX = d6$XtX, Xty = d6$Xty, yty = d6$yty, n = d6$n, L=10, track_fit = T, prior_weights = pw)
+    sinit2 = f6s2[c('alpha', 'mu', 'mu2')]
+    class(sinit2) = 'susie'
+    f6s3 = susie_suff_stat(XtX = d6$XtX, Xty = d6$Xty, yty = d6$yty, n = d6$n, L=10, track_fit = T, s_init = sinit2)
+    m = c(m, list(f6s3))
+  }
+  elbo = sapply(m, function(x) susie_get_objective(x))
+  if((max(elbo) - susie_get_objective(f6)) <= 0){
+    check=FALSE
+  }else{
+    f6 = m[[which.max(elbo)]]
+  }
 }
+susie_plot(f6, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f6), 4)))
 ```
 
 Scale XtX, Xty, yty, n by 2
@@ -216,17 +232,26 @@ susie_plot(f3, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_g
 
 ```{r}
 f3 = susie_suff_stat(XtX = d3$XtX, Xty = d3$Xty, yty = d3$yty, n = d3$n, L=10, track_fit = T)
-## remove SNP in CS from f3
-for( cs in 1:length(f3$sets$cs)){
-  pw = rep(1, length(b))
-  pw[f3$sets$cs[[cs]]] = 0
-  f3s2 = susie_suff_stat(XtX = d3$XtX, Xty = d3$Xty, yty = d3$yty, n = d3$n, L=10, track_fit = T, prior_weights = pw)
-  sinit2 = f3s2[c('alpha', 'mu', 'mu2')]
-  class(sinit2) <- c("susie","list")
-  ## initialize at f3s2
-  f3s3 = susie_suff_stat(XtX = d3$XtX, Xty = d3$Xty, yty = d3$yty, n = d3$n, L=10, track_fit = T, s_init = sinit2)
-  susie_plot(f3s3, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f3s3), 4)))
+check = TRUE
+while(check){
+  m = list()
+  for(cs in 1:length(f3$sets$cs)){
+    pw = rep(1, length(b))
+    pw[f3$sets$cs[[cs]]] = 0
+    f3s2 = susie_suff_stat(XtX = d3$XtX, Xty = d3$Xty, yty = d3$yty, n = d3$n, L=10, track_fit = T, prior_weights = pw)
+    sinit2 = f3s2[c('alpha', 'mu', 'mu2')]
+    class(sinit2) = 'susie'
+    f3s3 = susie_suff_stat(XtX = d3$XtX, Xty = d3$Xty, yty = d3$yty, n = d3$n, L=10, track_fit = T, s_init = sinit2)
+    m = c(m, list(f3s3))
+  }
+  elbo = sapply(m, function(x) susie_get_objective(x))
+  if((max(elbo) - susie_get_objective(f3)) <= 0){
+    check=FALSE
+  }else{
+    f3 = m[[which.max(elbo)]]
+  }
 }
+susie_plot(f3, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f3), 4)))
 ```
 
 Scale XtX, Xty, yty, n by 2
