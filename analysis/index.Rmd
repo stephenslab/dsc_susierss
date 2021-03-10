@@ -15,3 +15,6 @@ editor_options:
     [susie convergence benchmark](susie_ukb_20210307_convergence.html)
     
     [susie convergence problem](susie_convergence_problem.html)
+    
+    [susie convergence possible solution](susie_convergence_possible_sol.htlm)
+    
