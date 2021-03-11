@@ -86,6 +86,13 @@ susie_suff:
   instances_per_node: 10
   mem_per_instance: 2G
 
+susie_suff_3steps:
+  queue: stephenslab
+  time_per_instance: 1h
+  instances_per_job: 10
+  instances_per_node: 10
+  mem_per_instance: 2G
+
 susie_suff_init:
   time_per_instance: 1h
   instances_per_job: 30
