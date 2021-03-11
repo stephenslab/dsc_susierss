@@ -16,7 +16,7 @@ DSC:
     default: small_data * sim_gaussian * get_sumstats * (method_susie * score_susie, method_caviar * score_caviar, method_finemapv4 * score_finemapv4, method_finemap * score_finemap)
     test: small_data * sim_gaussian * get_sumstats * finemap * score_finemap
     rss: small_data * sim_gaussian * get_sumstats * (susie_suff, susie_suff_addz, susie_rss, susie_rss_addz, susie_rss_suff, susie_rss_suff_addz) * score_susie
-    init: small_data * sim_gaussian * get_sumstats * (susie_init, susie_suff_init) * score_susie
+    init: small_data * sim_gaussian * get_sumstats * (susie_init, susie_suff_init, susie_suff_3steps) * score_susie
   exec_path: code
   global:
     data_file: data/ukb_genotypes_files.txt

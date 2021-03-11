@@ -146,6 +146,11 @@ susie_suff_init(susie_suff):
   fullrank: FALSE
   estimate_residual_variance: TRUE
 
+susie_suff_3steps(susie_suff): adjustld.R + fit_susie_suff_3steps.R + R(res = susie_suff_3step_multiple(sumstats$bhat, sumstats$shat, r, n, L, estimate_residual_variance))
+  (add_z, ld_method): (FALSE,"in_sample")
+  estimate_residual_variance: TRUE
+  fullrank: FALSE
+
 susie_suff_addz(susie_suff):
   fullrank: FALSE
   (add_z, ld_method): (TRUE,"refout_sample")
