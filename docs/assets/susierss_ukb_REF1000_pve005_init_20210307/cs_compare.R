@@ -25,68 +25,73 @@ plot_panel = function(dat, quantity, legend = TRUE) {
 }
 ## parameters
 input = 'susierss_ukb_REF1000_pve005_init_20210307.2.rds'
+input_3steps = 'susierss_ukb_REF1000_pve005_init_20210307_susie3steps.2.rds'
 
 output_susie = 'susierss_ukb_REF1000_pve005_init_20210307_cs/susierss_ukb_cs'
 
-# dat = readRDS(input)
-# 
-# ## susie
-# methods = unique(dat$method)
-# res = list()
-# for(met in methods){
-#   print(met)
-#   dat_sub = dat %>% filter(method == met)
-#   converged = unlist(dat_sub$score_susie.converged)
-#   total = unlist(dat_sub$score_susie.total) * converged
-#   valid = unlist(dat_sub$score_susie.valid) * converged
-#   sizes = unlist(dat_sub$score_susie.size[converged])
-#   purity = unlist(dat_sub$score_susie.purity[converged])
-#   expected = unlist(dat_sub$sim_gaussian.n_signal) * converged
-#   sigma2 = unlist(dat_sub$score_susie.sigma2) * converged
-#   cat('sigma2:\n')
-#   print(summary(sigma2))
-#   if(grepl('lambda', met)){
-#     lambda = unlist(dat_sub$score_susie.lamb) * converged
-#     cat('lambda:\n')
-#     print(summary(lambda))
-#   }
-#   res[[met]] = list(total = sum(total), valid = sum(valid),
-#                     size = median(sizes, na.rm=T), purity = median(purity, na.rm=T),
-#                     expected = sum(expected), nonconverged = sum(!converged))
-#   res[[met]]$power = res[[met]]$valid/res[[met]]$expected
-#   res[[met]]$coverage = res[[met]]$valid/res[[met]]$total
-#   res[[met]]$power_se = sqrt(res[[met]]$power * (1-res[[met]]$power) / res[[met]]$expected)
-#   res[[met]]$power_se[is.nan(res[[met]]$power_se)] = 0
-#   res[[met]]$coverage_se = sqrt(res[[met]]$coverage * (1-res[[met]]$coverage) / res[[met]]$total)
-# }
-# saveRDS(res, paste0(output_susie, '.rds'))
-# 
-# for(s in 1:3){
-#   methods = unique(dat$method)
-#   # methods = methods[-grep('ldrefin', methods)]
-#   # methods = methods[-grep('AZFALSE_rcorFALSE', methods)]
-#   res = list()
-#   for(met in methods){
-#     print(met)
-#     dat_sub = dat %>% filter(method == met, sim_gaussian.n_signal == s)
-#     converged = unlist(dat_sub$score_susie.converged)
-#     total = unlist(dat_sub$score_susie.total) * converged
-#     valid = unlist(dat_sub$score_susie.valid) * converged
-#     sizes = unlist(dat_sub$score_susie.size[converged])
-#     purity = unlist(dat_sub$score_susie.purity[converged])
-#     expected = unlist(dat_sub$sim_gaussian.n_signal) * converged
-# 
-#     res[[met]] = list(total = sum(total), valid = sum(valid),
-#                       size = median(sizes, na.rm=T), purity = median(purity, na.rm=T),
-#                       expected = sum(expected), nonconverged = sum(!converged))
-#     res[[met]]$power = res[[met]]$valid/res[[met]]$expected
-#     res[[met]]$coverage = res[[met]]$valid/res[[met]]$total
-#     res[[met]]$power_se = sqrt(res[[met]]$power * (1-res[[met]]$power) / res[[met]]$expected)
-#     res[[met]]$power_se[is.nan(res[[met]]$power_se)] = 0
-#     res[[met]]$coverage_se = sqrt(res[[met]]$coverage * (1-res[[met]]$coverage) / res[[met]]$total)
-#   }
-#   saveRDS(res, paste0(output_susie, '_s', s,'.rds'))
-# }
+dat = readRDS(input)
+dat = dat %>% select(-c('ss_init', 'ss_init.fullrank'))
+dat3steps = readRDS(input_3steps)
+colnames(dat3steps) = colnames(dat)
+dat = rbind(dat, dat3steps)
+
+## susie
+methods = unique(dat$method)
+res = list()
+for(met in methods){
+  print(met)
+  dat_sub = dat %>% filter(method == met)
+  converged = unlist(dat_sub$score_susie.converged)
+  total = unlist(dat_sub$score_susie.total) * converged
+  valid = unlist(dat_sub$score_susie.valid) * converged
+  sizes = unlist(dat_sub$score_susie.size[converged])
+  purity = unlist(dat_sub$score_susie.purity[converged])
+  expected = unlist(dat_sub$sim_gaussian.n_signal) * converged
+  sigma2 = unlist(dat_sub$score_susie.sigma2) * converged
+  cat('sigma2:\n')
+  print(summary(sigma2))
+  if(grepl('lambda', met)){
+    lambda = unlist(dat_sub$score_susie.lamb) * converged
+    cat('lambda:\n')
+    print(summary(lambda))
+  }
+  res[[met]] = list(total = sum(total), valid = sum(valid),
+                    size = median(sizes, na.rm=T), purity = median(purity, na.rm=T),
+                    expected = sum(expected), nonconverged = sum(!converged))
+  res[[met]]$power = res[[met]]$valid/res[[met]]$expected
+  res[[met]]$coverage = res[[met]]$valid/res[[met]]$total
+  res[[met]]$power_se = sqrt(res[[met]]$power * (1-res[[met]]$power) / res[[met]]$expected)
+  res[[met]]$power_se[is.nan(res[[met]]$power_se)] = 0
+  res[[met]]$coverage_se = sqrt(res[[met]]$coverage * (1-res[[met]]$coverage) / res[[met]]$total)
+}
+saveRDS(res, paste0(output_susie, '.rds'))
+
+for(s in 1:3){
+  methods = unique(dat$method)
+  # methods = methods[-grep('ldrefin', methods)]
+  # methods = methods[-grep('AZFALSE_rcorFALSE', methods)]
+  res = list()
+  for(met in methods){
+    print(met)
+    dat_sub = dat %>% filter(method == met, sim_gaussian.n_signal == s)
+    converged = unlist(dat_sub$score_susie.converged)
+    total = unlist(dat_sub$score_susie.total) * converged
+    valid = unlist(dat_sub$score_susie.valid) * converged
+    sizes = unlist(dat_sub$score_susie.size[converged])
+    purity = unlist(dat_sub$score_susie.purity[converged])
+    expected = unlist(dat_sub$sim_gaussian.n_signal) * converged
+
+    res[[met]] = list(total = sum(total), valid = sum(valid),
+                      size = median(sizes, na.rm=T), purity = median(purity, na.rm=T),
+                      expected = sum(expected), nonconverged = sum(!converged))
+    res[[met]]$power = res[[met]]$valid/res[[met]]$expected
+    res[[met]]$coverage = res[[met]]$valid/res[[met]]$total
+    res[[met]]$power_se = sqrt(res[[met]]$power * (1-res[[met]]$power) / res[[met]]$expected)
+    res[[met]]$power_se[is.nan(res[[met]]$power_se)] = 0
+    res[[met]]$coverage_se = sqrt(res[[met]]$coverage * (1-res[[met]]$coverage) / res[[met]]$total)
+  }
+  saveRDS(res, paste0(output_susie, '_s', s,'.rds'))
+}
 
 res_susierss = readRDS(paste0(output_susie, '.rds'))
 res_susierssnull = readRDS('../susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/susierss_ukb_cs.rds')
@@ -105,8 +110,8 @@ rates$method[1] = 'susie_initnull'
 rates$method = factor(rates$method, levels = c('susie_initnull', 'susie_initoracle',
                                                'susie_initlasso', 'susie_suff_initnull',
                                                "susie_suff_initoracle", "susie_suff_initlasso" ,
-                                               'FINEMAPv1.4'))
-rates_s = rates[c(1:3,7),]
+                                               'susie_suff_3steps','FINEMAPv1.4'))
+rates_s = rates[c(1:3,8),]
 p1 = plot_panel(rates_s, c('coverage', 'coverage'), legend=F)
 p2 = plot_panel(rates_s, c('power', 'power'), legend=F)
 p3 = plot_panel(rates_s, c('size', 'median number of variables'), legend=F)
@@ -117,7 +122,7 @@ grid.arrange(p1,p2,p3,p4, ncol=4, widths=c(3,3,3,3))
 dev.off()
 system(paste0("convert -flatten -density 120 ", paste0(output, '_plots.pdf'), " ", paste0(output, '_plots.png')))
 
-rates_ss = rates[c(4:7),]
+rates_ss = rates[c(4:8),]
 p1 = plot_panel(rates_ss, c('coverage', 'coverage'), legend=F)
 p2 = plot_panel(rates_ss, c('power', 'power'), legend=F)
 p3 = plot_panel(rates_ss, c('size', 'median number of variables'), legend=F)
