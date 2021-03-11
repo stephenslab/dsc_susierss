@@ -1,0 +1,39 @@
+---
+title: "SuSiE-RSS UKB"
+author: "Yuxin Zou"
+date: "3/8/2021"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+This simulation uses UKB genotype data. We extract the genotype regions based on height GWAS result. There are 200 regions, each with 1000 SNPs. We sample 50,000 individuals to simulate the data. We simulate data with 1,2,3 signals and PVE 0.005. We run susie/susie_suff_stat with L=10. We estimate residual and prior variance. We try different initialization, 'null' = default initialization; 'oracle' = initialize at truth, 'lasso' = initialize using LASSO CV solution. We run FINEMAP with oracle number of signals. 
+
+## Power vs FDR
+
+![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_roc/susie_init_roc.pr.susiesuff.ERTRUE.png)
+
+## CS
+
+Overall
+
+![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_cs/susie_ss_cs_plots.png)
+
+1 signal
+
+![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_cs/susie_ss_cs_s1_plots.png)
+
+2 signals
+
+![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_cs/susie_ss_cs_s2_plots.png)
+
+3 signals
+
+![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_cs/susie_ss_cs_s3_plots.png)
+
+## ELBO
+
+![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_elbo/susie_ukb_elbo_nullvslasso.png){width=30%} ![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_elbo/susie_ukb_elbo_nullvstrue.png){width=30%} ![](assets/susierss_ukb_REF1000_pve005_init_20210307/susierss_ukb_REF1000_pve005_init_20210307_elbo/susie_ukb_elbo_lassovstrue.png){width=30%}
+
+
+

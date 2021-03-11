@@ -41,7 +41,7 @@ points(idx, log10p[idx], col='red', pch = 16)
 
 The SNP with strongest marginal association is 236. The correlation between causal SNPs and top SNP is
 ```{r}
-d1$ld[c(234, 236, 287), c(234, 236, 287)]
+cov2cor(d1$XtX)[c(234, 236, 287), c(234, 236, 287)]
 ```
 
 Using L = 3, the susie model gives 3 CSs. (I used susie_suff_stat, which gives the same result as susie.)
@@ -55,7 +55,7 @@ summary(f1)
 
 The SNPs in CS1 and CS3 are partially correlated with SNP 234. The correlation between them is
 ```{r}
-d1$ld[c(233, 234, 236), c(233, 234, 236)]
+cov2cor(d1$XtX)[c(233, 234, 236), c(233, 234, 236)]
 ```
 
 ```{r, eval=FALSE}
@@ -113,11 +113,11 @@ lambdaIndex = which.min(L0fit$cvMeans[[1]])
 L0coef = as.numeric(coef(L0fit$fit, lambda = L0fit$fit$lambda[[1]][lambdaIndex]))
 effect.beta = L0coef[which(L0coef!=0)][-1]
 effect.index = (which(L0coef!=0)-1)[-1] 
-length(effect.beta)
 ```
+
+The effect SNPs are 
 ```{r}
-effect.beta[1:4]
-effect.index[1:4]
+effect.index
 ```
 
 ```{r}
@@ -147,7 +147,7 @@ points(idx, log10p[idx], col='red', pch = 16)
 
 The SNP with strongest marginal association is 222. The correlation between causal SNPs and top SNP is
 ```{r}
-d2$ld[c(222, idx), c(222, idx)]
+cov2cor(d2$XtX)[c(222, idx), c(222, idx)]
 ```
 Using L = 10, the susie model gives 1 CS.
 ```{r}
@@ -248,7 +248,10 @@ lambdaIndex = which.min(L0fit$cvMeans[[1]])
 L0coef = as.numeric(coef(L0fit$fit, lambda = L0fit$fit$lambda[[1]][lambdaIndex]))
 effect.beta = L0coef[which(L0coef!=0)][-1]
 effect.index = (which(L0coef!=0)-1)[-1] 
-length(effect.beta)
+```
+The effect SNPs are 
+```{r}
+effect.index
 ```
 
 ```{r}
