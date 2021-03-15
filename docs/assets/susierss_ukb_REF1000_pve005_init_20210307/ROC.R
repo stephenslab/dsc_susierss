@@ -54,22 +54,23 @@ input = paste0('susierss_ukb_REF1000_pve005_init_20210307_pip_extraction/susie_p
 
 output = paste0('susierss_ukb_REF1000_pve005_init_20210307_roc/susie_init_roc')
 
-dat = readRDS(input)
-
-print("Computing ROC data ...")
-tb = list()
-for (method in names(dat)) {
-  print(method)
-  tb[[method]] = roc_data(dat[[method]])
-}
-saveRDS(tb, paste0(output, '.rds'))
+# dat = readRDS(input)
+# 
+# print("Computing ROC data ...")
+# tb = list()
+# for (method in names(dat)) {
+#   print(method)
+#   tb[[method]] = roc_data(dat[[method]])
+# }
+# saveRDS(tb, paste0(output, '.rds'))
 
 # ## plot
 tb = readRDS(paste0(output, '.rds'))
 tb_other = readRDS('../susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/ukb_roc.rds')
-tb_initna = list(susie_suff_initnull = tb_other[['susie_suff_ERTRUE_ldin_AZFALSE_rcorNA_scalezNA']])
-tb_fm = list(FINEMAPv1.1 = tb_other[['FINEMAPv1.1_ldin_AZFALSE_scalezNA']],
-             FINEMAPv1.4 = tb_other[['FINEMAPv1.4_ldin_AZFALSE_scalezNA']])
+tb_initna = list(susie_suff_initnull = tb_other[['susie_suff_ERTRUE_ldin_AZFALSE_rcorFALSE']])
+tb_fm = list(FINEMAPv1.1 = tb_other[['FINEMAPv1.1_ldin_AZFALSE']],
+             FINEMAPv1.4 = tb_other[['finemapv4_ldin_AZFALSE']],
+             FINEMAPv1.4L4 = tb_other[['finemapv4L4_ldin_AZFALSE']])
 tb = c(tb_initna, tb, tb_fm)
 names(tb)[2] = 'susie_initnull'
 type = 'pr'
@@ -84,7 +85,7 @@ i = 1
 labels = vector()
 for (method in c('susie_suff_initnull', 'susie_suff_initoracle', 'susie_suff_initlasso',
                  'susie_suff_3steps',
-                 "FINEMAPv1.1", "FINEMAPv1.4")) {
+                 "FINEMAPv1.1", "FINEMAPv1.4", "FINEMAPv1.4L4")) {
   yy = make_smooth((1 - tb[[method]][[type]][,1]), tb[[method]][[type]][,2])
   if (i == 1) {
     plot(yy$x, yy$y, t="l", col=colors[i], ylab = ylab, xlab = xlab, main = main, bty='l',
