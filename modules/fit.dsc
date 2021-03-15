@@ -84,6 +84,12 @@ finemapv4(caviar): fit_finemap_v4.R + add_z.R + R(b = $(meta)$true_coef;
   (addz, ld_method, rcor): (FALSE, "in_sample",TRUE),(FALSE, "refout_sample",TRUE),(TRUE, "refout_sample",TRUE)
   cache: file(FM)
 
+finemapv4L4(finemapv4): fit_finemap_v4.R + add_z.R + R(posterior = finemap_mvar_v1.4(sumstats$bhat, sumstats$shat,
+                                                                  maf[[ld_method]], ld_file, N_in, k, method, args, 
+                                                                  prefix=cache))
+  args: '-n-causal-snps 4'
+
+
 finemapv4_gtex(finemapv4):
   (addz, ld_method, rcor): (FALSE, "in_sample",TRUE),(FALSE, "out_sample",TRUE),(TRUE, "out_sample",TRUE)
 
@@ -134,8 +140,9 @@ susie_suff: initialize.R + adjustld.R + fit_susie_suff.R + R(if(is.na(init)){
   L: 10
   ld: $ld
   estimate_residual_variance: TRUE, FALSE
-  fullrank: TRUE, FALSE
-  (add_z, ld_method): (FALSE,"in_sample"),(FALSE,"refout_sample")
+  (add_z, ld_method): (FALSE,"in_sample"),(FALSE,"refin_sample"),(FALSE,"refout_sample")
+  fullrank: FALSE
+  rcor: FALSE
   init: NA
   $fitted: res$fitted
   $posterior: res$posterior
@@ -146,22 +153,29 @@ susie_suff_init(susie_suff):
   fullrank: FALSE
   estimate_residual_variance: TRUE
 
-susie_suff_3steps(susie_suff): adjustld.R + fit_susie_suff_3steps.R + R(res = susie_suff_3step_multiple(sumstats$bhat, sumstats$shat, r, n, L, estimate_residual_variance))
-  (add_z, ld_method): (FALSE,"in_sample")
-  estimate_residual_variance: TRUE
-  fullrank: FALSE
-
 susie_suff_addz(susie_suff):
-  fullrank: FALSE
-  (add_z, ld_method): (TRUE,"refout_sample")
+  (add_z, ld_method): (TRUE,"refin_sample"), (TRUE,"refout_sample")
   rcor: FALSE, TRUE
   
+susie_suff_3steps(susie_suff): adjustld.R + fit_susie_suff_3steps.R + R(res = susie_suff_3steps_multiple(sumstats$bhat, sumstats$shat, r, n, L, estimate_residual_variance))
+  
+susie_suff_3steps_addz(susie_suff_3steps):
+  (add_z, ld_method): (TRUE,"refin_sample"), (TRUE,"refout_sample")
+  rcor: FALSE, TRUE
+
+###### gtex
+
 susie_suff_gtex(susie_suff):
-  fullrank: FALSE
   (add_z, ld_method): (FALSE,"in_sample"),(FALSE,"out_sample")
 
 susie_suff_addz_gtex(susie_suff_gtex):
-  fullrank: FALSE
+  (add_z, ld_method): (TRUE,"out_sample")
+  rcor: FALSE, TRUE
+
+susie_suff_3steps_gtex(susie_suff_3steps):
+  (add_z, ld_method): (FALSE,"in_sample"),(FALSE,"out_sample")
+
+susie_suff_3steps_addz_gtex(susie_suff_3steps):
   (add_z, ld_method): (TRUE,"out_sample")
   rcor: FALSE, TRUE
   
@@ -191,22 +205,41 @@ susie_rss: initialize.R + adjustld.R + fit_susie_rss.R + R(if(is.na(init)){
   z_ld_weight: NA
   add_z: FALSE
   rcor: FALSE
-  fullrank: TRUE, FALSE
+  fullrank: FALSE
   init: NA
   $fitted: res$fitted
   $posterior: res$posterior
 
 susie_rss_addz(susie_rss):
-  ld_method: "refout_sample"
+  ld_method: "refin_sample", "refout_sample"
   add_z: TRUE
   rcor: FALSE, TRUE
-  fullrank: FALSE
+
+susie_rss_3steps(susie_rss): adjustld.R + fit_susie_rss_3steps.R + \
+                          R(if(!is.na(z_ld_weight)){
+                              res = susie_rss_3steps_multiple(z, r, L, z_ld_weight, estimate_residual_variance);
+                            }else{
+                              res = susie_rss_3steps_multiple(z, r, L, 0, estimate_residual_variance);})
+
+susie_rss_3steps_addz(susie_rss_3steps):
+  ld_method: "refin_sample", "refout_sample"
+  add_z: TRUE
+  rcor: FALSE, TRUE
+
+#########gtex
 
 susie_rss_gtex(susie_rss):
   ld_method: "in_sample", "out_sample"
-  fullrank: FALSE
 
-susie_rss_addz_gtex(susie_rss_gtex):
+susie_rss_addz_gtex(susie_rss):
+  ld_method: "out_sample"
+  add_z: TRUE
+  rcor: FALSE, TRUE
+
+susie_rss_3steps_gtex(susie_rss_3steps):
+  ld_method: "in_sample", "out_sample"
+
+susie_rss_3steps_addz_gtex(susie_rss_3steps):
   ld_method: "out_sample"
   add_z: TRUE
   rcor: FALSE, TRUE
@@ -217,44 +250,59 @@ susie_rss_init(susie_rss):
 susie_rss_zldweight(susie_rss):
   z_ld_weight: 0, 0.001, 0.002, 0.005, 0.01, 0.02
 
-susie_rss_suff(susie_rss): initialize.R + adjustld.R + fit_susie_rsssuff.R + R(if(is.na(init)){
-                                                                                 s_init = NA;
-                                                                               }else if(init == 'oracle'){
-                                                                                 s_init = init_susie_rss_true($(meta)$true_coef, n);
-                                                                               }else if(init == 'lasso'){
-                                                                                 s_init = init_rss_lasso(z,r,L);
-                                                                               };
-                                                                               res = susie_rsssuff_multiple(z, r, L, s_init, estimate_residual_variance))
+###################################
+
+susie_rss_suff(susie_rss): initialize.R + adjustld.R + fit_susie_rsssuff.R + \
+                           R(if(is.na(init)){
+                               s_init = NA;
+                             }else if(init == 'oracle'){
+                               s_init = init_susie_rss_true($(meta)$true_coef, n);
+                             }else if(init == 'lasso'){
+                               s_init = init_rss_lasso(z,r,L);
+                             };
+                             res = susie_rsssuff_multiple(z, r, L, s_init, estimate_residual_variance))
   estimate_residual_variance: FALSE
-  fullrank: TRUE, FALSE
-  add_z: FALSE
-  rcor: FALSE
 
 susie_rss_suff_addz(susie_rss_suff):
-  estimate_residual_variance: FALSE
-  ld_method: "refout_sample"
-  fullrank: FALSE
+  ld_method: "refin_sample", "refout_sample"
   add_z: TRUE
   rcor: FALSE, TRUE
   
+susie_rss_suff_3steps(susie_rss): adjustld.R + fit_susie_rss_suff_3steps.R + \
+                                  R(res = susie_rsssuff_3steps_multiple(z, r, L))
+  
+susie_rss_suff_3steps_addz(susie_rss_suff_3steps):
+  ld_method: "refin_sample", "refout_sample"
+  add_z: TRUE
+  rcor: FALSE, TRUE
+
+############ gtex
 susie_rss_suff_gtex(susie_rss_suff):
   ld_method: "in_sample", "out_sample"
-  fullrank: FALSE
 
 susie_rss_suff_addz_gtex(susie_rss_suff):
   ld_method: "out_sample"
   add_z: TRUE
   rcor: FALSE, TRUE
-  fullrank: FALSE
-  
-susie_rss_lambda: initialize.R + adjustld.R + fit_susie_rss_lambda.R + R(if(is.na(init)){
-                                                                           s_init = NA;
-                                                                         }else if(init == 'oracle'){
-                                                                           s_init = init_susie_rss_true($(meta)$true_coef, n);
-                                                                         }else if(init == 'lasso'){
-                                                                           s_init = init_rss_lasso(z,r,L);
-                                                                         };
-                                                                         res = susie_rss_lamb_multiple(z, r, L, lamb, s_init, estimate_residual_variance))
+
+susie_rss_suff_3steps_gtex(susie_rss_suff_3steps):
+  ld_method: "in_sample", "out_sample"
+
+susie_rss_suff_3steps_addz_gtex(susie_rss_suff_3steps):
+  ld_method: "out_sample"
+  add_z: TRUE
+  rcor: FALSE, TRUE
+
+########################################
+susie_rss_lambda: initialize.R + adjustld.R + fit_susie_rss_lambda.R + \
+                  R(if(is.na(init)){
+                      s_init = NA;
+                    }else if(init == 'oracle'){
+                      s_init = init_susie_rss_true($(meta)$true_coef, n);
+                    }else if(init == 'lasso'){
+                      s_init = init_rss_lasso(z,r,L);
+                    };
+                    res = susie_rss_lamb_multiple(z, r, L, lamb, s_init, estimate_residual_variance))
   @CONF: R_libs = (susieR, data.table)
   sumstats: $sumstats
   ld: $ld
@@ -265,19 +313,41 @@ susie_rss_lambda: initialize.R + adjustld.R + fit_susie_rss_lambda.R + R(if(is.n
   estimate_residual_variance: TRUE, FALSE
   add_z: FALSE
   ld_method: "in_sample", "refin_sample", "refout_sample"
-  fullrank: FALSE, TRUE
+  fullrank: FALSE
   rcor: FALSE
   init: NA
   $fitted: res$fitted
   $posterior: res$posterior
-  
+
+susie_rss_lambda_addz(susie_rss_lambda):
+  add_z: TRUE
+  ld_method: "refin_sample", "refout_sample"
+  rcor: FALSE, TRUE
+
+susie_rss_lambda_3steps(susie_rss_lambda): adjustld.R + fit_susie_rss_lambda_3steps.R + \
+                                           R(res = susie_rss_lamb_3steps_multiple(z, r, L, lamb,estimate_residual_variance))
+
+susie_rss_lambda_3steps_addz(susie_rss_lambda_3steps):
+  add_z: TRUE
+  ld_method: "refin_sample", "refout_sample"
+  rcor: FALSE, TRUE
+
+############gtex
+
 susie_rss_lambda_gtex(susie_rss_lambda):
   ld_method: "in_sample", "out_sample"
   
 susie_rss_lambda_addz_gtex(susie_rss_lambda_gtex):
   ld_method: 'out_sample'
   add_z: TRUE
-  fullrank: FALSE
+  rcor: FALSE, TRUE
+  
+susie_rss_lambda_3steps_gtex(susie_rss_lambda_3steps):
+  ld_method: "in_sample", "out_sample"
+
+susie_rss_lambda_3steps_addz_gtex(susie_rss_lambda_3steps):
+  ld_method: "out_sample"
+  add_z: TRUE
   rcor: FALSE, TRUE
   
 susie_rss_lambda_init(susie_rss_lambda):

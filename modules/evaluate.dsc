@@ -54,6 +54,13 @@ score_finemapv4: finemap_scores.R + R(sc = finemap_v1.4_scores_multiple($(poster
     $total: sc$total
     $valid: sc$valid
     $size: sc$size
+    $purity: sc$purity
+    $avgr2: sc$avgr2
+    $total_pure: sc$total_pure
+    $valid_pure: sc$valid_pure
+    $size_pure: sc$size_pure
+    $purity_pure: sc$purity_pure
+    $avgr2_pure: sc$avgr2_pure
     $signal_pip: sc$signal_pip
     $pip: sc$pip
     

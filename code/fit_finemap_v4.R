@@ -71,9 +71,16 @@ run_finemap_v1.4 <- function(bhat, se, allele_freq, LD_file, n, k, method,args =
     first_line <- readLines(paste(c(path, files[i]), collapse = '/'),n=1)
     prob[i] = as.numeric(unlist(strsplit(first_line, '= '))[2])
   }
+  
   cred = read.table(paste(c(path, files[which.max(prob)]), collapse = '/'),header = T, sep='')
   cred = cred[,grep('cred',colnames(cred)), drop=FALSE]
   cs = lapply(1:ncol(cred), function(i) cred[,i][!is.na(cred[,i])] )
+  purity = matrix(unlist(strsplit(readLines(paste(c(path, files[which.max(prob)]), collapse = '/'),n=5)[3:5],' ')), 
+                  nrow=3, byrow = T)
+  purity = purity[,2*(1:length(cs)), drop=FALSE]
+  class(purity) <- "numeric"
+  purity = t(purity)
+  colnames(purity) = c('min.abs.corr', 'mean.abs.corr','median.abs.corr')
   
   # extract number of causal
   if(method == 'sss'){
@@ -82,7 +89,7 @@ run_finemap_v1.4 <- function(bhat, se, allele_freq, LD_file, n, k, method,args =
     ncausal = finemap_extract_ncausal_v1.4(paste0(cfg$log, '_cond'))
   }
   
-  return(list(snp=snp, config=config, set=cs, ncausal=ncausal))
+  return(list(snp=snp, config=config, set=cs, ncausal=ncausal, purity = purity))
 }
 
 rank_snp_v1.4 <- function(snp) {

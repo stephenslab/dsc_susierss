@@ -30,21 +30,21 @@ susie_suff_3steps = function(bhat, shat, R, n, L, estimate_residual_variance){
   return(f)
 }
 
-susie_suff_3step_analyze = function(bhat, shat, R, n, L, estimate_residual_variance) {
+susie_suff_3steps_analyze = function(bhat, shat, R, n, L, estimate_residual_variance) {
   
-  fit = tryCatch(susie_suff_3steps(bhat, shat, R, n=n, L=L,
+  fit = tryCatch(susie_suff_3steps(bhat, shat, R, n, L,
                                  estimate_residual_variance = estimate_residual_variance),
                  error = function(e) list(sets = NULL, pip=NULL))
   return(fit)
 }
 
-susie_suff_3step_multiple = function(Bhat,Shat,R, n, L, estimate_residual_variance) {
+susie_suff_3steps_multiple = function(Bhat,Shat,R, n, L, estimate_residual_variance) {
   fitted = list()
   posterior = list()
   if (is.null(dim(Bhat))) Bhat = matrix(ncol=1, Bhat)
   if (is.null(dim(Shat))) Shat = matrix(ncol=1, Shat)
   for (r in 1:ncol(Bhat)) {
-    fitted[[r]] = susie_suff_3step_analyze(Bhat[,r],Shat[,r], R, n,
+    fitted[[r]] = susie_suff_3steps_analyze(Bhat[,r],Shat[,r], R, n,
                                            L=L, 
                                            estimate_residual_variance)
     if(is.null(fitted[[r]]$sets))
