@@ -11,7 +11,7 @@ This simulation uses UKB genotype data. We extract the genotype regions based on
 
 We first check the impact of estimating residual variance.
 
-![](docs/assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.residual_suff.png){width=30%} ![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.residual_rss.png){width=30%} ![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.residual_rss_lambda.png){width=30%}
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.residual_suff.png){width=30%} ![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.residual_rss.png){width=30%} ![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.residual_rss_lambda.png){width=30%}
 
 The results are similar. We fix residual variance as 1 in the following comparisons.
 
