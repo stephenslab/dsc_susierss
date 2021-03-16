@@ -7,79 +7,95 @@ output:
     code_folding: hide
 ---
 
-This simulation uses UKB genotype data. We extract the genotype regions based on height GWAS result. There are 200 regions, each with 1000 SNPs. We sample 50,000 individuals to simulate the data. We sample another 1000 samples to get reference LD matrix. We simulate data with 1,2,3 signals and PVE 0.005. We run susie_rss with L=10. We run FINEMAP and CAVIAR with oracle number of signals.
+This simulation uses UKB genotype data. We extract the genotype regions based on height GWAS result. There are 200 regions, each with 1000 SNPs. We sample 50,000 individuals to simulate the data. We sample another 1000 samples to get reference LD matrix. We simulate data with 1,2,3 signals and PVE 0.005. We run susie_rss with L=10. We run FINEMAPv1.1 and CAVIAR with oracle number of signals. We run FINEMAPv1.4 with oracle number of signals and max 4 signals. 
 
 We first check the impact of estimating residual variance.
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.residual_suff.png){width=30%} ![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.residual_rss.png){width=30%} ![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.residual_rss_lambda.png){width=30%}
+![](docs/assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.residual_suff.png){width=30%} ![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.residual_rss.png){width=30%} ![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.residual_rss_lambda.png){width=30%}
 
-The results are similar. Estimating residual variance gives slightly higher power. We estimate residual variance in the following comparisons.
+The results are similar. We fix residual variance as 1 in the following comparisons.
 
 ## PIP Calibration
 
 SuSiE-RSS
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_susierss.png)
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_susierss.png)
+
+SuSiE-RSS-suff
+
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_susiersssuff.png)
 
 SuSiE-RSS-lambda
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_susiersslambda.png)
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_susiersslambda.png)
 
 CAVIAR
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_caviar.png)
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_caviar.png)
 
 FINEMAP v1.1
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_fmv1.png)
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_fmv1.png)
 
 FINEMAP v1.4
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_fmv4.png)
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_fmv4.png)
+
+FINEMAP v1.4 L4
+
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_pip_calibration/ukb_pip_calib_fmv4L4.png)
 
 ## Power vs FDR
 
 Using in sample LD
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/ukb_roc.pr.ERTRUE_ldin_methods.png){width=70%}
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/ukb_roc.pr.ERFALSE_ldin_methods.png){width=70%}
+
+Using ref LD
+
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/ukb_roc.pr.ERFALSE_ldref_methods.png){width=70%}
 
 SuSiE-RSS with reference LD
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.ERTRUE_ld.png){width=70%}
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc.pr.ERFALSE_ld.png){width=70%}
+
+SuSiE-RSS-suff with reference LD
+
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susiersssuff_ukb_roc.pr.ERFALSE_ld.png){width=70%}
 
 SuSiE-RSS-lambda with reference LD
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc_lambda.pr.ERTRUE_ld.png){width=70%}
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/susierss_ukb_roc_lambda.pr.ERFALSE_ld.png){width=70%}
 
 CAVIAR with reference LD
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/caviar_ukb_roc.pr_ld.png){width=70%}
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/caviar_ukb_roc.pr_ld.png){width=70%}
 
 FINEMAP v1.1 with reference LD
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/finemapv1_ukb_roc.pr_ld.png){width=70%}
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/finemapv1_ukb_roc.pr_ld.png){width=70%}
 
 FINEMAP v1.4 with reference LD
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/finemapv4_ukb_roc.pr_ld.png){width=70%}
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_roc/finemapv4_ukb_roc.pr_ld.png){width=70%}
 
 ## CS
 
 Overall
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/ukb_cs_plots.png)
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/ukb_cs_original_plots.png)
 
 1 signal
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/ukb_cs_s1_plots.png)
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/ukb_cs_original_s1_plots.png)
 
 2 signals
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/ukb_cs_s2_plots.png)
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/ukb_cs_original_s2_plots.png)
 
 3 signals
 
-![](assets/susierss_ukb_20210218_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/ukb_cs_s3_plots.png)
+![](assets/susierss_ukb_20210314_REF1000_pve005/susierss_ukb_20210218_REF1000_pve005_cs/ukb_cs_original_s3_plots.png)
 
 
 
