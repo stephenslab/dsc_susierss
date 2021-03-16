@@ -18,3 +18,5 @@ editor_options:
     
     [susie convergence possible solution](susie_convergence_possible_sol.htlm)
     
+    [susierss with 3 steps procedure](susierss_3steps_ukb_20210314.html)
+    
