@@ -220,9 +220,10 @@ rates_ERFALSE_d2 = rates_ERFALSE[d2,]
 rates_ERFALSE_d1$method = sapply(rownames(rates_ERFALSE_d1), function(x) rename_ERFALSE[[x]])
 rates_ERFALSE_d1$method = factor(rates_ERFALSE_d1$method, 
                                  levels = c('susie_suff_3steps', 'susie_rss_3steps', 'susie_rss_suff_3steps',
-                                            'susie_rss_lambda_3steps', 'finemapv4', 'finemapv4L4',
+                                            'susie_rss_lambda_3steps', 'FINEMAPv1.4', 'FINEMAPv1.4L4',
                                             'susie_rss_3steps_ldref', 'susie_rss_suff_3steps_ldref',
-                                            'susie_rss_lambda_3steps_ldref', 'finemapv4_ldref','finemapv4L4_ldref'))
+                                            'susie_rss_lambda_3steps_ldref', 'FINEMAPv1.4_ldref',
+                                            'FINEMAPv1.4L4_ldref'))
 
 p1 = plot_panel(rates_ERFALSE_d1, c('coverage', 'coverage'), legend=F)
 p2 = plot_panel(rates_ERFALSE_d1, c('power', 'power'), legend=F)
@@ -237,9 +238,10 @@ system(paste0("convert -flatten -density 120 ", paste0(output, '_plots.pdf'), " 
 rates_ERFALSE_d2$method = sapply(rownames(rates_ERFALSE_d2), function(x) rename_ERFALSE[[x]])
 rates_ERFALSE_d2$method = factor(rates_ERFALSE_d2$method, 
                                  levels = c('susie_suff', 'susie_rss', 'susie_rss_suff',
-                                            'susie_rss_lambda', 'finemapv4', 'finemapv4L4',
+                                            'susie_rss_lambda', 'FINEMAPv1.4', 'FINEMAPv1.4L4',
                                             'susie_rss_ldref', 'susie_rss_suff_ldref',
-                                            'susie_rss_lambda_ldref', 'finemapv4_ldref','finemapv4L4_ldref'))
+                                            'susie_rss_lambda_ldref', 'FINEMAPv1.4_ldref',
+                                            'FINEMAPv1.4L4_ldref'))
 
 p1 = plot_panel(rates_ERFALSE_d2, c('coverage', 'coverage'), legend=F)
 p2 = plot_panel(rates_ERFALSE_d2, c('power', 'power'), legend=F)
@@ -276,6 +278,7 @@ for(s in 1:3){
   rename_mets = gsub('_rcorTRUE', '_cor', rename_mets)
   rename_mets = gsub('_AZFALSE', '', rename_mets)
   rename_mets = gsub('_pure', '', rename_mets)
+  rename_mets = gsub('finemapv4', 'FINEMAPv1.4', rename_mets)
   rename = as.list(rename_mets)
   names(rename) = methods
   
@@ -293,9 +296,10 @@ for(s in 1:3){
   rates_ERFALSE_d1$method = sapply(rownames(rates_ERFALSE_d1), function(x) rename_ERFALSE[[x]])
   rates_ERFALSE_d1$method = factor(rates_ERFALSE_d1$method, 
                                    levels = c('susie_suff_3steps', 'susie_rss_3steps', 'susie_rss_suff_3steps',
-                                              'susie_rss_lambda_3steps', 'finemapv4', 'finemapv4L4',
+                                              'susie_rss_lambda_3steps', 'FINEMAPv1.4', 'FINEMAPv1.4L4',
                                               'susie_rss_3steps_ldref', 'susie_rss_suff_3steps_ldref',
-                                              'susie_rss_lambda_3steps_ldref', 'finemapv4_ldref','finemapv4L4_ldref'))
+                                              'susie_rss_lambda_3steps_ldref', 'FINEMAPv1.4_ldref',
+                                              'FINEMAPv1.4L4_ldref'))
   
   p1 = plot_panel(rates_ERFALSE_d1, c('coverage', 'coverage'), legend=F)
   p2 = plot_panel(rates_ERFALSE_d1, c('power', 'power'), legend=F)
@@ -310,9 +314,10 @@ for(s in 1:3){
   rates_ERFALSE_d2$method = sapply(rownames(rates_ERFALSE_d2), function(x) rename_ERFALSE[[x]])
   rates_ERFALSE_d2$method = factor(rates_ERFALSE_d2$method, 
                                    levels = c('susie_suff', 'susie_rss', 'susie_rss_suff',
-                                              'susie_rss_lambda', 'finemapv4', 'finemapv4L4',
+                                              'susie_rss_lambda', 'FINEMAPv1.4', 'FINEMAPv1.4L4',
                                               'susie_rss_ldref', 'susie_rss_suff_ldref',
-                                              'susie_rss_lambda_ldref', 'finemapv4_ldref','finemapv4L4_ldref'))
+                                              'susie_rss_lambda_ldref', 'FINEMAPv1.4_ldref',
+                                              'FINEMAPv1.4L4_ldref'))
   
   p1 = plot_panel(rates_ERFALSE_d2, c('coverage', 'coverage'), legend=F)
   p2 = plot_panel(rates_ERFALSE_d2, c('power', 'power'), legend=F)
