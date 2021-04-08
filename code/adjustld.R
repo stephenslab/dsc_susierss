@@ -1,10 +1,10 @@
 library(data.table)
 z = sumstats$bhat/sumstats$shat;
-r = as.matrix(fread(ld[[ld_method]]));
+r = as.matrix(fread(ld[[ldmethod]]));
 
-if(add_z){
-  if(ld_method == 'refin_sample' || ld_method == 'refout_sample'){
-    if (is.null(N_ref)) stop("Cannot use add_z out sample LD when N_out is not available (NULL)")
+if(addz){
+  if(ldmethod == 'refin_sample' || ldmethod == 'refout_sample'){
+    if (is.null(N_ref)) stop("Cannot use addz out sample LD when N_out is not available (NULL)")
     r = (r*(N_ref-1) + tcrossprod(z))/N_ref;
     if(rcor){
       r = cov2cor(r);
@@ -19,10 +19,18 @@ if(add_z){
   }
 }
 
-if(fullrank){
-  eigenr = eigen(r, symmetric = T, only.values = TRUE)
-  if(min(eigenr$values) < 1e-8){
-    r = r + 1e-4 * diag(length(z))
+if(lamb == 'estimate'){
+  eigenR = eigen(r, symmetric = T)
+  colspace = which(eigenR$values > 1e-8)
+  if(length(colspace) == length(z)){
+    lamb = 0
+  }else{
+    znull = crossprod(eigenR$vectors[,-colspace], z) # U2^T z
+    lamb = sum(znull^2)/length(znull)
   }
 }
+r = (1-lamb) * r + lamb * diag(length(z))
+
+write.table(r,ldfile,quote=F,col.names=F,row.names=F)
+
 
