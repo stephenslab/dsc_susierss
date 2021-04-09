@@ -20,3 +20,8 @@ editor_options:
     
     [susierss with 3 steps procedure](susierss_3steps_ukb_20210314.html)
     
+* [20210324 result ref1000](susierss_ukb_20210324_ref1000.html)
+
+    [20210324 result ref500](susierss_ukb_20210324_ref500.html)
+
+
