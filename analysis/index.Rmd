@@ -23,5 +23,7 @@ editor_options:
 * [20210324 result ref1000](susierss_ukb_20210324_ref1000.html)
 
     [20210324 result ref500](susierss_ukb_20210324_ref500.html)
+    
+    [20210324 result ref500 LD eg](susierss_ukb_20210324_ref500_ldref.html)
 
 
