@@ -1,0 +1,101 @@
+---
+title: "SuSiE-RSS REF LD"
+author: "Yuxin Zou"
+date: "4/8/2021"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+```{r}
+library(data.table)
+```
+
+The z scores are computed using 50,000 individuals. We sample another 500 samples to get reference LD matrix.
+
+## Data 1 (fail to converge)
+
+```{r}
+dat <- dscrutils:::load_inputs(c('output/susierss_ukb_REF500_pve005/small_data/small_data_65.rds',
+                                 'output/susierss_ukb_REF500_pve005/sim_gaussian/small_data_65_sim_gaussian_2.rds',
+                                 'output/susierss_ukb_REF500_pve005/adjustld/small_data_265_sim_gaussian_5_get_sumstats_2_adjustld_18.rds'),
+                               dscrutils:::read_dsc)
+```
+
+The simulated z scores are
+```{r}
+z <- dat$z
+idx = which(dat$meta$true_coef!=0) # 556 691
+plot(z)
+points(idx, z[idx], col='red', pch=16)
+```
+
+Using in sample LD:
+```{r}
+ldin = as.matrix(fread(dat$ld$in_sample, header=F))
+res_ldin = susieR::susie_rss(z, R = ldin, L = 10)
+susieR::susie_plot(res_ldin, y='PIP', b=dat$meta$true_coef)
+```
+
+Using ref LD:
+```{r}
+ldref = as.matrix(fread(dat$ld$refout_sample, header=F))
+res_ldref = susieR::susie_rss(z, R = ldref, L = 10, max_iter = 2000)
+susieR::susie_plot(res_ldref, y='PIP', b=dat$meta$true_coef)
+```
+
+Using ref LD with estimated lambda (lambda = 0.00491):
+```{r}
+ldreflamb = as.matrix(fread(dat$ldinfo$ldfile, header=F))
+res_ldreflamb = susieR::susie_rss(z, R = ldreflamb, L = 10, max_iter = 2000)
+susieR::susie_plot(res_ldreflamb, y='PIP', b=dat$meta$true_coef)
+```
+
+## Data 2
+
+```{r}
+dat <- dscrutils:::load_inputs(c('output/susierss_ukb_REF500_pve005/small_data/small_data_53.rds',
+                                 'output/susierss_ukb_REF500_pve005/sim_gaussian/small_data_53_sim_gaussian_2.rds',
+                                 'output/susierss_ukb_REF500_pve005/adjustld/small_data_253_sim_gaussian_5_get_sumstats_2_adjustld_18.rds'),
+                               dscrutils:::read_dsc)
+```
+
+The simulated z scores are
+```{r}
+z <- dat$z
+idx = which(dat$meta$true_coef!=0) # 139 309
+plot(z)
+points(idx, z[idx], col='red', pch=16)
+```
+
+Using in sample LD:
+```{r}
+ldin = as.matrix(fread(dat$ld$in_sample, header=F))
+res_ldin = susieR::susie_rss(z, R = ldin, L = 10)
+susieR::susie_plot(res_ldin, y='PIP', b=dat$meta$true_coef)
+```
+
+Using ref LD:
+```{r}
+ldref = as.matrix(fread(dat$ld$refout_sample, header=F))
+res_ldref = susieR::susie_rss(z, R = ldref, L = 10, max_iter = 2000)
+susieR::susie_plot(res_ldref, y='PIP', b=dat$meta$true_coef)
+```
+
+
+Using ref LD with estimated lambda (lambda = 0.00751):
+```{r}
+ldreflamb = as.matrix(fread(dat$ldinfo$ldfile, header=F))
+res_ldreflamb = susieR::susie_rss(z, R = ldreflamb, L = 10)
+susieR::susie_plot(res_ldreflamb, y='PIP', b=dat$meta$true_coef, main=paste0('ELBO = ', round(susieR::susie_get_objective(res_ldreflamb), 2)))
+```
+
+With L = 2,
+```{r}
+res_ldreflamb_L2 = susieR::susie_rss(z, R = ldreflamb, L = 2)
+susieR::susie_plot(res_ldreflamb_L2, y='PIP', b=dat$meta$true_coef, main=paste0('ELBO = ', round(susieR::susie_get_objective(res_ldreflamb_L2), 2)))
+```
+
+
+
+
