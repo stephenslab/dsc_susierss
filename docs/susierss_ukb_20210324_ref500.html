@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="Yuxin Zou" />
@@ -20,6 +20,15 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -36,12 +45,16 @@ div.section {
 }
 </style>
 
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -54,32 +67,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -90,13 +78,8 @@ h6 {
   margin-left: auto;
   margin-right: auto;
 }
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -110,40 +93,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -171,7 +127,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -183,7 +139,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -194,10 +150,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -209,7 +178,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -245,6 +213,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -257,56 +226,12 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 <style type="text/css">
 .code-folding-btn { margin-bottom: 4px; }
 </style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -320,6 +245,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -375,13 +306,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -415,11 +346,11 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -436,7 +367,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -445,7 +376,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -457,7 +388,7 @@ div.tocify {
 <strong>Last updated:</strong> 2021-04-08
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>dsc_susierss/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -473,70 +404,47 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstreef89c5f98f21465a84fb0c1f66929764405864f01targetblankf89c5f9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/f89c5f98f21465a84fb0c1f66929764405864f01" target="_blank">f89c5f9</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstreed0bc050fe8f6ec83d280e9c744b619269c1615d9targetblankd0bc050a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/d0bc050fe8f6ec83d280e9c744b619269c1615d9" target="_blank">d0bc050</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstreef89c5f98f21465a84fb0c1f66929764405864f01targetblankf89c5f9a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstreed0bc050fe8f6ec83d280e9c744b619269c1615d9targetblankd0bc050a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/f89c5f98f21465a84fb0c1f66929764405864f01" target="_blank">f89c5f9</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/d0bc050fe8f6ec83d280e9c744b619269c1615d9" target="_blank">d0bc050</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    .sos/
-    Ignored:    code/linux/.DS_Store
-    Ignored:    code/mac/.DS_Store
-    Ignored:    data/.DS_Store
-    Ignored:    output/susierss_ukb_REF1000_pve005/
-    Ignored:    output/susierss_ukb_REF500_pve005/
-    Ignored:    results/
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
 
 Untracked files:
-    Untracked:  analysis/susierss_ukb_20210324_ref1000.Rmd
-    Untracked:  analysis/susierss_ukb_20210324_ref500.Rmd
-    Untracked:  code/fit_susierss.R
-    Untracked:  dsc.rss.gtex.job.log
-    Untracked:  dsc.rss.ukb.job.log
-    Untracked:  submit.sbatch
-    Untracked:  susie_convergence_problem.rds
-    Untracked:  susie_convergence_problem6.rds
-    Untracked:  susie_convergence_problem_eg.R
-    Untracked:  susie_convergence_problem_eg6.R
-    Untracked:  susie_inv.rds
-    Untracked:  susierss_ldref.rds
+    Untracked:  data/susie_convergence_problem.rds
+    Untracked:  data/susie_convergence_problem6.rds
+    Untracked:  data/susierss_ldref.rds
 
 Unstaged changes:
-    Modified:   .gitattributes
-    Modified:   code/adjustld.R
-    Deleted:    code/fit_susie_rss.R
-    Deleted:    code/fit_susie_rss_3steps.R
-    Deleted:    code/fit_susie_rss_lambda.R
-    Deleted:    code/fit_susie_rss_lambda_3steps.R
-    Deleted:    code/fit_susie_rss_suff_3steps.R
-    Deleted:    code/fit_susie_rsssuff.R
-    Modified:   code/fit_susie_suff.R
-    Deleted:    code/fit_susie_suff_3steps.R
-    Modified:   dsc_susierss.yml
-    Modified:   modules/fit.dsc
-    Modified:   susie_rss_ukb.dsc
+    Modified:   analysis/susie_convergence_problem.Rmd
+    Modified:   analysis/susierss_ukb_20210218_example.Rmd
+    Deleted:    genotype_dir
 
 </code></pre>
 <p>
@@ -549,9 +457,69 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/susierss_ukb_20210324_ref500.Rmd</code>) and HTML (<code>docs/susierss_ukb_20210324_ref500.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/827902c741fe673536f0de7bb22543e5f6c98a5b/docs/susierss_ukb_20210324_ref500.html" target="_blank">827902c</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-04-08
+</td>
+<td>
+add results
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/ac661b3c34dc88bc2cd361eac617de19fcfaa191/analysis/susierss_ukb_20210324_ref500.Rmd" target="_blank">ac661b3</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-04-08
+</td>
+<td>
+add results
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -560,101 +528,53 @@ There are no past versions. Publish this analysis with <code>wflow_publish()</co
 <div id="pip-calibration" class="section level2">
 <h2>PIP Calibration</h2>
 <p>SuSiE-RSS</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_pip_calibration/ukb_pip_calib_susierss.png" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_pip_calibration/ukb_pip_calib_susierss.png" /></p>
 <p>SuSiE-RSS with refinement</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_pip_calibration/ukb_pip_calib_susierssrefine.png" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_pip_calibration/ukb_pip_calib_susierssrefine.png" /></p>
 <p>FINEMAP v1.1</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_pip_calibration/ukb_pip_calib_fmv1.png" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_pip_calibration/ukb_pip_calib_fmv1.png" /></p>
 <p>FINEMAP v1.4</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_pip_calibration/ukb_pip_calib_fmv4.png" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_pip_calibration/ukb_pip_calib_fmv4.png" /></p>
 <p>FINEMAP v1.4 L4</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_pip_calibration/ukb_pip_calib_fmv4L4.png" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_pip_calibration/ukb_pip_calib_fmv4L4.png" /></p>
 </div>
 <div id="power-vs-fdr" class="section level2">
 <h2>Power vs FDR</h2>
 <p>Using in sample LD</p>
-<p><img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/ukb_roc.pr.ERFALSE_ldin_methods.png" style="width:45.0%" /> <img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/ukb_roc.pr.ERFALSE_refine_ldin_methods.png" style="width:45.0%" /></p>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/ukb_roc.pr.ERFALSE_ldin_methods.png" style="width:45.0%" /> <img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/ukb_roc.pr.ERFALSE_refine_ldin_methods.png" style="width:45.0%" /></p>
 <p>Using ref LD</p>
-<p><img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/ukb_roc.pr.ERFALSE_ldref_methods.png" style="width:45.0%" /> <img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/ukb_roc.pr.ERFALSE_refine_ldref_methods.png" style="width:45.0%" /></p>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/ukb_roc.pr.ERFALSE_ldref_methods.png" style="width:45.0%" /> <img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/ukb_roc.pr.ERFALSE_refine_ldref_methods.png" style="width:45.0%" /></p>
 <p>SuSiE-RSS with reference LD</p>
-<p><img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/susierss_ukb_roc.pr.ERFALSE_ld.png" style="width:45.0%" /> <img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/susierss_refine_ukb_roc.pr.ERFALSE_ld.png" style="width:45.0%" /></p>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/susierss_ukb_roc.pr.ERFALSE_ld.png" style="width:45.0%" /> <img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/susierss_refine_ukb_roc.pr.ERFALSE_ld.png" style="width:45.0%" /></p>
 <p>FINEMAP v1.1 with reference LD</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/finemapv1_ukb_roc.pr_ld.png" style="width:70.0%" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/finemapv1_ukb_roc.pr_ld.png" style="width:70.0%" /></p>
 <p>FINEMAP v1.4 with reference LD</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/finemapv4_ukb_roc.pr_ld.png" style="width:70.0%" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/finemapv4_ukb_roc.pr_ld.png" style="width:70.0%" /></p>
 <p>FINEMAP v1.4 (L=4) with reference LD</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/finemapv4L4_ukb_roc.pr_ld.png" style="width:70.0%" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/finemapv4L4_ukb_roc.pr_ld.png" style="width:70.0%" /></p>
 </div>
 <div id="cs" class="section level2">
 <h2>CS</h2>
 <p>Overall</p>
 <p>Without refinement</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_original_plots.png" style="width:70.0%" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_original_plots.png" style="width:70.0%" /></p>
 <p>With Refinement</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_refine_plots.png" style="width:70.0%" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_refine_plots.png" style="width:70.0%" /></p>
 <p>1 signal</p>
 <p>Without refinement</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_original_s1_plots.png" style="width:70.0%" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_original_s1_plots.png" style="width:70.0%" /></p>
 <p>With refinement</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_refine_s1_plots.png" style="width:70.0%" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_refine_s1_plots.png" style="width:70.0%" /></p>
 <p>2 signals</p>
 <p>Without refinement</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_original_s2_plots.png" style="width:70.0%" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_original_s2_plots.png" style="width:70.0%" /></p>
 <p>With refinement</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_refine_s2_plots.png" style="width:70.0%" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_refine_s2_plots.png" style="width:70.0%" /></p>
 <p>3 signals</p>
 <p>Without refinement</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_original_s3_plots.png" style="width:70.0%" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_original_s3_plots.png" style="width:70.0%" /></p>
 <p>With refinement</p>
-<div class="figure">
-<img src="/project2/mstephens/yuxin/dsc_susierss/docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_refine_s3_plots.png" style="width:70.0%" />
-
-</div>
+<p><img src="assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_refine_s3_plots.png" style="width:70.0%" /></p>
 </div>
 
 
@@ -680,13 +600,61 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
