@@ -65,9 +65,75 @@ Without refinement
 
 ![](assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_original_plots.png){width=70%} 
 
+```{r}
+cs = readRDS('docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/susierss_ukb_cs.rds')
+rates = matrix(unlist(cs), length(cs), byrow = T)
+rownames(rates) = names(cs)
+colnames(rates) = c('discoveries', 'valid', 'size', 'purity', 'avgr2','expected', 'nonconverge',
+                    'power', 'coverage', 'power_se', 'coverage_se')
+rates = as.data.frame(rates)
+rates$method = rownames(rates)
+# we used purified finemap CS
+rates = rates[c(grep('susie', rates$method), grep('pure', rates$method)),]
+rates = rates[c(grep('susie', rates$method), grep('finemapv4L4', rates$method)),]
+rates = rates[-c(2:6,8:12,15,17,25:28,21,23,29,31,35,37,39),]
+rates = rates[grep('refineFALSE', rates$method),]
+methods = rates$method
+rename_mets = gsub('_ldin', '', methods)
+rename_mets = gsub('_ldrefout', '_ldref', rename_mets)
+rename_mets = gsub('_ERNA', '', rename_mets)
+rename_mets = gsub('_ERFALSE', '', rename_mets)
+rename_mets = gsub('_AZFALSE', '', rename_mets)
+rename_mets = gsub('_AZTRUE', '_AZ', rename_mets)
+rename_mets = gsub('_pure', '', rename_mets)
+rename_mets = gsub('finemapv4', 'FINEMAPv1.4', rename_mets)
+rename = as.list(rename_mets)
+names(rename) = methods
+rates$method = sapply(rownames(rates), function(x) rename[[x]])
+rates$method = gsub('_refineFALSE', '', rates$method)
+rates$method = gsub('_lamb0$', '', rates$method)
+library(kableExtra)
+tb = rates[,c('method', 'nonconverge')]
+rownames(tb) = NULL
+t(tb) %>% kbl() %>% kable_styling()
+```
+
 With Refinement
 
 ![](assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/ukb_cs_refine_plots.png){width=70%}
+
+```{r}
+cs = readRDS('docs/assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_cs/susierss_ukb_cs.rds')
+rates = matrix(unlist(cs), length(cs), byrow = T)
+rownames(rates) = names(cs)
+colnames(rates) = c('discoveries', 'valid', 'size', 'purity', 'avgr2','expected', 'nonconverge',
+                    'power', 'coverage', 'power_se', 'coverage_se')
+rates = as.data.frame(rates)
+rates$method = rownames(rates)
+# we used purified finemap CS
+rates = rates[c(grep('susie', rates$method), grep('pure', rates$method)),]
+rates = rates[c(grep('susie', rates$method), grep('finemapv4L4', rates$method)),]
+rates = rates[-c(2:6,8:12,15,17,25:28,21,23,29,31,35,37,39),]
+rates = rates[grep('refineTRUE', rates$method),]
+methods = rates$method
+rename_mets = gsub('_ldin', '', methods)
+rename_mets = gsub('_ldrefout', '_ldref', rename_mets)
+rename_mets = gsub('_ERNA', '', rename_mets)
+rename_mets = gsub('_ERFALSE', '', rename_mets)
+rename_mets = gsub('_AZFALSE', '', rename_mets)
+rename_mets = gsub('_AZTRUE', '_AZ', rename_mets)
+rename_mets = gsub('_pure', '', rename_mets)
+rename_mets = gsub('finemapv4', 'FINEMAPv1.4', rename_mets)
+rename = as.list(rename_mets)
+names(rename) = methods
+rates$method = sapply(rownames(rates), function(x) rename[[x]])
+rates$method = gsub('_refineTRUE', '', rates$method)
+rates$method = gsub('_lamb0$', '', rates$method)
+library(kableExtra)
+tb = rates[,c('method', 'nonconverge')]
+rownames(tb) = NULL
+t(tb) %>% kbl() %>% kable_styling()
+```
 
 1 signal
 
