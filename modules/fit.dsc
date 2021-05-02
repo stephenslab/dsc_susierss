@@ -14,8 +14,8 @@
 adjustld: adjustld.R
   sumstats: $sumstats
   ld: $ld
-  ldmethod: "in_sample", "refin_sample", "refout_sample"
-  lamb: 0, 1e-3, 'estimate'
+  ldmethod: "in_sample", "refout_sample"
+  lamb: 0, 1e-3, 'estimate', 'mlelikelihood'
   addz: FALSE
   rcor: TRUE
   ldfile: file(ld)
@@ -33,6 +33,13 @@ adjustld_insample(adjustld): R(z = sumstats$bhat/sumstats$shat;
   ldmethod: "in_sample"
   lamb: 0
 
+adjustld_gtex(adjustld):
+  ldmethod: "in_sample", "out_sample"
+  
+adjustld_addz_gtex(adjustld_gtex):
+  lamb: 0
+  addz: TRUE
+  
 caviar: fit_caviar.R + R(b = $(meta)$true_coef;
                          nc = sum(b[,1]!=0);
                          if(nc > 3) nc = 3;

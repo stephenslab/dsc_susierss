@@ -13,7 +13,7 @@ DSC:
     method_finemap: finemap
     method_finemapv4: finemapv4, finemapv4L4
   run:
-    default: small_data * sim_gaussian * get_sumstats * ((adjustld, adjustld_addz) * ((susie_suff, susie_rss) * score_susie, finemap * score_finemap, method_finemapv4 * score_finemapv4))
+    default: small_data * sim_gaussian * get_sumstats * ((adjustld, adjustld_addz) * ((susie_suff, susie_rss) * score_susie, finemap * score_finemap, method_finemapv4 * score_finemapv4, caviar * score_caviar))
     rss: small_data * sim_gaussian * get_sumstats * (susie_suff, susie_suff_addz, susie_rss, susie_rss_addz, susie_rss_suff, susie_rss_suff_addz) * score_susie
     init: small_data * sim_gaussian * get_sumstats * (susie_init, susie_suff_init, susie_suff_3steps) * score_susie
   exec_path: code

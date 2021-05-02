@@ -4,7 +4,7 @@ susie_suff_analyze = function(bhat, shat, R, n, L, s_init, estimate_residual_var
   fit = tryCatch(susie_suff_stat(bhat, shat, R, n=n,
                             L=L, s_init=s_init,
                             estimate_residual_variance = estimate_residual_variance,
-                            max_iter = 200, refine = refine),
+                            max_iter = 1000, refine = refine),
                  error = function(e) list(sets = NULL, pip=NULL))
   return(fit)
 }

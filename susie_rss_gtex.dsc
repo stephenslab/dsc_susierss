@@ -8,10 +8,12 @@
 
 DSC:
   define:
-    method_susie: susie_suff_gtex, susie_suff_addz_gtex, susie_rss_gtex, susie_rss_addz_gtex, susie_rss_suff_gtex, susie_rss_suff_addz_gtex
+    method_susie: susie_suff, susie_rss
+    method_finemapv4: finemapv4, finemapv4L4
   run:
-    default: small_data_gtex * lm_pve02 * get_sumstats * (method_susie * score_susie, finemapv4_gtex * score_finemapv4, finemap_gtex * score_finemap)
+    default: small_data_gtex * lm_pve02 * get_sumstats * (adjustld_gtex, adjustld_addz_gtex) * ((susie_suff, susie_rss) * score_susie, method_finemapv4 * score_finemapv4)
   exec_path: code
+  replicate: 2
   global:
     data_file: data/gtex-manifest.txt
     prop_samples: 0.5

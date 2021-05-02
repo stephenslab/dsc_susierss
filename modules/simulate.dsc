@@ -42,3 +42,4 @@ simple_lm(base_sim):
 
 lm_pve02(simple_lm):
   pve: 0.2
+  n_traits: 1
