@@ -11,6 +11,9 @@ for(i in 1:nrow(dat$susie)){
   method = dat$susie[i,]$method
   true_coef = c(dat$susie[i,]$sim_gaussian.meta[[1]]$true_coef != 0)
   pip = dat$susie[i,]$score_susie.pip[[1]]
+  if(dat$susie[i,]$score_susie.converged == FALSE){
+    next
+  }
   if(all(is.na(pip))){
     next
   }
@@ -53,20 +56,20 @@ for(i in 1:nrow(dat$fmv4)){
   if (i%%100==0) print(i)
 }
 
-# ## caviar
-# for(i in 1:nrow(dat$caviar)){
-#   method = dat$caviar[i,]$method
-#   true_coef = c(dat$caviar[i,]$sim_gaussian.meta[[1]]$true_coef != 0)
-#   pip = dat$caviar[i,]$score_caviar.pip[[1]]
-#   
-#   if (!(method %in% names(res))) {
-#     res[[method]] = list(pip = pip, truth = true_coef)
-#   } else {
-#     res[[method]]$pip = append(res[[method]]$pip, pip)
-#     res[[method]]$truth = append(res[[method]]$truth, true_coef)
-#   }
-#   if (i%%100==0) print(i)
-# }
+## caviar
+for(i in 1:nrow(dat$caviar)){
+  method = dat$caviar[i,]$method
+  true_coef = c(dat$caviar[i,]$sim_gaussian.meta[[1]]$true_coef != 0)
+  pip = dat$caviar[i,]$score_caviar.pip[[1]]
+
+  if (!(method %in% names(res))) {
+    res[[method]] = list(pip = pip, truth = true_coef)
+  } else {
+    res[[method]]$pip = append(res[[method]]$pip, pip)
+    res[[method]]$truth = append(res[[method]]$truth, true_coef)
+  }
+  if (i%%100==0) print(i)
+}
 
 for (method in unique(names(res))) {
   res[[method]] = do.call(cbind, res[[method]])

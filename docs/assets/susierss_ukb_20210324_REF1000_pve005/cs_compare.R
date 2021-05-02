@@ -33,7 +33,7 @@ output_fm = 'susierss_ukb_20210324_REF1000_pve005_cs/finemapv4_ukb_cs'
 # 
 # ## susierss
 # methods = unique(dat$susie$method)
-# methods = methods[-grep('ldrefin', methods)]
+# # methods = methods[-grep('ldrefin', methods)]
 # methods = methods[-grep('_ERTRUE', methods)]
 # res = list()
 # for(met in methods){
@@ -60,7 +60,6 @@ output_fm = 'susierss_ukb_20210324_REF1000_pve005_cs/finemapv4_ukb_cs'
 # #
 # ## fm
 # methods = unique(dat$fmv4$method)
-# methods = methods[-grep('ldrefin', methods)]
 # res = list()
 # for(met in methods){
 #   print(met)
@@ -103,7 +102,6 @@ output_fm = 'susierss_ukb_20210324_REF1000_pve005_cs/finemapv4_ukb_cs'
 # 
 # for(s in 1:3){
 #   methods = unique(dat$susie$method)
-#   methods = methods[-grep('ldrefin', methods)]
 #   methods = methods[-grep('_ERTRUE', methods)]
 #   res = list()
 #   for(met in methods){
@@ -129,7 +127,6 @@ output_fm = 'susierss_ukb_20210324_REF1000_pve005_cs/finemapv4_ukb_cs'
 #   saveRDS(res, paste0(output_susierss, '_s', s,'.rds'))
 # 
 #   methods = unique(dat$fmv4$method)
-#   methods = methods[-grep('ldrefin', methods)]
 #   res = list()
 #   for(met in methods){
 #     print(met)
@@ -183,7 +180,8 @@ rates$method = rownames(rates)
 # we used purified finemap CS
 rates = rates[c(grep('susie', rates$method), grep('pure', rates$method)),]
 rates = rates[c(grep('susie', rates$method), grep('finemapv4L4', rates$method)),]
-rates = rates[-c(2:6,8:12,15,17,25:28,21,23,29,31,35,37,39),]
+rates = rates[-c(2:8, 10:16, 19, 21, 23, 27, 29, 31, 33:36, 37, 39, 
+                 43, 45, 47, 49),]
 
 methods = rates$method
 rename_mets = gsub('_ldin', '', methods)
@@ -209,9 +207,11 @@ rates_d1$method = gsub('_lamb0$', '', rates_d1$method)
 rates_d1$method = factor(rates_d1$method,
                          levels = c('susie_suff',
                                     'susie_rss', 'susie_rss_ldref', 'susie_rss_ldref_lamb0.001',
-                                    'susie_rss_ldref_lambestimate', 'susie_rss_ldref_AZ',
+                                    'susie_rss_ldref_lambestimate', 'susie_rss_ldref_lambmlelikelihood',
+                                    'susie_rss_ldref_AZ',
                                     'FINEMAPv1.4L4', 'FINEMAPv1.4L4_ldref', 'FINEMAPv1.4L4_ldref_lamb0.001',
-                                    'FINEMAPv1.4L4_ldref_lambestimate', 'FINEMAPv1.4L4_ldref_AZ'))
+                                    'FINEMAPv1.4L4_ldref_lambestimate', 'FINEMAPv1.4L4_ldref_lambmlelikelihood',
+                                    'FINEMAPv1.4L4_ldref_AZ'))
 
 p1 = plot_panel(rates_d1, c('coverage', 'coverage'), legend=F)
 p2 = plot_panel(rates_d1, c('power', 'power'), legend=F)
@@ -229,9 +229,11 @@ rates_d2$method = gsub('_lamb0$', '', rates_d2$method)
 rates_d2$method = factor(rates_d2$method,
                          levels = c("susie_suff",
                                     "susie_rss","susie_rss_ldref","susie_rss_ldref_lamb0.001",
-                                    "susie_rss_ldref_lambestimate","susie_rss_ldref_AZ",
+                                    "susie_rss_ldref_lambestimate","susie_rss_ldref_lambmlelikelihood",
+                                    "susie_rss_ldref_AZ",
                                     "FINEMAPv1.4L4","FINEMAPv1.4L4_ldref","FINEMAPv1.4L4_ldref_lamb0.001",
-                                    "FINEMAPv1.4L4_ldref_lambestimate","FINEMAPv1.4L4_ldref_AZ"))
+                                    "FINEMAPv1.4L4_ldref_lambestimate","FINEMAPv1.4L4_ldref_lambmlelikelihood",
+                                    "FINEMAPv1.4L4_ldref_AZ"))
 
 p1 = plot_panel(rates_d2, c('coverage', 'coverage'), legend=F)
 p2 = plot_panel(rates_d2, c('power', 'power'), legend=F)
@@ -257,7 +259,8 @@ for(s in 1:3){
   # we used purified finemap CS
   rates = rates[c(grep('susie', rates$method), grep('pure', rates$method)),]
   rates = rates[c(grep('susie', rates$method), grep('finemapv4L4', rates$method)),]
-  rates = rates[-c(5,7,11,13,15,17,21,23,25),]
+  rates = rates[-c(2:8, 10:16, 19, 21, 23, 27, 29, 31, 33:36, 37, 39, 
+                   43, 45, 47, 49),]
 
   methods = rates$method
   rename_mets = gsub('_ldin', '', methods)
@@ -283,9 +286,11 @@ for(s in 1:3){
   rates_d1$method = factor(rates_d1$method,
                            levels = c('susie_suff',
                                       'susie_rss', 'susie_rss_ldref', 'susie_rss_ldref_lamb0.001',
-                                      'susie_rss_ldref_lambestimate', 'susie_rss_ldref_AZ',
+                                      'susie_rss_ldref_lambestimate', 'susie_rss_ldref_lambmlelikelihood',
+                                      'susie_rss_ldref_AZ',
                                       'FINEMAPv1.4L4', 'FINEMAPv1.4L4_ldref', 'FINEMAPv1.4L4_ldref_lamb0.001',
-                                      'FINEMAPv1.4L4_ldref_lambestimate', 'FINEMAPv1.4L4_ldref_AZ'))
+                                      'FINEMAPv1.4L4_ldref_lambestimate', 'FINEMAPv1.4L4_ldref_lambmlelikelihood',
+                                      'FINEMAPv1.4L4_ldref_AZ'))
 
   p1 = plot_panel(rates_d1, c('coverage', 'coverage'), legend=F)
   p2 = plot_panel(rates_d1, c('power', 'power'), legend=F)
@@ -303,10 +308,12 @@ for(s in 1:3){
   rates_d2$method = factor(rates_d2$method,
                            levels = c("susie_suff",
                                       "susie_rss","susie_rss_ldref","susie_rss_ldref_lamb0.001",
-                                      "susie_rss_ldref_lambestimate","susie_rss_ldref_AZ",
+                                      "susie_rss_ldref_lambestimate","susie_rss_ldref_lambmlelikelihood",
+                                      "susie_rss_ldref_AZ",
                                       "FINEMAPv1.4L4","FINEMAPv1.4L4_ldref","FINEMAPv1.4L4_ldref_lamb0.001",
-                                      "FINEMAPv1.4L4_ldref_lambestimate","FINEMAPv1.4L4_ldref_AZ"))
-
+                                      "FINEMAPv1.4L4_ldref_lambestimate","FINEMAPv1.4L4_ldref_lambmlelikelihood",
+                                      "FINEMAPv1.4L4_ldref_AZ"))
+  
   p1 = plot_panel(rates_d2, c('coverage', 'coverage'), legend=F)
   p2 = plot_panel(rates_d2, c('power', 'power'), legend=F)
   p3 = plot_panel(rates_d2, c('size', 'median number of variables'), legend=F)

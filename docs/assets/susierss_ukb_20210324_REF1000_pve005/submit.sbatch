@@ -10,7 +10,7 @@
 
 # Rscript results/susierss_ukb_20210324_REF1000_pve005/query.R
 
-Rscript pip_extract.R
+# Rscript pip_extract.R
 
 Rscript ROC.R
 

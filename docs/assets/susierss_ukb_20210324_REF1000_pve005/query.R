@@ -1,8 +1,9 @@
 library(dscrutils)
 out_susie = dscrutils::dscquery('output/susierss_ukb_REF1000_pve005/',
-                          targets = c('sim_gaussian', 'sim_gaussian.n_signal', 'sim_gaussian.meta',
+                          targets = c('small_data.dataset', 'sim_gaussian', 
+                                      'sim_gaussian.n_signal', 'sim_gaussian.meta',
                                       'adjustld_med.ldmethod', 'adjustld_med.lamb', 
-                                      'adjustld_med.addz', 'adjustld_med.ldinfo',
+                                      'adjustld_med.addz', 'adjustld_med.ldinfo','adjustld_med.DSC_TIME',
                                       'method_susie', 'method_susie.estimate_residual_variance',
                                       'method_susie.refine','method_susie.DSC_TIME',
                                       'score_susie', 'score_susie.total', 'score_susie.valid',
@@ -17,7 +18,8 @@ out_susie = dscrutils::dscquery('output/susierss_ukb_REF1000_pve005/',
 saveRDS(out_susie, 'results/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_susie.rds')
 
 out_fmv1 = dscrutils::dscquery('output/susierss_ukb_REF1000_pve005/',
-                               targets = c('sim_gaussian', 'sim_gaussian.n_signal', 'sim_gaussian.meta',
+                               targets = c('small_data.dataset', 'sim_gaussian', 
+                                           'sim_gaussian.n_signal', 'sim_gaussian.meta',
                                            'adjustld_med.ldmethod', 'adjustld_med.lamb', 
                                            'adjustld_med.addz', 'adjustld_med.ldinfo',
                                            'method_finemap','method_finemap.DSC_TIME',
@@ -30,9 +32,10 @@ out_fmv1 = dscrutils::dscquery('output/susierss_ukb_REF1000_pve005/',
 saveRDS(out_fmv1, 'results/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_fmv1.rds')
 
 out_fmv4 = dscrutils::dscquery('output/susierss_ukb_REF1000_pve005/',
-                               targets = c('sim_gaussian', 'sim_gaussian.n_signal', 'sim_gaussian.meta',
+                               targets = c('small_data.dataset', 'sim_gaussian', 
+                                           'sim_gaussian.n_signal', 'sim_gaussian.meta',
                                            'adjustld_med.ldmethod', 'adjustld_med.lamb', 
-                                           'adjustld_med.addz', 'adjustld_med.ldinfo',
+                                           'adjustld_med.addz', 'adjustld_med.ldinfo', 
                                            'method_finemapv4', 'method_finemapv4.DSC_TIME',
                                            'score_finemapv4', 'score_finemapv4.total', 'score_finemapv4.valid',
                                            'score_finemapv4.size', 'score_finemapv4.purity','score_finemapv4.avgr2',
@@ -45,15 +48,16 @@ out_fmv4 = dscrutils::dscquery('output/susierss_ukb_REF1000_pve005/',
 
 saveRDS(out_fmv4, 'results/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_fmv4.rds')
 
-# out_caviar = dscrutils::dscquery('output/susierss_ukb_REF1000_pve005/',
-#                           targets = c('sim_gaussian', 'sim_gaussian.n_signal', 'sim_gaussian.meta',
-#                                       'adjustld_med.ldmethod', 'adjustld_med.lamb', 
-#                                       'adjustld_med.addz', 
-#                                       'method_caviar', 'method_caviar.DSC_TIME',
-#                                       'score_caviar', 'score_caviar.total', 'score_caviar.valid',
-#                                       'score_caviar.size','score_caviar.pip'),
-#                           module.output.files = c('method_caviar','score_caviar'),
-#                           groups=c('adjustld_med: adjustld, adjustld_addz, adjustld_insample'),
-#                           ignore.missing.files = TRUE)
-# 
-# saveRDS(out_caviar, 'results/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_caviar.rds')
+out_caviar = dscrutils::dscquery('output/susierss_ukb_REF1000_pve005/',
+                          targets = c('small_data.dataset', 'sim_gaussian',
+                                      'sim_gaussian.n_signal', 'sim_gaussian.meta',
+                                      'adjustld_med.ldmethod', 'adjustld_med.lamb',
+                                      'adjustld_med.addz', 'adjustld_med.ldinfo',
+                                      'method_caviar', 'method_caviar.DSC_TIME',
+                                      'score_caviar', 'score_caviar.total', 'score_caviar.valid',
+                                      'score_caviar.size','score_caviar.pip'),
+                          module.output.files = c('method_caviar','score_caviar'),
+                          groups=c('adjustld_med: adjustld, adjustld_addz'),
+                          ignore.missing.files = TRUE)
+
+saveRDS(out_caviar, 'results/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_caviar.rds')
