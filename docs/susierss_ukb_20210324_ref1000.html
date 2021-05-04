@@ -387,7 +387,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-04-09
+<strong>Last updated:</strong> 2021-05-04
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -478,16 +478,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstreedd81e3a22f621bbf2b0a88e15424443f11c14915targetblankdd81e3aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/dd81e3a22f621bbf2b0a88e15424443f11c14915" target="_blank">dd81e3a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree660b6f7792025b1bbabf575154c4b98e046fe292targetblank660b6f7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/660b6f7792025b1bbabf575154c4b98e046fe292" target="_blank">660b6f7</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstreedd81e3a22f621bbf2b0a88e15424443f11c14915targetblankdd81e3aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree660b6f7792025b1bbabf575154c4b98e046fe292targetblank660b6f7a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/dd81e3a22f621bbf2b0a88e15424443f11c14915" target="_blank">dd81e3a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/660b6f7792025b1bbabf575154c4b98e046fe292" target="_blank">660b6f7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -506,7 +506,6 @@ Untracked files:
 Unstaged changes:
     Modified:   analysis/susie_convergence_problem.Rmd
     Modified:   analysis/susierss_ukb_20210218_example.Rmd
-    Modified:   analysis/susierss_ukb_20210324_ref500.Rmd
     Deleted:    genotype_dir
 
 </code></pre>
@@ -546,6 +545,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/660b6f7792025b1bbabf575154c4b98e046fe292/analysis/susierss_ukb_20210324_ref1000.Rmd" target="_blank">660b6f7</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-05-04
+</td>
+<td>
+wflow_publish(“analysis/susierss_ukb_20210324_ref1000.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/f97adb815785a17ab773f4f0a5bf92b2966b48a1/docs/susierss_ukb_20210324_ref1000.html" target="_blank">f97adb8</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-04-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -699,7 +732,7 @@ rates$method = rownames(rates)
 # we used purified finemap CS
 rates = rates[c(grep(&#39;susie&#39;, rates$method), grep(&#39;pure&#39;, rates$method)),]
 rates = rates[c(grep(&#39;susie&#39;, rates$method), grep(&#39;finemapv4L4&#39;, rates$method)),]
-rates = rates[-c(2:6,8:12,15,17,25:28,21,23,29,31,35,37,39),]
+rates = rates[-c(2:8, 10:16, 19, 21, 23, 27, 29, 31, 33:36, 37, 39),]
 rates = rates[grep(&#39;refineFALSE&#39;, rates$method),]
 methods = rates$method
 rename_mets = gsub(&#39;_ldin&#39;, &#39;&#39;, methods)
@@ -741,6 +774,9 @@ susie_rss_ldref_lamb0.001
 susie_rss_ldref_lambestimate
 </td>
 <td style="text-align:left;">
+susie_rss_ldref_lambmlelikelihood
+</td>
+<td style="text-align:left;">
 susie_rss_ldref_AZ
 </td>
 </tr>
@@ -752,9 +788,6 @@ nonconverge
 0
 </td>
 <td style="text-align:left;">
-1
-</td>
-<td style="text-align:left;">
 0
 </td>
 <td style="text-align:left;">
@@ -764,7 +797,13 @@ nonconverge
 0
 </td>
 <td style="text-align:left;">
-1
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
 </td>
 </tr>
 </tbody>
@@ -781,7 +820,7 @@ rates$method = rownames(rates)
 # we used purified finemap CS
 rates = rates[c(grep(&#39;susie&#39;, rates$method), grep(&#39;pure&#39;, rates$method)),]
 rates = rates[c(grep(&#39;susie&#39;, rates$method), grep(&#39;finemapv4L4&#39;, rates$method)),]
-rates = rates[-c(2:6,8:12,15,17,25:28,21,23,29,31,35,37,39),]
+rates = rates[-c(2:8, 10:16, 19, 21, 23, 27, 29, 31, 33:36, 37, 39),]
 rates = rates[grep(&#39;refineTRUE&#39;, rates$method),]
 methods = rates$method
 rename_mets = gsub(&#39;_ldin&#39;, &#39;&#39;, methods)
@@ -823,6 +862,9 @@ susie_rss_ldref_lamb0.001
 susie_rss_ldref_lambestimate
 </td>
 <td style="text-align:left;">
+susie_rss_ldref_lambmlelikelihood
+</td>
+<td style="text-align:left;">
 susie_rss_ldref_AZ
 </td>
 </tr>
@@ -846,7 +888,10 @@ nonconverge
 0
 </td>
 <td style="text-align:left;">
-1
+0
+</td>
+<td style="text-align:left;">
+0
 </td>
 </tr>
 </tbody>
@@ -892,15 +937,15 @@ other attached packages:
 [1] kableExtra_1.3.4 workflowr_1.6.2 
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.6        highr_0.8         pillar_1.5.1      compiler_4.0.3   
+ [1] Rcpp_1.0.6        highr_0.8         pillar_1.6.0      compiler_4.0.3   
  [5] later_1.1.0.1     git2r_0.28.0      tools_4.0.3       digest_0.6.27    
- [9] viridisLite_0.3.0 evaluate_0.14     lifecycle_1.0.0   tibble_3.1.0     
+ [9] viridisLite_0.4.0 evaluate_0.14     lifecycle_1.0.0   tibble_3.1.1     
 [13] pkgconfig_2.0.3   rlang_0.4.10      rstudioapi_0.13   yaml_2.2.1       
 [17] xfun_0.22         stringr_1.4.0     httr_1.4.2        knitr_1.31       
-[21] xml2_1.3.2        systemfonts_1.0.1 fs_1.5.0          vctrs_0.3.7      
+[21] xml2_1.3.2        systemfonts_1.0.1 fs_1.5.0          vctrs_0.3.8      
 [25] webshot_0.5.2     rprojroot_2.0.2   svglite_2.0.0     glue_1.4.2       
 [29] R6_2.5.0          fansi_0.4.2       rmarkdown_2.7     magrittr_2.0.1   
-[33] whisker_0.4       scales_1.1.1      promises_1.2.0.1  ellipsis_0.3.1   
+[33] whisker_0.4       scales_1.1.1      promises_1.2.0.1  ellipsis_0.3.2   
 [37] htmltools_0.5.1.1 rvest_1.0.0       colorspace_2.0-0  httpuv_1.5.5     
 [41] utf8_1.2.1        stringi_1.5.3     munsell_0.5.0     crayon_1.4.1     </code></pre>
 </div>
