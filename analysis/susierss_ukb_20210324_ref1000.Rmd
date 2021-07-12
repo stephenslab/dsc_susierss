@@ -76,7 +76,7 @@ rates$method = rownames(rates)
 # we used purified finemap CS
 rates = rates[c(grep('susie', rates$method), grep('pure', rates$method)),]
 rates = rates[c(grep('susie', rates$method), grep('finemapv4L4', rates$method)),]
-rates = rates[-c(2:6,8:12,15,17,25:28,21,23,29,31,35,37,39),]
+rates = rates[-c(2:8, 10:16, 19, 21, 23, 27, 29, 31, 33:36, 37, 39),]
 rates = rates[grep('refineFALSE', rates$method),]
 methods = rates$method
 rename_mets = gsub('_ldin', '', methods)
@@ -113,7 +113,7 @@ rates$method = rownames(rates)
 # we used purified finemap CS
 rates = rates[c(grep('susie', rates$method), grep('pure', rates$method)),]
 rates = rates[c(grep('susie', rates$method), grep('finemapv4L4', rates$method)),]
-rates = rates[-c(2:6,8:12,15,17,25:28,21,23,29,31,35,37,39),]
+rates = rates[-c(2:8, 10:16, 19, 21, 23, 27, 29, 31, 33:36, 37, 39),]
 rates = rates[grep('refineTRUE', rates$method),]
 methods = rates$method
 rename_mets = gsub('_ldin', '', methods)
