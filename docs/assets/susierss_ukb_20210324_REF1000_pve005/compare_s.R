@@ -16,10 +16,10 @@ datref500s = sapply(datref500$adjustld_med.ldinfo, function(x) x$lamb)
 
 pdf('compare_s.pdf', width =15, height = 7, pointsize=24)
 par(mfrow=c(1,2))
-plot(datins, datref1000s, pch=16, main = 'Estimated s',
-     xlab = 'in sample LD', ylab = 'reference LD with 1000 samples')
+plot(datins, datref1000s, pch=16, main = expression(paste('Estimated ', hat(lambda))),
+     xlab = 'in-sample LD', ylab = 'reference LD with 1000 samples')
 abline(0,1)
-plot(datref1000s, datref500s, pch=16, main = 'Estimated s',
+plot(datref1000s, datref500s, pch=16, main = expression(paste('Estimated ', hat(lambda))),
      xlab = 'reference LD with 1000 samples', ylab = 'reference LD with 500 samples')
 abline(0,1)
 dev.off()
