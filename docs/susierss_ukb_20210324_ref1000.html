@@ -478,16 +478,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree967ca855f58557f58a1f23238b576dd2fa95f6aatargetblank967ca85a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/967ca855f58557f58a1f23238b576dd2fa95f6aa" target="_blank">967ca85</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree0a92557d6fd734e6e3e7e0c23b84347aba59c5e6targetblank0a92557a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/0a92557d6fd734e6e3e7e0c23b84347aba59c5e6" target="_blank">0a92557</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree967ca855f58557f58a1f23238b576dd2fa95f6aatargetblank967ca85a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree0a92557d6fd734e6e3e7e0c23b84347aba59c5e6targetblank0a92557a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/967ca855f58557f58a1f23238b576dd2fa95f6aa" target="_blank">967ca85</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/0a92557d6fd734e6e3e7e0c23b84347aba59c5e6" target="_blank">0a92557</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -548,6 +548,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/0a92557d6fd734e6e3e7e0c23b84347aba59c5e6/analysis/susierss_ukb_20210324_ref1000.Rmd" target="_blank">0a92557</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-07-12
+</td>
+<td>
+wflow_publish(“analysis/susierss_ukb_20210324_ref1000.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/3a5e3c68f810b016546b133687844dc825903658/docs/susierss_ukb_20210324_ref1000.html" target="_blank">3a5e3c6</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-07-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -771,7 +805,7 @@ rates$method = rownames(rates)
 rates = rates[c(grep(&#39;susie&#39;, rates$method), grep(&#39;pure&#39;, rates$method)),]
 rates = rates[c(grep(&#39;susie&#39;, rates$method), grep(&#39;finemapv4L4&#39;, rates$method)),]
 rates = rates[-c(2:8, 10:16, 19, 21, 23, 27, 29, 31, 33:36, 37, 39),]
-rates = rates[-c(6,11,13,14),]
+rates = rates[-c(6,11),]
 rates = rates[grep(&#39;refineFALSE&#39;, rates$method),]
 methods = rates$method
 rename_mets = gsub(&#39;_ldin&#39;, &#39;&#39;, methods)
@@ -814,10 +848,16 @@ susie_rss_ldref_s=0.001
 <td style="text-align:left;">
 susie_rss_ldref_estimated s
 </td>
+<td style="text-align:left;">
+susie_rss_ldref_AZ
+</td>
 </tr>
 <tr>
 <td style="text-align:left;">
 nonconverge
+</td>
+<td style="text-align:left;">
+0
 </td>
 <td style="text-align:left;">
 0
@@ -850,7 +890,7 @@ rates$method = rownames(rates)
 rates = rates[c(grep(&#39;susie&#39;, rates$method), grep(&#39;pure&#39;, rates$method)),]
 rates = rates[c(grep(&#39;susie&#39;, rates$method), grep(&#39;finemapv4L4&#39;, rates$method)),]
 rates = rates[-c(2:8, 10:16, 19, 21, 23, 27, 29, 31, 33:36, 37, 39),]
-rates = rates[-c(6,11,13,14),]
+rates = rates[-c(6,11),]
 rates = rates[grep(&#39;refineTRUE&#39;, rates$method),]
 methods = rates$method
 rename_mets = gsub(&#39;_ldin&#39;, &#39;&#39;, methods)
@@ -893,10 +933,16 @@ susie_rss_ldref_s=0.001
 <td style="text-align:left;">
 susie_rss_ldref_estimated s
 </td>
+<td style="text-align:left;">
+susie_rss_ldref_AZ
+</td>
 </tr>
 <tr>
 <td style="text-align:left;">
 nonconverge
+</td>
+<td style="text-align:left;">
+0
 </td>
 <td style="text-align:left;">
 0
