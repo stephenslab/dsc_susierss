@@ -96,7 +96,7 @@ xlab = "FDR"
 methods = names(tb)
 rename_mets = gsub('_ldin', '', methods)
 rename_mets = gsub('_ldrefout', '_ldref1000', rename_mets)
-rename_mets = gsub('_AZTRUE', '_z', rename_mets)
+rename_mets = gsub('_AZTRUE', '_AZ', rename_mets)
 rename_mets = gsub('_AZFALSE', '', rename_mets)
 rename_mets = gsub('_ERNA', '', rename_mets)
 rename_mets = gsub('_lamb0$', '', rename_mets)
@@ -267,8 +267,8 @@ for (method in c('CAVIAR_ldin_AZFALSE_lamb0',
                  'CAVIAR_ldrefout_AZFALSE_lamb0',
                  'CAVIAR_ldrefout_AZFALSE_lamb0.001',
                  # 'CAVIAR_ldrefout_AZFALSE_lambestimate',
-                 'CAVIAR_ldrefout_AZFALSE_lambmlelikelihood'
-                 # 'CAVIAR_ldrefout_AZTRUE_lamb0'
+                 'CAVIAR_ldrefout_AZFALSE_lambmlelikelihood',
+                 'CAVIAR_ldrefout_AZTRUE_lamb0'
 )) {
   yy = make_smooth((1 - tb[[method]][[type]][,1]), tb[[method]][[type]][,2])
   if (i == 1) {
@@ -296,8 +296,8 @@ for (method in c('FINEMAPv1.1_ldin_AZFALSE_lamb0',
                  'FINEMAPv1.1_ldrefout_AZFALSE_lamb0',
                  'FINEMAPv1.1_ldrefout_AZFALSE_lamb0.001',
                  # 'FINEMAPv1.1_ldrefout_AZFALSE_lambestimate',
-                 'FINEMAPv1.1_ldrefout_AZFALSE_lambmlelikelihood'
-                 # 'FINEMAPv1.1_ldrefout_AZTRUE_lamb0'
+                 'FINEMAPv1.1_ldrefout_AZFALSE_lambmlelikelihood',
+                 'FINEMAPv1.1_ldrefout_AZTRUE_lamb0'
 )) {
   yy = make_smooth((1 - tb[[method]][[type]][,1]), tb[[method]][[type]][,2])
   if (i == 1) {
@@ -325,8 +325,8 @@ for (method in c('finemapv4_ldin_AZFALSE_lamb0',
                  'finemapv4_ldrefout_AZFALSE_lamb0',
                  'finemapv4_ldrefout_AZFALSE_lamb0.001',
                  # 'finemapv4_ldrefout_AZFALSE_lambestimate',
-                 'finemapv4_ldrefout_AZFALSE_lambmlelikelihood'
-                 # 'finemapv4_ldrefout_AZTRUE_lamb0'
+                 'finemapv4_ldrefout_AZFALSE_lambmlelikelihood',
+                 'finemapv4_ldrefout_AZTRUE_lamb0'
 )) {
   yy = make_smooth((1 - tb[[method]][[type]][,1]), tb[[method]][[type]][,2])
   if (i == 1) {
@@ -354,8 +354,8 @@ for (method in c('finemapv4L4_ldin_AZFALSE_lamb0',
                  'finemapv4L4_ldrefout_AZFALSE_lamb0',
                  'finemapv4L4_ldrefout_AZFALSE_lamb0.001',
                  # 'finemapv4L4_ldrefout_AZFALSE_lambestimate',
-                 'finemapv4L4_ldrefout_AZFALSE_lambmlelikelihood'
-                 # 'finemapv4L4_ldrefout_AZTRUE_lamb0'
+                 'finemapv4L4_ldrefout_AZFALSE_lambmlelikelihood',
+                 'finemapv4L4_ldrefout_AZTRUE_lamb0'
 )) {
   yy = make_smooth((1 - tb[[method]][[type]][,1]), tb[[method]][[type]][,2])
   if (i == 1) {
@@ -383,8 +383,8 @@ for (method in c('susie_rss_refineFALSE_ERNA_ldin_AZFALSE_lamb0',
                  'susie_rss_refineFALSE_ERNA_ldrefout_AZFALSE_lamb0',
                  'susie_rss_refineFALSE_ERNA_ldrefout_AZFALSE_lamb0.001',
                  # 'susie_rss_refineFALSE_ERNA_ldrefout_AZFALSE_lambestimate',
-                 'susie_rss_refineFALSE_ERNA_ldrefout_AZFALSE_lambmlelikelihood'
-                 # 'susie_rss_refineFALSE_ERNA_ldrefout_AZTRUE_lamb0'
+                 'susie_rss_refineFALSE_ERNA_ldrefout_AZFALSE_lambmlelikelihood',
+                 'susie_rss_refineFALSE_ERNA_ldrefout_AZTRUE_lamb0'
 )) {
   yy = make_smooth((1 - tb[[method]][[type]][,1]), tb[[method]][[type]][,2])
   if (i == 1) {
@@ -413,8 +413,8 @@ for (method in c('susie_rss_refineTRUE_ERNA_ldin_AZFALSE_lamb0',
                  'susie_rss_refineTRUE_ERNA_ldrefout_AZFALSE_lamb0',
                  'susie_rss_refineTRUE_ERNA_ldrefout_AZFALSE_lamb0.001',
                  # 'susie_rss_refineTRUE_ERNA_ldrefout_AZFALSE_lambestimate',
-                 'susie_rss_refineTRUE_ERNA_ldrefout_AZFALSE_lambmlelikelihood'
-                 # 'susie_rss_refineTRUE_ERNA_ldrefout_AZTRUE_lamb0'
+                 'susie_rss_refineTRUE_ERNA_ldrefout_AZFALSE_lambmlelikelihood',
+                 'susie_rss_refineTRUE_ERNA_ldrefout_AZTRUE_lamb0'
 )) {
   yy = make_smooth((1 - tb[[method]][[type]][,1]), tb[[method]][[type]][,2])
   if (i == 1) {
