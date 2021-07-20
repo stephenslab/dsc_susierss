@@ -36,10 +36,11 @@ With default initialization:
 f1 = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, L=10)
 susie_plot(f1, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f1), 4)))
 ```
+
+With refinement:
 ```{r}
 f1 = susie_suff_stat(XtX = d1$XtX, Xty = d1$Xty, yty = d1$yty, n = d1$n, L=10, refine = TRUE)
 susie_plot(f1, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f1), 4)))
-
 ```
 
 
@@ -65,7 +66,7 @@ With default initialization:
 f2 = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, L=10, track_fit = T)
 susie_plot(f2, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f2), 4)))
 ```
-
+With refinement:
 ```{r}
 f2 = susie_suff_stat(XtX = d2$XtX, Xty = d2$Xty, yty = d2$yty, n = d2$n, L=10, track_fit = T, refine = TRUE)
 susie_plot(f2, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f2), 4)))
@@ -93,6 +94,7 @@ With default initialization:
 f6 = susie_suff_stat(XtX = d6$XtX, Xty = d6$Xty, yty = d6$yty, n = d6$n, L=10, track_fit = T)
 susie_plot(f6, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f6), 4)))
 ```
+With refinement:
 
 ```{r}
 f6 = susie_suff_stat(XtX = d6$XtX, Xty = d6$Xty, yty = d6$yty, n = d6$n, L=10, track_fit = T, refine = TRUE)
@@ -121,6 +123,7 @@ With default initialization:
 f3 = susie_suff_stat(XtX = d3$XtX, Xty = d3$Xty, yty = d3$yty, n = d3$n, L=10, track_fit = T)
 susie_plot(f3, y='PIP', b=b, add_legend = T, main=paste0('ELBO: ', round(susie_get_objective(f3), 4)))
 ```
+With refinement:
 
 ```{r}
 f3 = susie_suff_stat(XtX = d3$XtX, Xty = d3$Xty, yty = d3$yty, n = d3$n, L=10, track_fit = T, refine = TRUE)
