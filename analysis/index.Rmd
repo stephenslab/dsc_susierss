@@ -26,6 +26,6 @@ This repository contains simulation results related to SuSiE-RSS.
     
     [susie convergence problem](susie_convergence_problem.html)
     
-    [susie convergence possible solution](susie_convergence_possible_sol.htlm)
+    [susie convergence possible solution](susie_convergence_possible_sol.html)
     
     [susierss with 3 steps procedure](susierss_3steps_ukb_20210314.html)
