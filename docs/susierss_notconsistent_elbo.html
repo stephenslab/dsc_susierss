@@ -12,7 +12,7 @@
 <meta name="author" content="Yuxin Zou" />
 
 
-<title>SuSiE-RSS z, LD not consistent probelm</title>
+<title>Inconsistency between z and LD, ELBO probelm</title>
 
 <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -361,7 +361,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">SuSiE-RSS z, LD not consistent probelm</h1>
+<h1 class="title toc-ignore">Inconsistency between z and LD, ELBO probelm</h1>
 <h4 class="author">Yuxin Zou</h4>
 <h4 class="date">7/30/2021</h4>
 
@@ -479,16 +479,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstreee054946be758e1e3cbea598a886cc905024234c2targetblanke054946a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/e054946be758e1e3cbea598a886cc905024234c2" target="_blank">e054946</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree5a17b17067d999a8815a998930eddac6d9d55603targetblank5a17b17a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/5a17b17067d999a8815a998930eddac6d9d55603" target="_blank">5a17b17</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstreee054946be758e1e3cbea598a886cc905024234c2targetblanke054946a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree5a17b17067d999a8815a998930eddac6d9d55603targetblank5a17b17a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/e054946be758e1e3cbea598a886cc905024234c2" target="_blank">e054946</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/5a17b17067d999a8815a998930eddac6d9d55603" target="_blank">5a17b17</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -507,6 +507,7 @@ Untracked files:
     Untracked:  data/susierss_ldref.rds
 
 Unstaged changes:
+    Modified:   analysis/index.Rmd
     Modified:   analysis/susie_convergence_problem.Rmd
     Modified:   analysis/susierss_ukb_20210218_example.Rmd
     Deleted:    genotype_dir
@@ -548,6 +549,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/5a17b17067d999a8815a998930eddac6d9d55603/analysis/susierss_notconsistent_elbo.Rmd" target="_blank">5a17b17</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-07-30
+</td>
+<td>
+wflow_publish(“analysis/susierss_notconsistent_elbo.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/d1c98c77a7460a046d9acf27ab856511578fc531/docs/susierss_notconsistent_elbo.html" target="_blank">d1c98c7</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-07-30
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -601,7 +636,45 @@ z[2] = -z[2]</code></pre>
 scaled_prior_variance = prior_variance, : IBSS algorithm did not converge in 100
 iterations!</code></pre>
 <pre class="r"><code>plot(f$elbo)</code></pre>
-<p><img src="figure/susierss_notconsistent_elbo.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /> The elbo keeps increasing. It identifies 2 CSs:</p>
+<p><img src="figure/susierss_notconsistent_elbo.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/d1c98c77a7460a046d9acf27ab856511578fc531/docs/figure/susierss_notconsistent_elbo.Rmd/unnamed-chunk-5-1.png" target="_blank">d1c98c7</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-07-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The elbo keeps increasing. It identifies 2 CSs:</p>
 <pre class="r"><code>f$sets$cs</code></pre>
 <pre><code>$L1
 [1] 1
