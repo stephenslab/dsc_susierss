@@ -1,5 +1,5 @@
 ---
-title: "SuSiE-RSS z, LD not consistent probelm"
+title: "Inconsistency between z and LD, ELBO probelm"
 author: "Yuxin Zou"
 date: "7/30/2021"
 output: 
