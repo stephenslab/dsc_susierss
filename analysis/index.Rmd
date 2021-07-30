@@ -10,7 +10,7 @@ editor_options:
 
 This repository contains simulation results related to SuSiE-RSS.
     
-    [inconsistency between z and LD, elbo problem](susierss_notconsistent_elbo.html)
+[inconsistency between z and LD, elbo problem](susierss_notconsistent_elbo.html)
     
 * Most recent results: 
     
