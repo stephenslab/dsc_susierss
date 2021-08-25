@@ -28,8 +28,3 @@ plink2 --pfile ../output/height.chr${regionchr}.${regionname} --freq --out ../ou
 
 plink2 --pfile ../output/height.chr${regionchr}.${regionname} --recode bgen-1.2 --out ../output/height.chr${regionchr}.${regionname}
 
-ldstore --bgen ../output/height.chr${regionchr}.${regionname}.bgen --bcor ../output/height.chr${regionchr}.${regionname}.bcor --n-threads 10 --accuracy high --ld-thold 0
-ldstore --bcor ../output/height.chr${regionchr}.${regionname}.bcor --merge 10
-ldstore --bcor ../output/height.chr${regionchr}.${regionname}.bcor --matrix ../output/height.chr${regionchr}.${regionname}.matrix
-rm ../output/height.chr${regionchr}.${regionname}.bcor_*
-
