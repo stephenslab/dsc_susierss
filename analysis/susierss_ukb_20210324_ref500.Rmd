@@ -37,6 +37,8 @@ FINEMAP v1.4 L4
 
 ## Power vs FDR
 
+The left plot is SuSiE without refinement. The right plot is SuSiE with refinement.
+
 Using in sample LD
 
 ![](assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/ukb_roc_remdatallTRUE.pr.ERFALSE_ldin_methods.png){width=45%} ![](assets/susierss_ukb_20210324_REF500_pve005/susierss_ukb_20210324_REF500_pve005_roc/ukb_roc_remdatallTRUE.pr.ERFALSE_refine_ldin_methods.png){width=45%}
@@ -78,6 +80,7 @@ colnames(rates) = c('discoveries', 'valid', 'size', 'purity', 'avgr2','expected'
 rates = as.data.frame(rates)
 rates$method = rownames(rates)
 rates = rates[-c(2:8, 10:16, 19, 21, 23, 27, 29, 31, 33:36, 37, 39),]
+rates = rates[-c(6,11),]
 rates = rates[grep('refineFALSE', rates$method),]
 methods = rates$method
 rename_mets = gsub('_ldin', '', methods)
@@ -112,6 +115,7 @@ colnames(rates) = c('discoveries', 'valid', 'size', 'purity', 'avgr2','expected'
 rates = as.data.frame(rates)
 rates$method = rownames(rates)
 rates = rates[-c(2:8, 10:16, 19, 21, 23, 27, 29, 31, 33:36, 37, 39),]
+rates = rates[-c(6,11),]
 rates = rates[grep('refineTRUE', rates$method),]
 methods = rates$method
 rename_mets = gsub('_ldin', '', methods)

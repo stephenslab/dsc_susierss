@@ -12,8 +12,9 @@
 <meta name="author" content="Yuxin Zou" />
 
 
-<title>SuSiE-RSS UKB (REF 1000)</title>
+<title>Inconsistency between z and LD, ELBO probelm</title>
 
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -36,8 +37,6 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -46,6 +45,8 @@ div.section {
   padding-top: 12px;
 }
 </style>
+
+
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -309,12 +310,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -360,9 +361,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">SuSiE-RSS UKB (REF 1000)</h1>
+<h1 class="title toc-ignore">Inconsistency between z and LD, ELBO probelm</h1>
 <h4 class="author">Yuxin Zou</h4>
-<h4 class="date">3/24/2021</h4>
+<h4 class="date">7/30/2021</h4>
 
 </div>
 
@@ -387,7 +388,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-07-12
+<strong>Last updated:</strong> 2021-07-30
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -478,16 +479,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree0a92557d6fd734e6e3e7e0c23b84347aba59c5e6targetblank0a92557a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/0a92557d6fd734e6e3e7e0c23b84347aba59c5e6" target="_blank">0a92557</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree5a17b17067d999a8815a998930eddac6d9d55603targetblank5a17b17a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/5a17b17067d999a8815a998930eddac6d9d55603" target="_blank">5a17b17</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree0a92557d6fd734e6e3e7e0c23b84347aba59c5e6targetblank0a92557a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree5a17b17067d999a8815a998930eddac6d9d55603targetblank5a17b17a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/0a92557d6fd734e6e3e7e0c23b84347aba59c5e6" target="_blank">0a92557</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/5a17b17067d999a8815a998930eddac6d9d55603" target="_blank">5a17b17</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -524,7 +525,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/susierss_ukb_20210324_ref1000.Rmd</code>) and HTML (<code>docs/susierss_ukb_20210324_ref1000.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/susierss_notconsistent_elbo.Rmd</code>) and HTML (<code>docs/susierss_notconsistent_elbo.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -553,16 +554,16 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/0a92557d6fd734e6e3e7e0c23b84347aba59c5e6/analysis/susierss_ukb_20210324_ref1000.Rmd" target="_blank">0a92557</a>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/5a17b17067d999a8815a998930eddac6d9d55603/analysis/susierss_notconsistent_elbo.Rmd" target="_blank">5a17b17</a>
 </td>
 <td>
 zouyuxin
 </td>
 <td>
-2021-07-12
+2021-07-30
 </td>
 <td>
-wflow_publish(“analysis/susierss_ukb_20210324_ref1000.Rmd”)
+wflow_publish(“analysis/susierss_notconsistent_elbo.Rmd”)
 </td>
 </tr>
 <tr>
@@ -570,13 +571,13 @@ wflow_publish(“analysis/susierss_ukb_20210324_ref1000.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/3a5e3c68f810b016546b133687844dc825903658/docs/susierss_ukb_20210324_ref1000.html" target="_blank">3a5e3c6</a>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/d1c98c77a7460a046d9acf27ab856511578fc531/docs/susierss_notconsistent_elbo.html" target="_blank">d1c98c7</a>
 </td>
 <td>
 zouyuxin
 </td>
 <td>
-2021-07-12
+2021-07-30
 </td>
 <td>
 Build site.
@@ -587,169 +588,16 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/967ca855f58557f58a1f23238b576dd2fa95f6aa/analysis/susierss_ukb_20210324_ref1000.Rmd" target="_blank">967ca85</a>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/e054946be758e1e3cbea598a886cc905024234c2/analysis/susierss_notconsistent_elbo.Rmd" target="_blank">e054946</a>
 </td>
 <td>
 zouyuxin
 </td>
 <td>
-2021-07-12
+2021-07-30
 </td>
 <td>
-wflow_publish(“analysis/susierss_ukb_20210324_ref1000.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/9d1d47329d7f98e8b4255bd534262283b2993a21/docs/susierss_ukb_20210324_ref1000.html" target="_blank">9d1d473</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2021-05-04
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/660b6f7792025b1bbabf575154c4b98e046fe292/analysis/susierss_ukb_20210324_ref1000.Rmd" target="_blank">660b6f7</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2021-05-04
-</td>
-<td>
-wflow_publish(“analysis/susierss_ukb_20210324_ref1000.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/f97adb815785a17ab773f4f0a5bf92b2966b48a1/docs/susierss_ukb_20210324_ref1000.html" target="_blank">f97adb8</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2021-04-09
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/dd81e3a22f621bbf2b0a88e15424443f11c14915/analysis/susierss_ukb_20210324_ref1000.Rmd" target="_blank">dd81e3a</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2021-04-09
-</td>
-<td>
-wflow_publish(“analysis/susierss_ukb_20210324_ref1000.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/d0bc050fe8f6ec83d280e9c744b619269c1615d9/docs/susierss_ukb_20210324_ref1000.html" target="_blank">d0bc050</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2021-04-08
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/fe193a4246342f14e6f89f0cb54d796c311aea4f/analysis/susierss_ukb_20210324_ref1000.Rmd" target="_blank">fe193a4</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2021-04-08
-</td>
-<td>
-wflow_publish(“analysis/susierss_ukb_20210324_ref1000.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/304fd07594617292f901941252cced829c7c0684/docs/susierss_ukb_20210324_ref1000.html" target="_blank">304fd07</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2021-04-08
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/827902c741fe673536f0de7bb22543e5f6c98a5b/docs/susierss_ukb_20210324_ref1000.html" target="_blank">827902c</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2021-04-08
-</td>
-<td>
-add results
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/ac661b3c34dc88bc2cd361eac617de19fcfaa191/analysis/susierss_ukb_20210324_ref1000.Rmd" target="_blank">ac661b3</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2021-04-08
-</td>
-<td>
-add results
+wflow_publish(“analysis/susierss_notconsistent_elbo.Rmd”)
 </td>
 </tr>
 </tbody>
@@ -759,224 +607,80 @@ add results
 </div>
 </div>
 </div>
-<p>This simulation uses UKB genotype data. We extract the genotype regions based on height GWAS result. There are 200 regions, each with 1000 SNPs. We sample 50,000 individuals to simulate the data. We sample another 1000 samples to get reference LD matrix. We simulate data with 1,2,3 signals and PVE 0.005. We run susie_rss using L=10. We run FINEMAPv1.1 with oracle number of signals. We run FINEMAPv1.4 with oracle number of signals and max 4 signals. The reference panel has 1000 samples.</p>
-<div id="pip-calibration" class="section level2">
-<h2>PIP Calibration</h2>
-<p>SuSiE-RSS</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_pip_calibration/ukb_pip_calib_susierss.png" /></p>
-<p>SuSiE-RSS with refinement</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_pip_calibration/ukb_pip_calib_susierssrefine.png" /></p>
-<p>FINEMAP v1.1</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_pip_calibration/ukb_pip_calib_fmv1.png" /></p>
-<p>FINEMAP v1.4</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_pip_calibration/ukb_pip_calib_fmv4.png" /></p>
-<p>FINEMAP v1.4 L4</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_pip_calibration/ukb_pip_calib_fmv4L4.png" /></p>
-</div>
-<div id="power-vs-fdr" class="section level2">
-<h2>Power vs FDR</h2>
-<p>The left plot is SuSiE without refinement. The right plot is SuSiE with refinement.</p>
-<p>Using in sample LD</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_roc/ukb_roc.pr.ERFALSE_ldin_methods.png" style="width:45.0%" /> <img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_roc/ukb_roc.pr.ERFALSE_refine_ldin_methods.png" style="width:45.0%" /></p>
-<p>Using ref LD</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_roc/ukb_roc.pr.ERFALSE_ldref_methods.png" style="width:45.0%" /> <img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_roc/ukb_roc.pr.ERFALSE_refine_ldref_methods.png" style="width:45.0%" /></p>
-<p>SuSiE-RSS with reference LD</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_roc/susierss_ukb_roc.pr.ERFALSE_ld.png" style="width:45.0%" /> <img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_roc/susierss_refine_ukb_roc.pr.ERFALSE_ld.png" style="width:45.0%" /></p>
-<p>FINEMAP v1.1 with reference LD</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_roc/finemapv1_ukb_roc.pr_ld.png" style="width:70.0%" /></p>
-<p>FINEMAP v1.4 with reference LD</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_roc/finemapv4_ukb_roc.pr_ld.png" style="width:70.0%" /></p>
-<p>FINEMAP v1.4 (L=4) with reference LD</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_roc/finemapv4L4_ukb_roc.pr_ld.png" style="width:70.0%" /></p>
-</div>
-<div id="cs" class="section level2">
-<h2>CS</h2>
-<p>Overall</p>
-<p>Without refinement</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_cs/ukb_cs_original_plots.png" style="width:70.0%" /></p>
-<pre class="r"><code>cs = readRDS(&#39;docs/assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_cs/susierss_ukb_cs.rds&#39;)
-rates = matrix(unlist(cs), length(cs), byrow = T)
-rownames(rates) = names(cs)
-colnames(rates) = c(&#39;discoveries&#39;, &#39;valid&#39;, &#39;size&#39;, &#39;purity&#39;, &#39;avgr2&#39;,&#39;expected&#39;, &#39;nonconverge&#39;,
-                    &#39;power&#39;, &#39;coverage&#39;, &#39;power_se&#39;, &#39;coverage_se&#39;)
-rates = as.data.frame(rates)
-rates$method = rownames(rates)
-# we used purified finemap CS
-rates = rates[c(grep(&#39;susie&#39;, rates$method), grep(&#39;pure&#39;, rates$method)),]
-rates = rates[c(grep(&#39;susie&#39;, rates$method), grep(&#39;finemapv4L4&#39;, rates$method)),]
-rates = rates[-c(2:8, 10:16, 19, 21, 23, 27, 29, 31, 33:36, 37, 39),]
-rates = rates[-c(6,11),]
-rates = rates[grep(&#39;refineFALSE&#39;, rates$method),]
-methods = rates$method
-rename_mets = gsub(&#39;_ldin&#39;, &#39;&#39;, methods)
-rename_mets = gsub(&#39;_ldrefout&#39;, &#39;_ldref&#39;, rename_mets)
-rename_mets = gsub(&#39;_ERNA&#39;, &#39;&#39;, rename_mets)
-rename_mets = gsub(&#39;_ERFALSE&#39;, &#39;&#39;, rename_mets)
-rename_mets = gsub(&#39;_AZFALSE&#39;, &#39;&#39;, rename_mets)
-rename_mets = gsub(&#39;_AZTRUE&#39;, &#39;_AZ&#39;, rename_mets)
-rename_mets = gsub(&#39;_pure&#39;, &#39;&#39;, rename_mets)
-rename_mets = gsub(&#39;finemapv4&#39;, &#39;FINEMAPv1.4&#39;, rename_mets)
-rename_mets = gsub(&#39;lamb0.001&#39;, &#39;s=0.001&#39;, rename_mets)
-rename_mets = gsub(&#39;lambmlelikelihood&#39;, &#39;estimated s&#39;, rename_mets)
-rename = as.list(rename_mets)
-names(rename) = methods
-rates$method = sapply(rownames(rates), function(x) rename[[x]])
-rates$method = gsub(&#39;_refineFALSE&#39;, &#39;&#39;, rates$method)
-rates$method = gsub(&#39;_lamb0$&#39;, &#39;&#39;, rates$method)
-library(kableExtra)
-tb = rates[,c(&#39;method&#39;, &#39;nonconverge&#39;)]
-rownames(tb) = NULL
-t(tb) %&gt;% kbl() %&gt;% kable_styling()</code></pre>
-<table class="table" style="margin-left: auto; margin-right: auto;">
+<pre class="r"><code>library(susieR)</code></pre>
+<p>Here is a simple example to reproduce the convergence problem when z and R are not consistent.</p>
+<p>We simulated 5 variants, <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are perfectly correlated, <span class="math inline">\(x_1\)</span> has non-zero effect. We flip the sign of <span class="math inline">\(x_2\)</span>.</p>
+<pre class="r"><code>set.seed(1)
+X = matrix(rnorm(100*5), 100,5)
+X[,1] = X[,2]
+b = numeric(5)
+b[1] = 1
+y = X %*% b + rnorm(100)
+ss = susieR:::univariate_regression(X, y)
+z = ss$betahat/ss$sebetahat
+R = cor(X)
+z[2] = -z[2]</code></pre>
+<p>The z scores are</p>
+<pre class="r"><code>z</code></pre>
+<pre><code>[1]  9.6168376 -9.6168376 -0.6474811 -1.1071012  0.3076616</code></pre>
+<p>The LD is</p>
+<pre class="r"><code>R</code></pre>
+<pre><code>            [,1]        [,2]        [,3]        [,4]       [,5]
+[1,]  1.00000000  1.00000000 -0.04953621 -0.05842247 0.13519013
+[2,]  1.00000000  1.00000000 -0.04953621 -0.05842247 0.13519013
+[3,] -0.04953621 -0.04953621  1.00000000  0.11078034 0.02969842
+[4,] -0.05842247 -0.05842247  0.11078034  1.00000000 0.02388991
+[5,]  0.13519013  0.13519013  0.02969842  0.02388991 1.00000000</code></pre>
+<pre class="r"><code>f = susie_rss(z, R, max_iter = 100, track_fit = TRUE)</code></pre>
+<pre><code>Warning in susie_suff_stat(XtX = R, Xty = z, n = 2, yty = 1,
+scaled_prior_variance = prior_variance, : IBSS algorithm did not converge in 100
+iterations!</code></pre>
+<pre class="r"><code>plot(f$elbo)</code></pre>
+<p><img src="figure/susierss_notconsistent_elbo.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
-method
+<td>
+<a href="https://github.com/zouyuxin/dsc_susierss/blob/d1c98c77a7460a046d9acf27ab856511578fc531/docs/figure/susierss_notconsistent_elbo.Rmd/unnamed-chunk-5-1.png" target="_blank">d1c98c7</a>
 </td>
-<td style="text-align:left;">
-susie_suff
+<td>
+zouyuxin
 </td>
-<td style="text-align:left;">
-susie_rss
-</td>
-<td style="text-align:left;">
-susie_rss_ldref
-</td>
-<td style="text-align:left;">
-susie_rss_ldref_s=0.001
-</td>
-<td style="text-align:left;">
-susie_rss_ldref_estimated s
-</td>
-<td style="text-align:left;">
-susie_rss_ldref_AZ
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-nonconverge
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-0
+<td>
+2021-07-30
 </td>
 </tr>
 </tbody>
 </table>
-<p>With Refinement</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_cs/ukb_cs_refine_plots.png" style="width:70.0%" /></p>
-<pre class="r"><code>cs = readRDS(&#39;docs/assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_cs/susierss_ukb_cs.rds&#39;)
-rates = matrix(unlist(cs), length(cs), byrow = T)
-rownames(rates) = names(cs)
-colnames(rates) = c(&#39;discoveries&#39;, &#39;valid&#39;, &#39;size&#39;, &#39;purity&#39;, &#39;avgr2&#39;,&#39;expected&#39;, &#39;nonconverge&#39;,
-                    &#39;power&#39;, &#39;coverage&#39;, &#39;power_se&#39;, &#39;coverage_se&#39;)
-rates = as.data.frame(rates)
-rates$method = rownames(rates)
-# we used purified finemap CS
-rates = rates[c(grep(&#39;susie&#39;, rates$method), grep(&#39;pure&#39;, rates$method)),]
-rates = rates[c(grep(&#39;susie&#39;, rates$method), grep(&#39;finemapv4L4&#39;, rates$method)),]
-rates = rates[-c(2:8, 10:16, 19, 21, 23, 27, 29, 31, 33:36, 37, 39),]
-rates = rates[-c(6,11),]
-rates = rates[grep(&#39;refineTRUE&#39;, rates$method),]
-methods = rates$method
-rename_mets = gsub(&#39;_ldin&#39;, &#39;&#39;, methods)
-rename_mets = gsub(&#39;_ldrefout&#39;, &#39;_ldref&#39;, rename_mets)
-rename_mets = gsub(&#39;_ERNA&#39;, &#39;&#39;, rename_mets)
-rename_mets = gsub(&#39;_ERFALSE&#39;, &#39;&#39;, rename_mets)
-rename_mets = gsub(&#39;_AZFALSE&#39;, &#39;&#39;, rename_mets)
-rename_mets = gsub(&#39;_AZTRUE&#39;, &#39;_AZ&#39;, rename_mets)
-rename_mets = gsub(&#39;_pure&#39;, &#39;&#39;, rename_mets)
-rename_mets = gsub(&#39;finemapv4&#39;, &#39;FINEMAPv1.4&#39;, rename_mets)
-rename_mets = gsub(&#39;lamb0.001&#39;, &#39;s=0.001&#39;, rename_mets)
-rename_mets = gsub(&#39;lambmlelikelihood&#39;, &#39;estimated s&#39;, rename_mets)
-rename = as.list(rename_mets)
-names(rename) = methods
-rates$method = sapply(rownames(rates), function(x) rename[[x]])
-rates$method = gsub(&#39;_refineTRUE&#39;, &#39;&#39;, rates$method)
-rates$method = gsub(&#39;_lamb0$&#39;, &#39;&#39;, rates$method)
-library(kableExtra)
-tb = rates[,c(&#39;method&#39;, &#39;nonconverge&#39;)]
-rownames(tb) = NULL
-t(tb) %&gt;% kbl() %&gt;% kable_styling()</code></pre>
-<table class="table" style="margin-left: auto; margin-right: auto;">
-<tbody>
-<tr>
-<td style="text-align:left;">
-method
-</td>
-<td style="text-align:left;">
-susie_suff
-</td>
-<td style="text-align:left;">
-susie_rss
-</td>
-<td style="text-align:left;">
-susie_rss_ldref
-</td>
-<td style="text-align:left;">
-susie_rss_ldref_s=0.001
-</td>
-<td style="text-align:left;">
-susie_rss_ldref_estimated s
-</td>
-<td style="text-align:left;">
-susie_rss_ldref_AZ
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-nonconverge
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-0
-</td>
-</tr>
-</tbody>
-</table>
-<p>1 signal</p>
-<p>Without refinement</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_cs/ukb_cs_original_s1_plots.png" style="width:70.0%" /></p>
-<p>With refinement</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_cs/ukb_cs_refine_s1_plots.png" style="width:70.0%" /></p>
-<p>2 signals</p>
-<p>Without refinement</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_cs/ukb_cs_original_s2_plots.png" style="width:70.0%" /></p>
-<p>With refinement</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_cs/ukb_cs_refine_s2_plots.png" style="width:70.0%" /></p>
-<p>3 signals</p>
-<p>Without refinement</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_cs/ukb_cs_original_s3_plots.png" style="width:70.0%" /></p>
-<p>With refinement</p>
-<p><img src="assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_cs/ukb_cs_refine_s3_plots.png" style="width:70.0%" /></p>
+</div>
+</div>
+<p>The elbo keeps increasing. It identifies 2 CSs:</p>
+<pre class="r"><code>f$sets$cs</code></pre>
+<pre><code>$L1
+[1] 1
+
+$L2
+[1] 2</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -985,13 +689,13 @@ nonconverge
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.3 (2020-10-10)
+<pre><code>R version 4.1.0 (2021-05-18)
 Platform: x86_64-apple-darwin17.0 (64-bit)
 Running under: macOS Big Sur 10.16
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -1000,21 +704,22 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] kableExtra_1.3.4 workflowr_1.6.2 
+[1] susieR_0.11.43  workflowr_1.6.2
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.6        highr_0.8         pillar_1.6.1      compiler_4.0.3   
- [5] later_1.1.0.1     git2r_0.28.0      tools_4.0.3       digest_0.6.27    
- [9] viridisLite_0.4.0 evaluate_0.14     lifecycle_1.0.0   tibble_3.1.2     
-[13] pkgconfig_2.0.3   rlang_0.4.11      rstudioapi_0.13   yaml_2.2.1       
-[17] xfun_0.22         stringr_1.4.0     httr_1.4.2        knitr_1.31       
-[21] xml2_1.3.2        systemfonts_1.0.1 fs_1.5.0          vctrs_0.3.8      
-[25] webshot_0.5.2     rprojroot_2.0.2   svglite_2.0.0     glue_1.4.2       
-[29] R6_2.5.0          fansi_0.5.0       rmarkdown_2.7     magrittr_2.0.1   
-[33] whisker_0.4       scales_1.1.1      promises_1.2.0.1  ellipsis_0.3.2   
-[37] htmltools_0.5.1.1 rvest_1.0.0       colorspace_2.0-2  httpuv_1.5.5     
-[41] utf8_1.2.1        stringi_1.5.3     munsell_0.5.0     crayon_1.4.1     </code></pre>
-</div>
+ [1] Rcpp_1.0.7        highr_0.9         plyr_1.8.6        pillar_1.6.1     
+ [5] compiler_4.1.0    later_1.2.0       git2r_0.28.0      tools_4.1.0      
+ [9] digest_0.6.27     evaluate_0.14     lifecycle_1.0.0   tibble_3.1.2     
+[13] gtable_0.3.0      lattice_0.20-44   pkgconfig_2.0.3   rlang_0.4.11     
+[17] Matrix_1.3-3      yaml_2.2.1        xfun_0.24         dplyr_1.0.7      
+[21] stringr_1.4.0     knitr_1.33        generics_0.1.0    fs_1.5.0         
+[25] vctrs_0.3.8       tidyselect_1.1.1  rprojroot_2.0.2   grid_4.1.0       
+[29] reshape_0.8.8     glue_1.4.2        R6_2.5.0          fansi_0.5.0      
+[33] rmarkdown_2.9     mixsqp_0.3-46     irlba_2.3.3       purrr_0.3.4      
+[37] ggplot2_3.3.5     magrittr_2.0.1    whisker_0.4       scales_1.1.1     
+[41] promises_1.2.0.1  ellipsis_0.3.2    htmltools_0.5.1.1 colorspace_2.0-2 
+[45] httpuv_1.6.1      utf8_1.2.1        stringi_1.7.3     munsell_0.5.0    
+[49] crayon_1.4.1     </code></pre>
 </div>
 
 
@@ -1029,6 +734,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 </div>
@@ -1072,6 +779,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

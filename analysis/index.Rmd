@@ -8,22 +8,30 @@ editor_options:
   chunk_output_type: console
 ---
 
-* Simulation using UKB [result](susierss_ukb_20210218.html)
+This repository contains simulation results related to SuSiE-RSS.
+    
++ Most recent results: 
+    
+    - [inconsistency between z and LD, elbo
+	   problem](susierss_notconsistent_elbo.html)
+    
+    - [20210324 result ref1000](susierss_ukb_20210324_ref1000.html)
+
+    - [20210324 result ref500](susierss_ukb_20210324_ref500.html)
+    
+    - [20210324 result ref500 LD eg](susierss_ukb_20210324_ref500_ldref.html)
+
++ Previous results:
+
+    - [PIP calibration and power vs. FDR](susierss_ukb_20210218.html)
  
-    [example](susierss_ukb_20210218_example.html)
+    - [example](susierss_ukb_20210218_example.html)
     
-    [susie convergence benchmark](susie_ukb_20210307_convergence.html)
+    - [susie convergence benchmark](susie_ukb_20210307_convergence.html)
     
-    [susie convergence problem](susie_convergence_problem.html)
+    - [susie convergence problem](susie_convergence_problem.html)
     
-    [susie convergence possible solution](susie_convergence_possible_sol.htlm)
+    - [susie convergence possible
+	   solution](susie_convergence_possible_sol.html)
     
-    [susierss with 3 steps procedure](susierss_3steps_ukb_20210314.html)
-    
-* [20210324 result ref1000](susierss_ukb_20210324_ref1000.html)
-
-    [20210324 result ref500](susierss_ukb_20210324_ref500.html)
-    
-    [20210324 result ref500 LD eg](susierss_ukb_20210324_ref500_ldref.html)
-
-
+    - [susierss with 3 steps procedure](susierss_3steps_ukb_20210314.html)

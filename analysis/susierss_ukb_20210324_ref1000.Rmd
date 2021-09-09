@@ -7,7 +7,7 @@ output:
     code_folding: hide
 ---
 
-This simulation uses UKB genotype data. We extract the genotype regions based on height GWAS result. There are 200 regions, each with 1000 SNPs. We sample 50,000 individuals to simulate the data. We sample another 1000 samples to get reference LD matrix. We simulate data with 1,2,3 signals and PVE 0.005. We run susie_rss with L=10. We run FINEMAPv1.1 with oracle number of signals. We run FINEMAPv1.4 with oracle number of signals and max 4 signals. The reference panel has 1000 samples.
+This simulation uses UKB genotype data. We extract the genotype regions based on height GWAS result. There are 200 regions, each with 1000 SNPs. We sample 50,000 individuals to simulate the data. We sample another 1000 samples to get reference LD matrix. We simulate data with 1,2,3 signals and PVE 0.005. We run susie_rss using L=10. We run FINEMAPv1.1 with oracle number of signals. We run FINEMAPv1.4 with oracle number of signals and max 4 signals. The reference panel has 1000 samples.
 
 ## PIP Calibration
 
@@ -32,6 +32,8 @@ FINEMAP v1.4 L4
 ![](assets/susierss_ukb_20210324_REF1000_pve005/susierss_ukb_20210324_REF1000_pve005_pip_calibration/ukb_pip_calib_fmv4L4.png)
 
 ## Power vs FDR
+
+The left plot is SuSiE without refinement. The right plot is SuSiE with refinement.
 
 Using in sample LD
 
@@ -77,6 +79,7 @@ rates$method = rownames(rates)
 rates = rates[c(grep('susie', rates$method), grep('pure', rates$method)),]
 rates = rates[c(grep('susie', rates$method), grep('finemapv4L4', rates$method)),]
 rates = rates[-c(2:8, 10:16, 19, 21, 23, 27, 29, 31, 33:36, 37, 39),]
+rates = rates[-c(6,11),]
 rates = rates[grep('refineFALSE', rates$method),]
 methods = rates$method
 rename_mets = gsub('_ldin', '', methods)
@@ -87,6 +90,8 @@ rename_mets = gsub('_AZFALSE', '', rename_mets)
 rename_mets = gsub('_AZTRUE', '_AZ', rename_mets)
 rename_mets = gsub('_pure', '', rename_mets)
 rename_mets = gsub('finemapv4', 'FINEMAPv1.4', rename_mets)
+rename_mets = gsub('lamb0.001', 's=0.001', rename_mets)
+rename_mets = gsub('lambmlelikelihood', 'estimated s', rename_mets)
 rename = as.list(rename_mets)
 names(rename) = methods
 rates$method = sapply(rownames(rates), function(x) rename[[x]])
@@ -114,6 +119,7 @@ rates$method = rownames(rates)
 rates = rates[c(grep('susie', rates$method), grep('pure', rates$method)),]
 rates = rates[c(grep('susie', rates$method), grep('finemapv4L4', rates$method)),]
 rates = rates[-c(2:8, 10:16, 19, 21, 23, 27, 29, 31, 33:36, 37, 39),]
+rates = rates[-c(6,11),]
 rates = rates[grep('refineTRUE', rates$method),]
 methods = rates$method
 rename_mets = gsub('_ldin', '', methods)
@@ -124,6 +130,8 @@ rename_mets = gsub('_AZFALSE', '', rename_mets)
 rename_mets = gsub('_AZTRUE', '_AZ', rename_mets)
 rename_mets = gsub('_pure', '', rename_mets)
 rename_mets = gsub('finemapv4', 'FINEMAPv1.4', rename_mets)
+rename_mets = gsub('lamb0.001', 's=0.001', rename_mets)
+rename_mets = gsub('lambmlelikelihood', 'estimated s', rename_mets)
 rename = as.list(rename_mets)
 names(rename) = methods
 rates$method = sapply(rownames(rates), function(x) rename[[x]])

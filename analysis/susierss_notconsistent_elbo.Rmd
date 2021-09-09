@@ -1,0 +1,50 @@
+---
+title: "Inconsistency between z and LD, ELBO probelm"
+author: "Yuxin Zou"
+date: "7/30/2021"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+```{r}
+library(susieR)
+```
+
+Here is a simple example to reproduce the convergence problem when z and R are not consistent.
+
+We simulated 5 variants, $x_1$ and $x_2$ are perfectly correlated, $x_1$ has non-zero effect. We flip the sign of $x_2$.
+
+```{r}
+set.seed(1)
+X = matrix(rnorm(100*5), 100,5)
+X[,1] = X[,2]
+b = numeric(5)
+b[1] = 1
+y = X %*% b + rnorm(100)
+ss = susieR:::univariate_regression(X, y)
+z = ss$betahat/ss$sebetahat
+R = cor(X)
+z[2] = -z[2]
+```
+
+The z scores are
+```{r}
+z
+```
+
+The LD is
+```{r}
+R
+```
+
+```{r}
+f = susie_rss(z, R, max_iter = 100, track_fit = TRUE)
+plot(f$elbo)
+```
+The elbo keeps increasing. It identifies 2 CSs:
+```{r}
+f$sets$cs
+```
+
+
