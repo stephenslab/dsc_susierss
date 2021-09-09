@@ -71,3 +71,13 @@ score_caviar: caviar_scores.R + R(sc = caviar_scores_multiple($(posterior), $(me
     $signal_pip: sc$signal_pip
     $pip: sc$pip
 
+score_dap: dap_scores.R + R(sc = dap_scores_multiple($(posterior), $(meta)$true_coef))
+    $total: sc$total
+    $valid: sc$valid
+    $size: sc$size
+    $avgr2: sc$avgr2
+    $top: sc$top
+    $overlap: sc$overlap
+    $signal_pip: sc$signal_pip
+    $pip: sc$pip
+    

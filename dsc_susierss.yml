@@ -67,10 +67,39 @@ get_sumstats:
   mem_per_instance: 5G
   time_per_instance: 30m
 
-method_susie: 
-  time_per_instance: 1h
-  instances_per_job: 30
+adjustld:
+  instances_per_job: 50
   instances_per_node: 10
+  mem_per_instance: 2G
+  time_per_instance: 10m
+  
+adjustld_insample:
+  time_per_instance: 2m
+  instances_per_job: 200
+  
+adjustld_addz:
+  instances_per_job: 50
+  instances_per_node: 10
+  mem_per_instance: 2G
+  time_per_instance: 10m
+
+adjustld_gtex:
+  instances_per_job: 50
+  instances_per_node: 10
+  mem_per_instance: 2G
+  time_per_instance: 10m
+
+adjustld_addz_gtex:
+  instances_per_job: 50
+  instances_per_node: 10
+  mem_per_instance: 2G
+  time_per_instance: 10m
+  
+method_susie: 
+  queue: stephenslab
+  time_per_instance: 1h
+  instances_per_job: 10
+  instances_per_node: 2
   mem_per_instance: 2G
 
 susie_init:
@@ -80,50 +109,7 @@ susie_init:
   instances_per_node: 10
   mem_per_instance: 2G
   
-susie_suff:
-  time_per_instance: 1h
-  instances_per_job: 10
-  instances_per_node: 10
-  mem_per_instance: 2G
-
-susie_suff_3steps:
-  queue: stephenslab
-  time_per_instance: 1h
-  instances_per_job: 10
-  instances_per_node: 10
-  mem_per_instance: 2G
-
 susie_suff_init:
-  time_per_instance: 1h
-  instances_per_job: 30
-  instances_per_node: 10
-  mem_per_instance: 2G
-
-susie_suff_addz:
-  time_per_instance: 1h
-  instances_per_job: 10
-  instances_per_node: 10
-  mem_per_instance: 2G
-
-susie_rss:
-  time_per_instance: 1h
-  instances_per_job: 30
-  instances_per_node: 10
-  mem_per_instance: 2G
-
-susie_rss_addz:
-  time_per_instance: 1h
-  instances_per_job: 30
-  instances_per_node: 10
-  mem_per_instance: 2G
-
-susie_rss_suff:
-  time_per_instance: 1h
-  instances_per_job: 30
-  instances_per_node: 10
-  mem_per_instance: 2G
-
-susie_rss_suff_addz:
   time_per_instance: 1h
   instances_per_job: 30
   instances_per_node: 10
@@ -136,21 +122,7 @@ method_finemap:
   instances_per_node: 10
   mem_per_instance: 5G
 
-finemap_gtex:
-  cpus_per_instance: 1
-  time_per_instance: 2h
-  instances_per_job: 10
-  instances_per_node: 10
-  mem_per_instance: 5G
-
 method_finemapv4:
-  cpus_per_instance: 1
-  time_per_instance: 2h
-  instances_per_job: 10
-  instances_per_node: 10
-  mem_per_instance: 5G
-  
-finemapv4_gtex:
   cpus_per_instance: 1
   time_per_instance: 2h
   instances_per_job: 10
@@ -166,12 +138,6 @@ method_caviar:
   time_per_instance: 6h
   instances_per_job: 5
   mem_per_instance: 5G
-
-method_caviar_gtex:
-  cpus_per_instance: 2
-  time_per_instance: 6h
-  instances_per_job: 5
-  mem_per_instance: 5G
   
 dap_z:
   time_per_instance: 61m
@@ -179,14 +145,17 @@ dap_z:
   instances_per_job: 80
 
 score_susie:
+  queue: stephenslab
   time_per_instance: 2m
   instances_per_job: 400
 
 score_caviar:
+  queue: stephenslab
   time_per_instance: 2m
   instances_per_job: 400
 
 score_finemap:
+  queue: stephenslab
   time_per_instance: 2m
   instances_per_job: 400
 
@@ -195,6 +164,7 @@ score_finemapv3:
   instances_per_job: 400
 
 score_finemapv4:
+  queue: stephenslab
   time_per_instance: 2m
   instances_per_job: 400
 

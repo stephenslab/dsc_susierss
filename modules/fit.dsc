@@ -15,7 +15,7 @@ adjustld: adjustld.R
   sumstats: $sumstats
   ld: $ld
   ldmethod: "in_sample", "refout_sample"
-  lamb: 0, 1e-3, 'estimate', 'mlelikelihood'
+  lamb: 0, 1e-3, 'mlelikelihood'
   addz: FALSE
   rcor: TRUE
   ldfile: file(ld)
@@ -96,6 +96,25 @@ finemapv4L5(finemapv4): fit_finemap_v4.R + R(posterior = finemap_mvar_v1.4(sumst
                                                          N_in, k, method, args, prefix=cache))
   args: '-n-causal-snps 5'
 
+dap_z: fit_dap.py + Python(numpy.nan_to_num(z, copy=False);
+                           posterior = dap_batch_z(z, ld_info[['ldfile']], cache, args))
+  z: $z
+  ld_info: $ldinfo
+  args: "-ld_control 0.20 --all"
+  cache: file(DAP)
+  $posterior: posterior
+  
+paintor: fit_paintor.R + R(b = $(meta)$true_coef;
+                           nc = sum(b[,1]!=0);
+                           if(nc > 3) nc = 3;
+                           args = paste0('-enumerate ', nc);
+                           z[is.na(z)] = 0;
+                           pip = finemap_paintor(z, ld_info[['ldfile']], args, prefix=cache))
+  z: $z
+  ld_info: $ldinfo
+  cache: file(PAINTOR)
+  $pip: pip
+
 susie: initialize.R + R(if(is.na(init)){
                           s_init = NA
                         }else if(init == 'oracle'){
@@ -174,4 +193,16 @@ susie_rss: initialize.R + fit_susierss.R + R(if(is.na(init)){
   init: NA
   $fitted: res$fitted
   $posterior: res$posterior
+
+susie_rss_Ltrue: fit_susierss.R + R(b = $(meta)$true_coef;
+                                    L = sum(b[,1]!=0);
+                                    r = as.matrix(fread(ld_info[['ldfile']]));
+                                    res = susie_rss_multiple(z, r, L, NA, refine);)
+  @CONF: R_libs = (susieR, data.table)
+  z: $z
+  ld_info: $ldinfo
+  refine: TRUE
+  $fitted: res$fitted
+  $posterior: res$posterior
+
 

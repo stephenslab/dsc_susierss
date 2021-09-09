@@ -41,13 +41,13 @@ tiny_data(full_data):
   maf_thresh: 0
   subset: 300
 
-summarize_ld: lib_regression_simulator.py + \
-                regression_simulator.py + \
-                Python(res = summarize_LD(X, ld_file['in_sample'], ld_plot))
-  X: $X_sample
-  ld_file: $ld
-  $ld_plot: file(png)
-  $top_idx: res
+summarize_ld: summarize_ld.R
+  X_sample: $X_sample
+  X_file: $X_file
+  ld: $ld
+  $res9: rnum_0.9
+  $res99: rnum_0.99
+  $bplength: bp_length
 
 full_data_gtex: sim_utils.R + data_gtex.R
   tag: "full"
@@ -77,3 +77,5 @@ small_data_gtex(full_data_gtex):
   tag: "1k"
   subset: 1000
   
+
+
