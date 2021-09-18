@@ -1,3 +1,4 @@
+library(dplyr)
 #' @title Check if produced confidence sets have overlaps
 #' @param cs a list a susie confidence sets from susie fit
 #' @return a boolean 1 if overlap, 0 otherwise
@@ -17,7 +18,7 @@ check_overlap = function(cs) {
 }
 
 
-#' @title Compare SuSiE fits to truth
+#' @title Compare dap fits to truth
 #' @param sets a list of susie CS info from susie fit
 #' @param pip probability for p variables
 #' @param true_coef true regression coefficients
@@ -26,63 +27,119 @@ check_overlap = function(cs) {
 #' @return size an array of size of CS
 #' @return angr2 an array of average R^2 of CS
 #' @return top the number of CS whose highest PIP is the true causal
-dap_scores = function(sets, pip, true_coef) {
+dap_scores = function(sets, pip, true_coef, ld) {
   if (is.null(dim(true_coef))) beta_idx = which(true_coef!=0)
   else beta_idx = which(apply(true_coef, 1, sum) != 0)
   
   if(is.null(sets)){
-    return(list(total=NA, valid=NA, size=NA, avgr2=NA, top=NA,
-                has_overlap=NA, signal_pip = NA))
+    return(list(total_cluster=NA, valid_cluster=NA, 
+                size_cluster=NA, purity_cluster=NA, 
+                avgr2_cluster=NA, top_cluster=NA,
+                has_overlap_cluster=NA, 
+                total_cs=NA, valid_cs=NA, 
+                size_cs=NA, purity_cs = NA, 
+                avgr2_cs=NA, top_cs=NA,
+                has_overlap_cs=NA, 
+                signal_pip = NA))
   }
   
-  if(nrow(sets) == 0){
-    cs = NULL
+  if(nrow(sets) > 0){
+    snp_clusters = pip %>% filter(cluster %in% sets$cluster)
+    clusters = lapply(sort(unique(snp_clusters$cluster)), function(i) snp_clusters$snp[snp_clusters$cluster == i])
+    
+    ## construct 95% CS
+    cs = lapply(sort(unique(snp_clusters$cluster)), 
+                function(i){
+                  id = which(pip$cluster == i)
+                  n = sum(cumsum(sort(pip$snp_prob[id],decreasing = TRUE)) < 0.95) +1
+                  o = order(pip$snp_prob[id], decreasing = TRUE)
+                  pip$snp[id[o[1:n]]]
+                })
+    size_cluster = as.vector(sets$size)
+    total_cluster = nrow(sets)
+    purity_cluster = sapply(clusters, function(x){
+      value = abs(ld[x, x])
+      min(value)
+    })
+    avgr2_cluster = sapply(clusters, function(x){
+      value = abs(ld[x, x])
+      (mean(value))^2
+    })
+    
+    size_cs = sapply(cs,length)
+    total_cs = length(cs)
+    purity_cs = sapply(cs, function(x){
+      value = abs(ld[x, x])
+      min(value)
+    })
+    avgr2_cs = sapply(cs, function(x){
+      value = abs(ld[x, x])
+      (mean(value))^2
+    })
   }else{
-    cs = apply(sets, 1, function(cluster) as.numeric(strsplit(cluster[4], ",")[[1]]))
+    total_cluster=0
+    size_cluster=0
+    purity_cluster=0
+    avgr2_cluster=0
+
+    total_cs=0
+    size_cs=0
+    purity_cs =0
+    avgr2_cs=0
   }
 
-  if (is.null(cs)) {
-    size = 0
-    total = 0
-    avgr2 = 0
-  } else {
-    size = sapply(cs,length)
-    avgr2 = as.vector(sets$cluster_avg_r2)
-    total = nrow(sets)
-  }
-  valid = 0
-  top_hit = 0
-  if (total > 0) {
-    for (i in 1:total){
-      if (any(cs[[i]]%in%beta_idx)) valid=valid+1
-      set.idx = cs[[i]]
-      highest.idx = which.max(pip[set.idx])
-      if (set.idx[highest.idx]%in%beta_idx) top_hit=top_hit+1
+  valid_cluster = 0
+  if (total_cluster > 0) {
+    for (i in 1:total_cluster){
+      if (any(clusters[[i]]%in%beta_idx)) valid_cluster=valid_cluster+1
     }
   }
-  return(list(total=total, valid=valid, size=size, avgr2=avgr2, top=top_hit,
-              has_overlap=check_overlap(cs), signal_pip = pip[beta_idx]))
+  valid_cs = 0
+  if(total_cs > 0){
+    for (i in 1:total_cs){
+      if (any(cs[[i]]%in%beta_idx)) valid_cs=valid_cs+1
+    }
+  }
+  return(list(total_cluster=total_cluster, valid_cluster=valid_cluster, 
+              size_cluster=size_cluster, purity_cluster=purity_cluster,
+              avgr2_cluster=avgr2_cluster,
+              total_cs=total_cs, valid_cs=valid_cs,
+              size_cs=size_cs, purity_cs=purity_cs,
+              avgr2_cs=avgr2_cs, signal_pip = pip$snp_prob[beta_idx]))
 }
 
-dap_scores_multiple = function(res, truth, avgr2_threshold = 0.95) {
-  total = valid = top = overlap = vector()
-  signal_pip = size = avgr2 = list()
+dap_scores_multiple = function(res, truth, ld, set_threshold = 0.95) {
+  total_cluster = valid_cluster = vector()
+  total_cs = valid_cs = overlap_cs = vector()
+  signal_pip = size_cluster = avgr2_cluster = purity_cluster = list()
+  size_cs = avgr2_cs = purity_cs = list()
   pip = list()
   for (r in 1:length(res)) {
-    set = res[[r]]$set
-    snps = res[[r]]$snp
+    set = res[[r]]$sets
+    snps = res[[r]]$pip
     snps = snps[order(as.numeric(snps$snp)),]
-    set = set[which(set$cluster_prob >= avgr2_threshold),]
-    out = dap_scores(set, snps$snp_prob, truth[,r])
-    total[r] = out$total
-    valid[r] = out$valid
-    size[[r]] = out$size
-    avgr2[[r]] = out$avgr2
-    top[r] = out$top
-    overlap[r] = out$has_overlap
+    set = set[which(set$cluster_prob >= set_threshold),]
+    out = dap_scores(set, snps, truth[,r], ld)
+    total_cluster[r] = out$total_cluster
+    valid_cluster[r] = out$valid_cluster
+    size_cluster[[r]] = out$size_cluster
+    avgr2_cluster[[r]] = out$avgr2_cluster
+    purity_cluster[[r]] = out$purity_cluster
+    
+    total_cs[r] = out$total_cs
+    valid_cs[r] = out$valid_cs
+    size_cs[[r]] = out$size_cs
+    avgr2_cs[[r]] = out$avgr2_cs
+    purity_cs[[r]] = out$purity_cs
+    
     signal_pip[[r]] = out$signal_pip
     pip[[r]] = snps$snp_prob
   }
-  return(list(total=total, valid=valid, size=size, avgr2=avgr2, top=top, overlap=overlap, 
+  return(list(total_cluster=total_cluster, valid_cluster=valid_cluster, 
+              size_cluster=size_cluster, avgr2_cluster=avgr2_cluster, 
+              purity_cluster=purity_cluster,
+              total_cs=total_cs, valid_cs=valid_cs, 
+              size_cs=size_cs, avgr2_cs=avgr2_cs, 
+              purity_cs=purity_cs,
               signal_pip = do.call(cbind, signal_pip), pip = do.call(cbind, pip)))
 }

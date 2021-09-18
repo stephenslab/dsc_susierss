@@ -8,14 +8,16 @@
 
 DSC:
   define:
-    method_susie: susie_suff, susie_rss
+    method_susie: susie_suff, susie_rss, susie_rss_Ltrue
     method_caviar: caviar
     method_finemap: finemap
     method_finemapv4: finemapv4, finemapv4L4
   run:
-    default: small_data * sim_gaussian * get_sumstats * ((adjustld, adjustld_addz) * ((susie_suff, susie_rss) * score_susie, finemap * score_finemap, method_finemapv4 * score_finemapv4, caviar * score_caviar))
+    default: small_data * sim_gaussian * get_sumstats * ((adjustld, adjustld_addz) * ((susie_suff, susie_rss, susie_rss_Ltrue) * score_susie, finemap * score_finemap, method_finemapv4 * score_finemapv4, caviar * score_caviar))
     rss: small_data * sim_gaussian * get_sumstats * (susie_suff, susie_suff_addz, susie_rss, susie_rss_addz, susie_rss_suff, susie_rss_suff_addz) * score_susie
     init: small_data * sim_gaussian * get_sumstats * (susie_init, susie_suff_init, susie_suff_3steps) * score_susie
+    summaryLD: small_data * summarize_ld
+    dap: small_data * sim_gaussian * get_sumstats * adjustld * (dap_z * score_dap)
   exec_path: code
   global:
     data_file: data/ukb_genotypes_files.txt

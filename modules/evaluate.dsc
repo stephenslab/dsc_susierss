@@ -26,13 +26,18 @@ score_susie: susie_scores.R + R(sc = susie_scores_multiple($(fitted), $(meta)$tr
     $sigma2: sc$sigma2
     $lamb: sc$lambda
 
-score_dap: dap_scores.R + R(sc = dap_scores_multiple($(posterior), $(meta)$true_coef))
-    $total: sc$total
-    $valid: sc$valid
-    $size: sc$size
-    $avgr2: sc$avgr2
-    $top: sc$top
-    $overlap: sc$overlap
+score_dap: dap_scores.R + R(ld = as.matrix(data.table::fread($(ldinfo)$ldfile));
+                            sc = dap_scores_multiple($(posterior), $(meta)$true_coef, ld))
+    $total_cluster: sc$total_cluster
+    $valid_cluster: sc$valid_cluster
+    $size_cluster: sc$size_cluster
+    $avgr2_cluster: sc$avgr2_cluster
+    $purity_cluster: sc$purity_cluster
+    $total_cs: sc$total_cs
+    $valid_cs: sc$valid_cs
+    $size_cs: sc$size_cs
+    $avgr2_cs: sc$avgr2_cs
+    $purity_cs: sc$purity_cs
     $signal_pip: sc$signal_pip
     $pip: sc$pip
 
@@ -71,13 +76,5 @@ score_caviar: caviar_scores.R + R(sc = caviar_scores_multiple($(posterior), $(me
     $signal_pip: sc$signal_pip
     $pip: sc$pip
 
-score_dap: dap_scores.R + R(sc = dap_scores_multiple($(posterior), $(meta)$true_coef))
-    $total: sc$total
-    $valid: sc$valid
-    $size: sc$size
-    $avgr2: sc$avgr2
-    $top: sc$top
-    $overlap: sc$overlap
-    $signal_pip: sc$signal_pip
-    $pip: sc$pip
+
     

@@ -3,7 +3,7 @@ DSC:
     description: UChicago RCC cluster Midway 2
     queue_type: pbs
     status_check_interval: 30
-    max_running_jobs: 50
+    max_running_jobs: 80
     max_cores: 40
     max_walltime: "36:00:00"
     max_mem: 64G
@@ -96,7 +96,6 @@ adjustld_addz_gtex:
   time_per_instance: 10m
   
 method_susie: 
-  queue: stephenslab
   time_per_instance: 1h
   instances_per_job: 10
   instances_per_node: 2
@@ -140,9 +139,16 @@ method_caviar:
   mem_per_instance: 5G
   
 dap_z:
-  time_per_instance: 61m
-  mem_per_instance: 6G
-  instances_per_job: 80
+  cpus_per_instance: 1
+  time_per_instance: 4h
+  mem_per_instance: 10G
+  instances_per_job: 5
+
+paintor:
+  time_per_instance: 5h
+  instances_per_job: 2
+  cpus_per_instance: 1
+  mem_per_instance: 5G
 
 score_susie:
   queue: stephenslab
@@ -168,4 +174,7 @@ score_finemapv4:
   time_per_instance: 2m
   instances_per_job: 400
 
+score_dap:
+  time_per_instance: 2m
+  instances_per_job: 400
 

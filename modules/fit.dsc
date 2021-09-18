@@ -96,11 +96,10 @@ finemapv4L5(finemapv4): fit_finemap_v4.R + R(posterior = finemap_mvar_v1.4(sumst
                                                          N_in, k, method, args, prefix=cache))
   args: '-n-causal-snps 5'
 
-dap_z: fit_dap.py + Python(numpy.nan_to_num(z, copy=False);
-                           posterior = dap_batch_z(z, ld_info[['ldfile']], cache, args))
+dap_z: fit_dap.R + R(posterior = finemap_dap(z, ld_info[['ldfile']], args, cache))
   z: $z
   ld_info: $ldinfo
-  args: "-ld_control 0.20 --all"
+  args: ""
   cache: file(DAP)
   $posterior: posterior
   
