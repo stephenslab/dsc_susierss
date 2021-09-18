@@ -1,0 +1,77 @@
+---
+title: "Simulation plots"
+author: "Yuxin Zou"
+date: "9/15/2021"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+This simulation uses UKB genotype data. We extract the genotype regions based on height GWAS result. There are 200 regions, each with ~1000 SNPs. We sample 50,000 individuals to simulate the data. We sample another 500 and 1000 samples to get reference LD matrix. We simulate data with 1,2,3 signals and PVE 0.005. We run susie_rss using L=10. We run FINEMAP v1.4 with oracle number of signals and max 4 signals. We run CAVIAR with oracle number of signals. We run DAP-G with the default setting.
+
+## Power vs FDR
+
+### SuSiE-suff with refinement vs no refinement
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_roc_paper/susiesuff_ukb_roc_pr_ldin.png)
+
+### Different methods with in sample LD
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_roc_paper/ukb_roc_pr_refine_ldin_methods.png)
+
+### Different methods with in sample LD
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_roc_paper/ukb_roc_pr_refine_ldin_methods.png)
+
+### Different methods with LD ref1000 with $\lambda = 0$
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_roc_paper/ukb_roc_pr_refine_ldref1000_methods.png)
+
+### Different methods with LD ref1000 with $\lambda = 0.001$
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_roc_paper/ukb_roc_pr_refine_ldref1000_lambda001_methods.png)
+
+### Different methods with LD ref1000 with $\hat{\lambda}$
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_roc_paper/ukb_roc_pr_refine_ldref1000_lambdaEst_methods.png)
+
+### Different methods with LD ref500 with $\lambda = 0$
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_roc_paper/ukb_roc_pr_refine_ldref500_methods.png)
+
+### Different methods with LD ref500 with $\lambda = 0.001$
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_roc_paper/ukb_roc_pr_refine_ldref500_lambda001_methods.png)
+
+### Different methods with LD ref500 with $\hat{\lambda}$
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_roc_paper/ukb_roc_pr_refine_ldref500_lambdaEst_methods.png)
+
+### CAVIAR under different LD
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_roc_paper/caviar_ukb_roc_pr_ld.png)
+
+### FINEMAP-oracle under different LD
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_roc_paper/finemapv4_ukb_roc_pr_ld.png)
+
+### FINEMAP-L4 under different LD
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_roc_paper/finemapv4L4_ukb_roc_pr_ld.png)
+
+### DAP-G under different LD
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_roc_paper/dap_ukb_roc_pr_ld.png)
+
+### SuSiE-RSS L = oracle under different LD
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_roc_paper/susierss_Ltrue_refine_ukb_roc_pr_ld.png)
+
+### SuSiE-RSS L = 10 under different LD
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_roc_paper/susierss_refine_ukb_roc_pr_ld.png)
+
+## CS
+
+![](assets/susierss_ukb_20210324/susierss_ukb_20210324_cs_paper/ukb_cs_refine_plots.png)
+

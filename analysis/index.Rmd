@@ -12,6 +12,8 @@ This repository contains simulation results related to SuSiE-RSS.
     
 + Most recent results: 
     
+    - [RESULT](susierss_ukb_20210324.html)
+    
     - [inconsistency between z and LD, elbo
 	   problem](susierss_notconsistent_elbo.html)
     
