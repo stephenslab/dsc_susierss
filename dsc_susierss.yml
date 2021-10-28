@@ -178,3 +178,6 @@ score_dap:
   time_per_instance: 2m
   instances_per_job: 400
 
+score_susie_prior:
+  time_per_instance: 2m
+  instances_per_job: 400

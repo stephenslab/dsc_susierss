@@ -18,6 +18,7 @@ DSC:
     init: small_data * sim_gaussian * get_sumstats * (susie_init, susie_suff_init, susie_suff_3steps) * score_susie
     summaryLD: small_data * summarize_ld
     dap: small_data * sim_gaussian * get_sumstats * adjustld * (dap_z * score_dap)
+    susierssprior: small_data * sim_gaussian * get_sumstats * adjustld * (susie_suff, susie_rss, susie_rss_Ltrue) * score_susie_prior
   exec_path: code
   global:
     data_file: data/ukb_genotypes_files.txt
