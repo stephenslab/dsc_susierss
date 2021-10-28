@@ -1,7 +1,8 @@
 library(susieR)
 
 susie_rss_analyze = function(z, R, L, s_init, refine) {
-  fit = tryCatch(susieR::susie_rss(z, R, L=L, s_init = s_init, refine=refine, max_iter = 1000),
+  fit = tryCatch(susieR::susie_rss(z, R, L=L, s_init = s_init, refine=refine, 
+                                   max_iter = 1000, check_prior = FALSE),
                  error = function(e) list(sets = NULL, pip=NULL, s2 = NA))
   return(fit)
 }

@@ -26,6 +26,16 @@ score_susie: susie_scores.R + R(sc = susie_scores_multiple($(fitted), $(meta)$tr
     $sigma2: sc$sigma2
     $lamb: sc$lambda
 
+score_susie_prior: susie_prior.R + R(truecoef = $(meta)$true_coef;
+                                     z = $(z);
+                                     sc = susie_prior_multiple($(fitted), truecoef))
+  
+  $truecoef: truecoef
+  $z: z
+  $valid: sc$valid
+  $Vcs: sc$V_cs
+  $V: sc$V
+    
 score_dap: dap_scores.R + R(ld = as.matrix(data.table::fread($(ldinfo)$ldfile));
                             sc = dap_scores_multiple($(posterior), $(meta)$true_coef, ld))
     $total_cluster: sc$total_cluster
