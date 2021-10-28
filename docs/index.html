@@ -13,22 +13,12 @@
 
 <title>Home</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -41,18 +31,12 @@ div.section {
 }
 </style>
 
-
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
-
 <style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -65,7 +49,32 @@ if (window.hljs) {
 
 
 
-
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 
 
@@ -75,6 +84,10 @@ if (window.hljs) {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -91,13 +104,40 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
-pre code {
-  padding: 0;
-}
 </style>
 
 
 <style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
 .dropdown-submenu {
   position: relative;
 }
@@ -125,7 +165,7 @@ pre code {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
+  border-left-color: #ffffff;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -137,7 +177,7 @@ pre code {
 }
 </style>
 
-<script type="text/javascript">
+<script>
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -148,23 +188,10 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.tab('show');
+  menuAnchor.parent().addClass('active');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
 });
 </script>
 
@@ -176,6 +203,7 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
+  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -257,14 +285,14 @@ $(document).ready(function () {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/zouyuxin/dsc_susierss">source</a>
+  <a href="https://github.com/stephenslab/dsc_susierss">source</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div id="header">
+<div class="fluid-row" id="header">
 
 
 
@@ -293,7 +321,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-09-17
+<strong>Last updated:</strong> 2021-10-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -324,37 +352,23 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree9f2942183fd059cb5dd9c59ef8cf441b9b6286batargetblank9f29421a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc_susierss/tree/9f2942183fd059cb5dd9c59ef8cf441b9b6286ba" target="_blank">9f29421</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabdscsusiersstree66dffe4d25d70dd49de0cfb0aa702d62095b8ef7targetblank66dffe4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/dsc_susierss/tree/66dffe4d25d70dd49de0cfb0aa702d62095b8ef7" target="_blank">66dffe4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusiersstree9f2942183fd059cb5dd9c59ef8cf441b9b6286batargetblank9f29421a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabdscsusiersstree66dffe4d25d70dd49de0cfb0aa702d62095b8ef7targetblank66dffe4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/zouyuxin/dsc_susierss/tree/9f2942183fd059cb5dd9c59ef8cf441b9b6286ba" target="_blank">9f29421</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/dsc_susierss/tree/66dffe4d25d70dd49de0cfb0aa702d62095b8ef7" target="_blank">66dffe4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
-Ignored files:
-    Ignored:    .DS_Store
-    Ignored:    .Rhistory
-    Ignored:    .Rproj.user/
-    Ignored:    output/
-    Ignored:    scripts/.DS_Store
-
-Untracked files:
-    Untracked:  data/FinemappingConvergence.RData
-    Untracked:  data/SummaryConsistency.RData
-    Untracked:  data/susie_convergence_problem.rds
-    Untracked:  data/susie_convergence_problem6.rds
-    Untracked:  data/susierss_ldref.rds
-
 Unstaged changes:
-    Modified:   analysis/susierss_ukb_20210218_example.Rmd
+    Modified:   analysis/_site.yml
     Deleted:    genotype_dir
 
 </code></pre>
@@ -396,10 +410,27 @@ Message
 <tbody>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/c6bad232b8172ba1dde22d919030352bf90fafd3/docs/index.html" target="_blank">c6bad23</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2021-09-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/9f2942183fd059cb5dd9c59ef8cf441b9b6286ba/analysis/index.Rmd" target="_blank">9f29421</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/9f2942183fd059cb5dd9c59ef8cf441b9b6286ba/analysis/index.Rmd" target="_blank">9f29421</a>
 </td>
 <td>
 zouyuxin
@@ -416,7 +447,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/f9e39d94b12c66be83253fec4129e9a9056dbea4/docs/index.html" target="_blank">f9e39d9</a>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/f9e39d94b12c66be83253fec4129e9a9056dbea4/docs/index.html" target="_blank">f9e39d9</a>
 </td>
 <td>
 Peter Carbonetto
@@ -433,7 +464,7 @@ Reorganized project home page slightly.
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/2cbf2f046f8a450da3311b6ad521adc9870207bb/analysis/index.Rmd" target="_blank">2cbf2f0</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/2cbf2f046f8a450da3311b6ad521adc9870207bb/analysis/index.Rmd" target="_blank">2cbf2f0</a>
 </td>
 <td>
 Peter Carbonetto
@@ -450,7 +481,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/e2a15d57513d58b232a744e17e6eac62ebb2da46/docs/index.html" target="_blank">e2a15d5</a>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/e2a15d57513d58b232a744e17e6eac62ebb2da46/docs/index.html" target="_blank">e2a15d5</a>
 </td>
 <td>
 Peter Carbonetto
@@ -467,7 +498,7 @@ Fixed header at top of workflowr project home page.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/3f69f4639ad6fbc432748b2f93ab92ab13e85804/docs/index.html" target="_blank">3f69f46</a>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/3f69f4639ad6fbc432748b2f93ab92ab13e85804/docs/index.html" target="_blank">3f69f46</a>
 </td>
 <td>
 zouyuxin
@@ -484,7 +515,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/e0b69b6b661180b81ceb3987e23def6135b2f08a/analysis/index.Rmd" target="_blank">e0b69b6</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/e0b69b6b661180b81ceb3987e23def6135b2f08a/analysis/index.Rmd" target="_blank">e0b69b6</a>
 </td>
 <td>
 zouyuxin
@@ -501,7 +532,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/5033883a68837ba6fbeab47cee528a06e3987983/docs/index.html" target="_blank">5033883</a>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/5033883a68837ba6fbeab47cee528a06e3987983/docs/index.html" target="_blank">5033883</a>
 </td>
 <td>
 zouyuxin
@@ -518,7 +549,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/f409ed45a0ac36e666b1a46b177bbc45a793665d/analysis/index.Rmd" target="_blank">f409ed4</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/f409ed45a0ac36e666b1a46b177bbc45a793665d/analysis/index.Rmd" target="_blank">f409ed4</a>
 </td>
 <td>
 zouyuxin
@@ -535,7 +566,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/bb9cc42aa38b4276e8bf00f0749087350c2f4818/docs/index.html" target="_blank">bb9cc42</a>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/bb9cc42aa38b4276e8bf00f0749087350c2f4818/docs/index.html" target="_blank">bb9cc42</a>
 </td>
 <td>
 zouyuxin
@@ -552,7 +583,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/94c9a4bbe82d40d79d92ac5c4a3daee5f9fbd323/analysis/index.Rmd" target="_blank">94c9a4b</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/94c9a4bbe82d40d79d92ac5c4a3daee5f9fbd323/analysis/index.Rmd" target="_blank">94c9a4b</a>
 </td>
 <td>
 zouyuxin
@@ -569,7 +600,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/4fe543cc5ce52f8a3083477eeae9a70682f330c2/docs/index.html" target="_blank">4fe543c</a>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/4fe543cc5ce52f8a3083477eeae9a70682f330c2/docs/index.html" target="_blank">4fe543c</a>
 </td>
 <td>
 zouyuxin
@@ -586,7 +617,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/f52376e353fd03a5f658b0d4c8e88f948a871bda/analysis/index.Rmd" target="_blank">f52376e</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/f52376e353fd03a5f658b0d4c8e88f948a871bda/analysis/index.Rmd" target="_blank">f52376e</a>
 </td>
 <td>
 zouyuxin
@@ -603,7 +634,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/7719412e5a8a513966d6c7470d4d6b2d0cc1c38e/docs/index.html" target="_blank">7719412</a>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/7719412e5a8a513966d6c7470d4d6b2d0cc1c38e/docs/index.html" target="_blank">7719412</a>
 </td>
 <td>
 zouyuxin
@@ -620,7 +651,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/5e1c56b1c4606d9e09650a59ee6d2b9819faf8b8/analysis/index.Rmd" target="_blank">5e1c56b</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/5e1c56b1c4606d9e09650a59ee6d2b9819faf8b8/analysis/index.Rmd" target="_blank">5e1c56b</a>
 </td>
 <td>
 zouyuxin
@@ -637,7 +668,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/d901add12499e9344f8e2fd8594b00116d5b01b1/docs/index.html" target="_blank">d901add</a>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/d901add12499e9344f8e2fd8594b00116d5b01b1/docs/index.html" target="_blank">d901add</a>
 </td>
 <td>
 zouyuxin
@@ -654,7 +685,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/bb2c2a04b6697b63e8a19f5c5828b24aab45c438/analysis/index.Rmd" target="_blank">bb2c2a0</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/bb2c2a04b6697b63e8a19f5c5828b24aab45c438/analysis/index.Rmd" target="_blank">bb2c2a0</a>
 </td>
 <td>
 zouyuxin
@@ -671,7 +702,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/8e0e5b3125f750ee26396f694fb46c8dc0a78d66/docs/index.html" target="_blank">8e0e5b3</a>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/8e0e5b3125f750ee26396f694fb46c8dc0a78d66/docs/index.html" target="_blank">8e0e5b3</a>
 </td>
 <td>
 zouyuxin
@@ -688,7 +719,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/16d3e53032780d097fe8d7190a5146621cd43134/analysis/index.Rmd" target="_blank">16d3e53</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/16d3e53032780d097fe8d7190a5146621cd43134/analysis/index.Rmd" target="_blank">16d3e53</a>
 </td>
 <td>
 zouyuxin
@@ -705,7 +736,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/2baf36490f16dfcfcfff4f35b0e556da061293c6/docs/index.html" target="_blank">2baf364</a>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/2baf36490f16dfcfcfff4f35b0e556da061293c6/docs/index.html" target="_blank">2baf364</a>
 </td>
 <td>
 zouyuxin
@@ -722,7 +753,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/24672f7cbc38fd73b7b66b04d4ffa7c32c2a3cbc/analysis/index.Rmd" target="_blank">24672f7</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/24672f7cbc38fd73b7b66b04d4ffa7c32c2a3cbc/analysis/index.Rmd" target="_blank">24672f7</a>
 </td>
 <td>
 zouyuxin
@@ -739,7 +770,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/b2c0335a38f7accb8ba82d4fe74d450d937b62f2/docs/index.html" target="_blank">b2c0335</a>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/b2c0335a38f7accb8ba82d4fe74d450d937b62f2/docs/index.html" target="_blank">b2c0335</a>
 </td>
 <td>
 zouyuxin
@@ -756,7 +787,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/428a95cd623d20bde7cc7ad010aa116bc6f1e41b/analysis/index.Rmd" target="_blank">428a95c</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/428a95cd623d20bde7cc7ad010aa116bc6f1e41b/analysis/index.Rmd" target="_blank">428a95c</a>
 </td>
 <td>
 zouyuxin
@@ -773,7 +804,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/148cdb0ec2199665f96271484cf4ba6ae44391ab/docs/index.html" target="_blank">148cdb0</a>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/148cdb0ec2199665f96271484cf4ba6ae44391ab/docs/index.html" target="_blank">148cdb0</a>
 </td>
 <td>
 zouyuxin
@@ -790,7 +821,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/366233eb52307a105dce5035e392e7755d8e567b/analysis/index.Rmd" target="_blank">366233e</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/366233eb52307a105dce5035e392e7755d8e567b/analysis/index.Rmd" target="_blank">366233e</a>
 </td>
 <td>
 zouyuxin
@@ -807,7 +838,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/69905a79f19e4d5b118dc4d80d0443b59039a3ae/docs/index.html" target="_blank">69905a7</a>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/69905a79f19e4d5b118dc4d80d0443b59039a3ae/docs/index.html" target="_blank">69905a7</a>
 </td>
 <td>
 zouyuxin
@@ -824,7 +855,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/f188cfdcf860feaa2a41efbaf5938ddb1b55deeb/analysis/index.Rmd" target="_blank">f188cfd</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/f188cfdcf860feaa2a41efbaf5938ddb1b55deeb/analysis/index.Rmd" target="_blank">f188cfd</a>
 </td>
 <td>
 zouyuxin
@@ -841,7 +872,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/8aef4677b90b4a663293c8d496bfb88fd3461a09/docs/index.html" target="_blank">8aef467</a>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/8aef4677b90b4a663293c8d496bfb88fd3461a09/docs/index.html" target="_blank">8aef467</a>
 </td>
 <td>
 zouyuxin
@@ -858,7 +889,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/c9dcac2b987976ec6a3760f852c7b6fd7da27c8d/analysis/index.Rmd" target="_blank">c9dcac2</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/c9dcac2b987976ec6a3760f852c7b6fd7da27c8d/analysis/index.Rmd" target="_blank">c9dcac2</a>
 </td>
 <td>
 zouyuxin
@@ -875,7 +906,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc_susierss/7135ce3e6f798d24f8f243d856b7731b998ad48d/docs/index.html" target="_blank">7135ce3</a>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/7135ce3e6f798d24f8f243d856b7731b998ad48d/docs/index.html" target="_blank">7135ce3</a>
 </td>
 <td>
 zouyuxin
@@ -892,7 +923,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/64102cebc627315a20768031dc6ea6bbd621c0a9/analysis/index.Rmd" target="_blank">64102ce</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/64102cebc627315a20768031dc6ea6bbd621c0a9/analysis/index.Rmd" target="_blank">64102ce</a>
 </td>
 <td>
 zouyuxin
@@ -909,7 +940,7 @@ wflow_publish(“analysis/index.Rmd”)
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc_susierss/blob/ed389e4b08b8d6020cc6e819970805c689fade27/analysis/index.Rmd" target="_blank">ed389e4</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/ed389e4b08b8d6020cc6e819970805c689fade27/analysis/index.Rmd" target="_blank">ed389e4</a>
 </td>
 <td>
 zouyuxin
@@ -964,15 +995,13 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
-
-
 </div>
 
 <script>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -990,7 +1019,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
+    $(this).parent().toggleClass('nav-tabs-open')
   });
 });
 </script>
