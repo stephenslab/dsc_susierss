@@ -12,7 +12,7 @@
 <meta name="author" content="Yuxin Zou and Peter Carbonetto" />
 
 
-<title>Power vs FDR plots for paper</title>
+<title>Power vs. FDR plots for paper</title>
 
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -342,7 +342,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Power vs FDR plots for paper</h1>
+<h1 class="title toc-ignore">Power vs. FDR plots for paper</h1>
 <h4 class="author">Yuxin Zou and Peter Carbonetto</h4>
 
 </div>
@@ -459,16 +459,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabdscsusiersstree153840a19bbb28315bd9df2dc765c72e9f6a7956targetblank153840aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/dsc_susierss/tree/153840a19bbb28315bd9df2dc765c72e9f6a7956" target="_blank">153840a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabdscsusiersstreeba7d9222aaf0e7792ef0ae77eaee1828c0f39a69targetblankba7d922a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/dsc_susierss/tree/ba7d9222aaf0e7792ef0ae77eaee1828c0f39a69" target="_blank">ba7d922</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabdscsusiersstree153840a19bbb28315bd9df2dc765c72e9f6a7956targetblank153840aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabdscsusiersstreeba7d9222aaf0e7792ef0ae77eaee1828c0f39a69targetblankba7d922a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/dsc_susierss/tree/153840a19bbb28315bd9df2dc765c72e9f6a7956" target="_blank">153840a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/dsc_susierss/tree/ba7d9222aaf0e7792ef0ae77eaee1828c0f39a69" target="_blank">ba7d922</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -519,6 +519,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/ba7d9222aaf0e7792ef0ae77eaee1828c0f39a69/analysis/power_vs_fdr.Rmd" target="_blank">ba7d922</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-25
+</td>
+<td>
+workflowr::wflow_publish(“analysis/power_vs_fdr.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/0861415dddb310a8bd248abf0ee77edf4063d7be/docs/power_vs_fdr.html" target="_blank">0861415</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-25
+</td>
+<td>
+Created power_vs_fdr page.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/stephenslab/dsc_susierss/blob/153840a19bbb28315bd9df2dc765c72e9f6a7956/analysis/power_vs_fdr.Rmd" target="_blank">153840a</a>
 </td>
 <td>
@@ -558,14 +592,7 @@ Added new power_vs_fdr analysis file.
 <p><em>Add text here.</em></p>
 <p>Load some packages used to create the power vs. FDR plots:</p>
 <pre class="r"><code>library(ggplot2)
-library(cowplot)
-# 
-# ********************************************************
-# Note: As of version 1.0.0, cowplot does not change the
-#   default ggplot2 theme anymore. To recover the previous
-#   behavior, execute:
-#   theme_set(theme_cowplot())
-# ********************************************************</code></pre>
+library(cowplot)</code></pre>
 <p>Load the results from the UK Biobank simulations:</p>
 <pre class="r"><code>res = readRDS(&quot;data/roc_data.rds&quot;)</code></pre>
 <p>Create the power vs. FDR plot comparing different fine-mapping methods when they are provided with the “in sample” LD:</p>
@@ -593,13 +620,18 @@ library(cowplot)
                    power  = res[[&quot;CAVIAR-LDin&quot;]]$pr[,2]))
 rows &lt;- with(pdat,order(method,fdr))
 pdat &lt;- pdat[rows,]
-p &lt;- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
+p &lt;- ggplot(pdat,aes(x = fdr,y = power,color = method,linetype = method)) +
   geom_line(orientation = &quot;y&quot;) +
+  scale_color_manual(values = c(&quot;black&quot;,&quot;magenta&quot;,&quot;magenta&quot;,&quot;darkorange&quot;,
+                                &quot;darkorange&quot;,&quot;dodgerblue&quot;,&quot;limegreen&quot;)) +
+  scale_linetype_manual(values = c(&quot;dotted&quot;,&quot;solid&quot;,&quot;dashed&quot;,&quot;solid&quot;,
+                                   &quot;dashed&quot;,&quot;solid&quot;,&quot;solid&quot;)) +
   scale_x_continuous(breaks = seq(0,0.3,0.05)) +
   scale_y_continuous(breaks = seq(0,0.3,0.05)) +
   coord_cartesian(xlim = c(0,0.3),ylim = c(0,0.3)) +
-  theme_cowplot(font_size = 10)</code></pre>
-<pre><code># Saving 7 x 5 in image</code></pre>
+  theme_cowplot(font_size = 12)
+print(p)</code></pre>
+<p><img src="figure/power_vs_fdr.Rmd/in-sample-1.png" width="540" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -626,20 +658,20 @@ p &lt;- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
 # [1] cowplot_1.0.0   ggplot2_3.3.5   workflowr_1.7.0
 # 
 # loaded via a namespace (and not attached):
-#  [1] Rcpp_1.0.7        compiler_3.6.2    pillar_1.6.2      later_1.0.0      
-#  [5] git2r_0.26.1      jquerylib_0.1.4   tools_3.6.2       getPass_0.2-2    
-#  [9] digest_0.6.23     evaluate_0.14     lifecycle_1.0.0   tibble_3.1.3     
-# [13] gtable_0.3.0      pkgconfig_2.0.3   rlang_0.4.11      DBI_1.1.0        
-# [17] rstudioapi_0.13   yaml_2.2.0        xfun_0.29         withr_2.4.2      
-# [21] dplyr_1.0.7       httr_1.4.2        stringr_1.4.0     knitr_1.37       
-# [25] systemfonts_1.0.2 generics_0.0.2    vctrs_0.3.8       fs_1.3.1         
-# [29] tidyselect_1.1.1  rprojroot_1.3-2   grid_3.6.2        glue_1.4.2       
-# [33] R6_2.4.1          processx_3.5.2    fansi_0.4.0       rmarkdown_2.11   
-# [37] farver_2.0.1      purrr_0.3.4       callr_3.7.0       magrittr_2.0.1   
-# [41] whisker_0.4       backports_1.1.5   scales_1.1.0      ps_1.6.0         
-# [45] promises_1.1.0    htmltools_0.4.0   ellipsis_0.3.2    assertthat_0.2.1 
-# [49] colorspace_1.4-1  httpuv_1.5.2      ragg_0.3.1        utf8_1.1.4       
-# [53] stringi_1.4.3     munsell_0.5.0     crayon_1.4.1</code></pre>
+#  [1] Rcpp_1.0.7        highr_0.8         compiler_3.6.2    pillar_1.6.2     
+#  [5] later_1.0.0       git2r_0.26.1      jquerylib_0.1.4   tools_3.6.2      
+#  [9] getPass_0.2-2     digest_0.6.23     evaluate_0.14     lifecycle_1.0.0  
+# [13] tibble_3.1.3      gtable_0.3.0      pkgconfig_2.0.3   rlang_0.4.11     
+# [17] DBI_1.1.0         rstudioapi_0.13   yaml_2.2.0        xfun_0.29        
+# [21] withr_2.4.2       dplyr_1.0.7       httr_1.4.2        stringr_1.4.0    
+# [25] knitr_1.37        systemfonts_1.0.2 generics_0.0.2    vctrs_0.3.8      
+# [29] fs_1.3.1          tidyselect_1.1.1  rprojroot_1.3-2   grid_3.6.2       
+# [33] glue_1.4.2        R6_2.4.1          processx_3.5.2    fansi_0.4.0      
+# [37] rmarkdown_2.11    farver_2.0.1      purrr_0.3.4       callr_3.7.0      
+# [41] magrittr_2.0.1    whisker_0.4       backports_1.1.5   scales_1.1.0     
+# [45] ps_1.6.0          promises_1.1.0    htmltools_0.4.0   ellipsis_0.3.2   
+# [49] assertthat_0.2.1  colorspace_1.4-1  httpuv_1.5.2      ragg_0.3.1       
+# [53] utf8_1.1.4        stringi_1.4.3     munsell_0.5.0     crayon_1.4.1</code></pre>
 </div>
 
 
