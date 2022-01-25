@@ -23,6 +23,8 @@ This repository contains simulation results related to SuSiE-RSS.
     
     - [20210324 result ref500 LD eg](susierss_ukb_20210324_ref500_ldref.html)
 
+    - [power vs. FDR plots for paper](power_vs_fdr.html)
+
 + Previous results:
 
     - [PIP calibration and power vs. FDR](susierss_ukb_20210218.html)
