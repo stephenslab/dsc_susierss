@@ -1,5 +1,5 @@
 ---
-title: "Power vs FDR plots for paper"
+title: "Power vs. FDR plots for paper"
 author: Yuxin Zou and Peter Carbonetto
 output: workflowr::wflow_html
 ---
@@ -13,7 +13,7 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
 
 Load some packages used to create the power vs. FDR plots:
 
-```{r load-pkgs}
+```{r load-pkgs, message=FALSE}
 library(ggplot2)
 library(cowplot)
 ```
@@ -27,7 +27,7 @@ res = readRDS("data/roc_data.rds")
 Create the power vs. FDR plot comparing different fine-mapping methods
 when they are provided with the "in sample" LD:
 
-```{r in-sample, fig.height=3, fig.width=3}
+```{r in-sample, fig.height=3, fig.width=4.5}
 pdat <-
   rbind(data.frame(method = "susie-suff",
                    fdr    = 1 - res[["susie-suff-refineTRUE"]]$pr[,1],
@@ -52,14 +52,19 @@ pdat <-
                    power  = res[["CAVIAR-LDin"]]$pr[,2]))
 rows <- with(pdat,order(method,fdr))
 pdat <- pdat[rows,]
-p <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
+p <- ggplot(pdat,aes(x = fdr,y = power,color = method,linetype = method)) +
   geom_line(orientation = "y") +
+  scale_color_manual(values = c("black","magenta","magenta","darkorange",
+                                "darkorange","dodgerblue","limegreen")) +
+  scale_linetype_manual(values = c("dotted","solid","dashed","solid",
+                                   "dashed","solid","solid")) +
   scale_x_continuous(breaks = seq(0,0.3,0.05)) +
   scale_y_continuous(breaks = seq(0,0.3,0.05)) +
   coord_cartesian(xlim = c(0,0.3),ylim = c(0,0.3)) +
-  theme_cowplot(font_size = 10)
+  theme_cowplot(font_size = 12)
+print(p)
 ```
 
-```{r echo=FALSE}
+```{r in-sample-for-paper, echo=FALSE, message=FALSE}
 ggsave("pip_power_vs_fdr_insample.pdf",p)
 ```
