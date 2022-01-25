@@ -4,6 +4,13 @@ author: Yuxin Zou and Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
+*Add text here.*
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.show = "hold",fig.align = "center",dpi = 120)
+```
+
 Load some packages used to create the power vs. FDR plots:
 
 ```{r load-pkgs}
@@ -21,49 +28,38 @@ Create the power vs. FDR plot comparing different fine-mapping methods
 when they are provided with the "in sample" LD:
 
 ```{r in-sample, fig.height=3, fig.width=3}
-colors = c('#A60628', '#7A68A6', '#348ABD', '#467821', '#FF00FF', '#E2A233', 
-           '#00FFFF', '#A9A9A9', '#ADFF2F', '#188487',  '#FF0000', '#000000', 
-           '#FFD700', '#00FF00', '#9400D3', '#7FFFD4', '#A52A2A', '#000080')
-type = 'pr'
-main = "Power vs FDR"
-ylab = "Power"
-xlab = "FDR"
-dev.new()
-i = 1
-labels = vector()
-xlim = 0.3
-ylim = 0.3
-add_text = function(thresholds, x, y, threshold, color, delta = -0.06) {
-  idx = which(thresholds == threshold)
-  # text(x[idx] - delta, y[idx], labels = threshold, col = color, cex=0.8)
-  points(x[idx],y[idx], col=color)
-}
-for (method in c('susie-suff-refineTRUE',
-                 'susie-rss-L10-refineTRUE-LDin',
-                 'susie-rss-oracle-refineTRUE-LDin',
-                 'FINEMAP-L4-LDin',
-                 "FINEMAP-oracle-LDin",
-                 'DAP-G-LDin',
-                 'CAVIAR-LDin')) {
-  x = 1 - tb[[method]][[type]][,1]
-  y = tb[[method]][[type]][,2]
-  if (i == 1) {
-    plot(x, y, t="l", col=colors[i], ylab = ylab, xlab = xlab, main = main,
-	     bty='l',lwd = 2, xlim = c(0,xlim), ylim = c(0,ylim))
-  } else {
-    lines(x, y, col=colors[i], lwd = 2, xlim = c(0,xlim), ylim = c(0,ylim))
-  }
-  add_text(tb[[method]][[type]][,3], x, y, 0.95, colors[i])
-  labels[i] = method
-  labels[i] = gsub('-refineTRUE', '', labels[i])
-  labels[i] = gsub('-LDin', '', labels[i])
-  labels[i] = gsub('susie-suff', 'SuSiE-suff', labels[i])
-  labels[i] = gsub('susie-rss', 'SuSiE-RSS', labels[i])
-  labels[i] = gsub('-L10', '', labels[i])
-  labels[i] = gsub('-L4', '', labels[i])
-  labels[i] = gsub('-oracle', ', L = true', labels[i])
-  i = i + 1
-}
-legend("bottomright", legend=labels, col=colors[1:i], lty=1)
+pdat <-
+  rbind(data.frame(method = "susie-suff",
+                   fdr    = 1 - res[["susie-suff-refineTRUE"]]$pr[,1],
+			       power  = res[["susie-suff-refineTRUE"]]$pr[,2]),
+        data.frame(method = "susie-rss",
+                   fdr    = 1 - res[["susie-rss-L10-refineTRUE-LDin"]]$pr[,1],
+                   power  = res[["susie-rss-L10-refineTRUE-LDin"]]$pr[,2]),
+        data.frame(method = "susie-rss,L=true",
+                   fdr    = 1-res[["susie-rss-oracle-refineTRUE-LDin"]]$pr[,1],
+                   power  = res[["susie-rss-oracle-refineTRUE-LDin"]]$pr[,2]),
+        data.frame(method = "finemap",
+                   fdr    = 1 - res[["FINEMAP-L4-LDin"]]$pr[,1],
+                   power  = res[["FINEMAP-L4-LDin"]]$pr[,2]),
+        data.frame(method = "finemap,L=true",
+                   fdr    = 1 - res[["FINEMAP-oracle-LDin"]]$pr[,1],
+                   power  = res[["FINEMAP-oracle-LDin"]]$pr[,2]),
+        data.frame(method = "dap-g",
+                   fdr    = 1 - res[["DAP-G-LDin"]]$pr[,1],
+                   power  = res[["DAP-G-LDin"]]$pr[,2]),
+        data.frame(method = "caviar",
+                   fdr    = 1 - res[["CAVIAR-LDin"]]$pr[,1],
+                   power  = res[["CAVIAR-LDin"]]$pr[,2]))
+rows <- with(pdat,order(method,fdr))
+pdat <- pdat[rows,]
+p <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
+  geom_line(orientation = "y") +
+  scale_x_continuous(breaks = seq(0,0.3,0.05)) +
+  scale_y_continuous(breaks = seq(0,0.3,0.05)) +
+  coord_cartesian(xlim = c(0,0.3),ylim = c(0,0.3)) +
+  theme_cowplot(font_size = 10)
 ```
 
+```{r echo=FALSE}
+ggsave("pip_power_vs_fdr_insample.pdf",p)
+```
