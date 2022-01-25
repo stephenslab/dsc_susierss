@@ -31,29 +31,37 @@ when they are provided with the "in sample" LD:
 pdat <-
   rbind(data.frame(method = "susie-suff",
                    fdr    = 1 - res[["susie-suff-refineTRUE"]]$pr[,1],
-			       power  = res[["susie-suff-refineTRUE"]]$pr[,2]),
+			       power  = res[["susie-suff-refineTRUE"]]$pr[,2],
+			       thresh = res[["susie-suff-refineTRUE"]]$pr[,3]),
         data.frame(method = "susie-rss",
                    fdr    = 1 - res[["susie-rss-L10-refineTRUE-LDin"]]$pr[,1],
-                   power  = res[["susie-rss-L10-refineTRUE-LDin"]]$pr[,2]),
+                   power  = res[["susie-rss-L10-refineTRUE-LDin"]]$pr[,2],
+                   thresh = res[["susie-rss-L10-refineTRUE-LDin"]]$pr[,3]),
         data.frame(method = "susie-rss,L=true",
                    fdr    = 1-res[["susie-rss-oracle-refineTRUE-LDin"]]$pr[,1],
-                   power  = res[["susie-rss-oracle-refineTRUE-LDin"]]$pr[,2]),
+                   power  = res[["susie-rss-oracle-refineTRUE-LDin"]]$pr[,2],
+                   thresh = res[["susie-rss-oracle-refineTRUE-LDin"]]$pr[,3]),
         data.frame(method = "finemap",
                    fdr    = 1 - res[["FINEMAP-L4-LDin"]]$pr[,1],
-                   power  = res[["FINEMAP-L4-LDin"]]$pr[,2]),
+                   power  = res[["FINEMAP-L4-LDin"]]$pr[,2],
+                   thresh = res[["FINEMAP-L4-LDin"]]$pr[,3]),
         data.frame(method = "finemap,L=true",
                    fdr    = 1 - res[["FINEMAP-oracle-LDin"]]$pr[,1],
-                   power  = res[["FINEMAP-oracle-LDin"]]$pr[,2]),
+                   power  = res[["FINEMAP-oracle-LDin"]]$pr[,2],
+                   thresh = res[["FINEMAP-oracle-LDin"]]$pr[,3]),
         data.frame(method = "dap-g",
                    fdr    = 1 - res[["DAP-G-LDin"]]$pr[,1],
-                   power  = res[["DAP-G-LDin"]]$pr[,2]),
+                   power  = res[["DAP-G-LDin"]]$pr[,2],
+                   thresh = res[["DAP-G-LDin"]]$pr[,3]),
         data.frame(method = "caviar",
                    fdr    = 1 - res[["CAVIAR-LDin"]]$pr[,1],
-                   power  = res[["CAVIAR-LDin"]]$pr[,2]))
+                   power  = res[["CAVIAR-LDin"]]$pr[,2],
+                   thresh = res[["CAVIAR-LDin"]]$pr[,3]))
 rows <- with(pdat,order(method,fdr))
 pdat <- pdat[rows,]
 p <- ggplot(pdat,aes(x = fdr,y = power,color = method,linetype = method)) +
   geom_line(orientation = "y") +
+  geom_point(data = subset(pdat,thresh == 0.95),show.legend = FALSE) +
   scale_color_manual(values = c("black","magenta","magenta","darkorange",
                                 "darkorange","dodgerblue","limegreen")) +
   scale_linetype_manual(values = c("dotted","solid","dashed","solid",
