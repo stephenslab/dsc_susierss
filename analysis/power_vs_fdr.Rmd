@@ -66,5 +66,5 @@ print(p)
 ```
 
 ```{r in-sample-for-paper, echo=FALSE, message=FALSE}
-ggsave("pip_power_vs_fdr_insample.pdf",p)
+ggsave("pip_power_vs_fdr_insample.pdf",p,height=3,width=4.3)
 ```
