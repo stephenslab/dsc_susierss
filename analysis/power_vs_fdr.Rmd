@@ -69,7 +69,8 @@ p <- ggplot(pdat,aes(x = fdr,y = power,color = method,linetype = method)) +
   scale_x_continuous(breaks = seq(0,0.3,0.05)) +
   scale_y_continuous(breaks = seq(0,0.3,0.05)) +
   coord_cartesian(xlim = c(0,0.3),ylim = c(0,0.3)) +
-  theme_cowplot(font_size = 12)
+  theme_cowplot(font_size = 12) +
+  theme(panel.grid.major = element_line(colour = "gainsboro",size = 0.3))
 print(p)
 ```
 
