@@ -19,6 +19,8 @@ DSC:
     summaryLD: small_data * summarize_ld
     dap: small_data * sim_gaussian * get_sumstats * adjustld * (dap_z * score_dap)
     susierssprior: small_data * sim_gaussian * get_sumstats * adjustld * (susie_suff, susie_rss, susie_rss_Ltrue) * score_susie_prior
+    pve: small_data * sim_gaussian_pve * get_sumstats * adjustld_lamb0 * ((susie_suff_refine, susie_rss_refine, susie_rss_Ltrue) * score_susie, method_finemapv4 * score_finemapv4, caviar * score_caviar)
+    pve_n: small_data * sim_gaussian_pve_n * get_sumstats_n * adjustld_n_lamb0 * ((susie_suff_refine_n, susie_rss_refine, susie_rss_Ltrue) * score_susie, (finemapv4_n, finemapv4L4_n) * score_finemapv4, caviar * score_caviar, dap_z * score_dap)
   exec_path: code
   global:
     data_file: data/ukb_genotypes_files.txt

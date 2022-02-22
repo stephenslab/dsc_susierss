@@ -58,3 +58,32 @@ sim_gaussian_multiple = function(X, pve, effect_num, n_traits=1, file_name, samp
   }
   return(list(Y=Y, meta=meta))
 }
+
+# A wrapper for simulating multiple Y's
+sim_gaussian_n_multiple = function(X, pve, effect_num, n_traits=1, file_name, sample_file) {
+  meta = list(residual_variance = vector())
+  Y = NULL
+  ## hard code the sample size for different pve
+  ## pve = 0.005, n = 50000
+  if(pve == 0.005){
+    n = 50000
+  }else if(pve == 0.02){
+    n = 12500
+  }else if( pve == 0.1){
+    n = 2500
+  }else if(pve == 0.3){
+    n = 800
+  }
+  X = center_scale(X[1:n,])
+  sample_id = data.table::fread(sample_file)[1:n,]
+  for (r in 1:n_traits) {
+    res = sim_gaussian(X, pve, effect_num)
+    if (is.null(Y)) Y = as.matrix(res$Y)
+    else Y = cbind(Y, as.matrix(res$Y))
+    if (is.null(meta$true_coef)) meta$true_coef = as.matrix(res$beta)
+    else meta$true_coef = cbind(meta$true_coef, as.matrix(res$beta))
+    meta$residual_variance[r] = res$sigma2
+    write.table(cbind(sample_id, Y[,r]), paste0(file_name,r), quote=F, col.names=F, row.names=F)
+  }
+  return(list(Y=Y, X=X, meta=meta))
+}

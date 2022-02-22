@@ -23,11 +23,22 @@ adjustld: adjustld.R
   n: $N_sample
   $z: z
   $ldinfo: list(ldfile = ldfile, ldmethod = ldmethod, lamb = lamb)
+
+adjustld_lamb0(adjustld):
+  lamb: 0
   
 adjustld_addz(adjustld):
   lamb: 0
   addz: TRUE
 
+adjustld_n_lamb0: adjustld_lamb0_n.R
+  sumstats: $sumstats
+  ld: $ld
+  ldn: $ld_n
+  ldmethod: "in_sample", "refout_sample"
+  $z: z
+  $ldinfo: ld_info
+  
 adjustld_insample(adjustld): R(z = sumstats$bhat/sumstats$shat;
                                ldfile = ld[[ldmethod]])
   ldmethod: "in_sample"
@@ -86,10 +97,16 @@ finemapv4(caviar): fit_finemap_v4.R + R(b = $(meta)$true_coef;
   method: 'sss'
   cache: file(FM)
 
+finemapv4_n(finemapv4):
+  N_in: $N_sample_n
+  
 finemapv4L4(finemapv4): fit_finemap_v4.R + R(posterior = finemap_mvar_v1.4(sumstats$bhat, sumstats$shat,
                                                          maf[[ld_info[['ldmethod']]]], ld_info[['ldfile']], 
                                                          N_in, k, method, args, prefix=cache))
   args: '-n-causal-snps 4'
+
+finemapv4L4_n(finemapv4L4):
+  N_in: $N_sample_n
   
 finemapv4L5(finemapv4): fit_finemap_v4.R + R(posterior = finemap_mvar_v1.4(sumstats$bhat, sumstats$shat,
                                                          maf[[ld_info[['ldmethod']]]], ld_info[['ldfile']], 
@@ -170,6 +187,13 @@ susie_suff_init(susie_suff):
   init: 'oracle', 'lasso'
   estimate_residual_variance: TRUE
 
+susie_suff_refine(susie_suff):
+  refine: TRUE
+  
+susie_suff_refine_n(susie_suff_refine):
+  X: $X_sample_n
+  n: $N_sample_n
+  
 #------------------------------
 # SuSiE with summary statistics
 #------------------------------
@@ -193,6 +217,9 @@ susie_rss: initialize.R + fit_susierss.R + R(if(is.na(init)){
   $fitted: res$fitted
   $posterior: res$posterior
 
+susie_rss_refine(susie_rss): 
+  refine: TRUE
+  
 susie_rss_Ltrue: fit_susierss.R + R(b = $(meta)$true_coef;
                                     L = sum(b[,1]!=0);
                                     r = as.matrix(fread(ld_info[['ldfile']]));

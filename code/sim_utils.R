@@ -17,6 +17,6 @@ get_genotype <- function(k,n,pos=NULL) {
 }
 
 center_scale <- function(X){
-  X = susieR:::set_X_attributes(as.matrix(X), center=TRUE, scale = TRUE)
-  return(t( (t(X) - attr(X, "scaled:center")) / attr(X, "scaled:scale")  ))
+  out = susieR:::compute_colstats(as.matrix(X), center=TRUE, scale = TRUE)
+  return(t( (t(X) - out$cm) / out$csd  ))
 }

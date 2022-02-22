@@ -12,6 +12,26 @@ sim_gaussian: simulate.R + \
   $Y: res$Y
   $meta: res$meta
   $pheno_file: file_name
+
+sim_gaussian_pve(sim_gaussian):
+  pve: 0.02, 0.1, 0.3
+
+sim_gaussian_pve_n: sim_utils.R + simulate.R + \
+                      R(set.seed(seed);
+                      res=sim_gaussian_n_multiple(X, pve, n_signal, n_traits, file_name, sample_file))
+  @CONF: R_libs = susieR
+  seed: $seed
+  X: $X_sample
+  pve: 0.005, 0.02, 0.1, 0.3
+  n_signal: 1,2,3
+  n_traits: 1
+  file_name: file(pheno)
+  sample_file: $sample_file
+  $Y: res$Y
+  $X_sample_n: res$X
+  $N_sample_n: nrow(res$X)
+  $meta: res$meta
+  $pheno_file: file_name
   
 base_sim: lib_regression_simulator.py + \
                 regression_simulator.py + \

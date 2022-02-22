@@ -33,3 +33,4 @@ if(method == 'lm'){
 }else if(method == 'mixed'){
   res = mixed_regression(X_file, Y_file, sample_file, snp_file, n_trait)
 }
+
