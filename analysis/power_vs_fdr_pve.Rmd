@@ -1,0 +1,27 @@
+---
+title: "Simulation with different PVE"
+author: "Yuxin Zou"
+date: "2/18/2022"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+We simulated data with pve = 0.02, 0.1 and 0.3. We reduced the sample size for larger PVE, n=12,500 for PVE=0.02, n=2,500 for PVE=0.1, and n=800 for PVE=0.3. SuSiE related methods used refinement procedure.
+
+PVE = 0.005 (from previous simulation, n = 50,000)
+
+![](assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.005_ldin_methods.png){ width=45% } ![](assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.005_ldref_methods.png){ width=45% }
+
+PVE = 0.02
+
+![](assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.02_ldin_methods.png){ width=45% } ![](assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.02_ldref_methods.png){ width=45% }
+
+PVE = 0.1
+
+![](assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.1_ldin_methods.png){ width=45% } ![](assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.1_ldref_methods.png){ width=45% }
+
+PVE = 0.3
+
+![](assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.3_ldin_methods.png){ width=45% } ![](assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.3_ldref_methods.png){ width=45% }
+
