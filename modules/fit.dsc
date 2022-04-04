@@ -194,6 +194,24 @@ susie_suff_refine_n(susie_suff_refine):
   X: $X_sample_n
   n: $N_sample_n
   
+susie_suff_Ltrue: fit_susie_suff.R + R(b = $(meta)$true_coef;
+                                    L = sum(b[,1]!=0);
+                                    r = as.matrix(fread(ld_info[['ldfile']]));
+                                    res = susie_suff_multiple(sumstats$bhat, sumstats$shat, 
+                                                r, n, L, s_init, estimate_residual_variance, refine))
+  @CONF: R_libs = (susieR, data.table)
+  sumstats: $sumstats
+  ld_info: $ldinfo
+  estimate_residual_variance: TRUE, FALSE
+  n: $N_sample
+  refine: TRUE
+  s_init: NA
+  $fitted: res$fitted
+  $posterior: res$posterior
+
+susie_suff_Ltrue_n(susie_suff_Ltrue):
+  n: $N_sample_n
+  
 #------------------------------
 # SuSiE with summary statistics
 #------------------------------
@@ -206,7 +224,8 @@ susie_rss: initialize.R + fit_susierss.R + R(if(is.na(init)){
                                                 s_init = init_rss_lasso(z,r,L);
                                               };
                                               r = as.matrix(fread(ld_info[['ldfile']]));
-                                              res = susie_rss_multiple(z, r, L, s_init, refine);)
+                                              res = susie_rss_multiple(z, r, n, L, s_init, 
+                                              estimate_residual_variance, refine))
   @CONF: R_libs = (susieR, data.table)
   z: $z
   L: 10
@@ -214,21 +233,28 @@ susie_rss: initialize.R + fit_susierss.R + R(if(is.na(init)){
   n: $N_sample
   refine: FALSE, TRUE
   init: NA
+  estimate_residual_variance: TRUE, FALSE
   $fitted: res$fitted
   $posterior: res$posterior
-
-susie_rss_refine(susie_rss): 
-  refine: TRUE
   
 susie_rss_Ltrue: fit_susierss.R + R(b = $(meta)$true_coef;
                                     L = sum(b[,1]!=0);
                                     r = as.matrix(fread(ld_info[['ldfile']]));
-                                    res = susie_rss_multiple(z, r, L, NA, refine);)
+                                    res = susie_rss_multiple(z, r, n, L, NA, 
+                                    estimate_residual_variance, refine);)
   @CONF: R_libs = (susieR, data.table)
   z: $z
   ld_info: $ldinfo
   refine: TRUE
+  n: $N_sample
+  estimate_residual_variance: TRUE, FALSE
   $fitted: res$fitted
   $posterior: res$posterior
 
-
+susie_rss_n(susie_rss):
+  n: $N_sample_n
+  refine: TRUE
+  
+susie_rss_Ltrue_n(susie_rss_Ltrue):
+  n: $N_sample_n
+  

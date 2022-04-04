@@ -101,6 +101,12 @@ method_susie:
   instances_per_node: 2
   mem_per_instance: 2G
 
+susie_suff_Ltrue_n:
+  time_per_instance: 1h
+  instances_per_job: 10
+  instances_per_node: 2
+  mem_per_instance: 2G
+  
 susie_init:
   queue: stephenslab
   time_per_instance: 1h
