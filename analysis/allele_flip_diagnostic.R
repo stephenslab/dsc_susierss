@@ -35,7 +35,7 @@ p2 <- ggplot(subset(pdat2,flipped),aes(x = logLR)) +
 p3 <- ggplot(subset(pdat1,!flipped),aes(x = logLR)) +
   geom_histogram(color = "darkorange",fill = "darkorange",bins = 32) +
   xlim(c(-25,15)) +
-  scale_y_log10() +
+  scale_y_continuous(trans = "log10",breaks = 10^seq(0,5)) +
   theme_cowplot(font_size = 10) +
   theme(plot.title = element_text(face = "plain",size = 10)) +
   labs(x = "log-likelihood ratio",y = "SNPs",
@@ -43,10 +43,16 @@ p3 <- ggplot(subset(pdat1,!flipped),aes(x = logLR)) +
 p4 <- ggplot(subset(pdat2,!flipped),aes(x = logLR)) +
   geom_histogram(color = "darkorange",fill = "darkorange",bins = 32) +
   xlim(c(-25,15)) +
-  scale_y_log10() +
+  scale_y_continuous(trans = "log10",breaks = 10^seq(0,5)) +
   theme_cowplot(font_size = 10) +
   theme(plot.title = element_text(face = "plain",size = 10)) +
   labs(x = "log-likelihood ratio",y = "SNPs",
        title = "effect SNPs, no flipped allele")
 p <- plot_grid(p1,p2,p3,p4,nrow = 2,ncol = 2,align = "v")
 ggsave("allele_flip_diagnostic.eps",p,height = 4,width = 5)
+
+# Summarize correspondence between allele flips and log-likelihood
+# ratios, only for SNPs with with z-scores greater than 2 in
+# magnitude.
+print(with(subset(pdat1,abs(z) > 2),table(flipped,logLR > 0)))
+print(with(subset(pdat2,abs(z) > 2),table(flipped,logLR > 0)))
