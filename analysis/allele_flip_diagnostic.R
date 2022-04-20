@@ -19,40 +19,50 @@ pdat2  <-
 pdat1 <- transform(pdat1,logLR = ifelse(logLR < -50,NA,logLR))
 pdat2 <- transform(pdat2,logLR = ifelse(logLR < -50,NA,logLR))
 p1 <- ggplot(subset(pdat1,flipped),aes(x = logLR)) +
-  geom_histogram(color = "darkblue",fill = "darkblue",bins = 32) +
+  geom_histogram(color = "black",fill = "black",bins = 32) +
   xlim(c(-25,15)) +
   theme_cowplot(font_size = 10) +
   theme(plot.title = element_text(face = "plain",size = 10)) +
   labs(x = "log-likelihood ratio",y = "SNPs",
-       title = "non-effect SNPs, flipped allele")
+       title = "zero effect, flipped allele")
 p2 <- ggplot(subset(pdat2,flipped),aes(x = logLR)) +
-  geom_histogram(color = "darkblue",fill = "darkblue",bins = 32) +
+  geom_histogram(color = "black",fill = "black",bins = 32) +
   xlim(c(-25,15)) +
   theme_cowplot(font_size = 10) +
   theme(plot.title = element_text(face = "plain",size = 10)) +
   labs(x = "log-likelihood ratio",y = "SNPs",
-       title = "effect SNPs, flipped allele")
+       title = "nonzero effect, flipped allele")
 p3 <- ggplot(subset(pdat1,!flipped),aes(x = logLR)) +
-  geom_histogram(color = "darkorange",fill = "darkorange",bins = 32) +
+  geom_histogram(color = "black",fill = "black",bins = 32) +
   xlim(c(-25,15)) +
   scale_y_continuous(trans = "log10",breaks = 10^seq(0,5)) +
   theme_cowplot(font_size = 10) +
   theme(plot.title = element_text(face = "plain",size = 10)) +
   labs(x = "log-likelihood ratio",y = "SNPs",
-       title = "non-effect SNPs, no flipped allele")
+       title = "zero effect, no flipped allele")
 p4 <- ggplot(subset(pdat2,!flipped),aes(x = logLR)) +
-  geom_histogram(color = "darkorange",fill = "darkorange",bins = 32) +
+  geom_histogram(color = "black",fill = "black",bins = 32) +
   xlim(c(-25,15)) +
   scale_y_continuous(trans = "log10",breaks = 10^seq(0,5)) +
   theme_cowplot(font_size = 10) +
   theme(plot.title = element_text(face = "plain",size = 10)) +
   labs(x = "log-likelihood ratio",y = "SNPs",
-       title = "effect SNPs, no flipped allele")
-p <- plot_grid(p1,p2,p3,p4,nrow = 2,ncol = 2,align = "v")
-ggsave("allele_flip_diagnostic.eps",p,height = 4,width = 5)
-
-# Summarize correspondence between allele flips and log-likelihood
-# ratios, only for SNPs with with z-scores greater than 2 in
-# magnitude.
-print(with(subset(pdat1,abs(z) > 2),table(flipped,logLR > 0)))
-print(with(subset(pdat2,abs(z) > 2),table(flipped,logLR > 0)))
+       title = "nonzero effect, no flipped allele")
+p5 <- ggplot(subset(pdat1,!flipped & abs(z) > 2),aes(x = logLR)) +
+  geom_histogram(color = "black",fill = "black",bins = 32) +
+  xlim(c(-25,15)) +
+  scale_y_continuous(trans = "log10",breaks = 10^seq(0,5)) +
+  theme_cowplot(font_size = 10) +
+  theme(plot.title = element_text(face = "plain",size = 10)) +
+  labs(x = "log-likelihood ratio",y = "SNPs",
+       title = "zero effect, no flipped allele, |z| > 2")
+p6 <- ggplot(subset(pdat2,!flipped & abs(z) > 2),aes(x = logLR)) +
+  geom_histogram(color = "black",fill = "black",bins = 32) +
+  xlim(c(-25,15)) +
+  scale_y_continuous(trans = "log10",breaks = 10^seq(0,5)) +
+  theme_cowplot(font_size = 10) +
+  theme(plot.title = element_text(face = "plain",size = 10)) +
+  labs(x = "log-likelihood ratio",y = "SNPs",
+       title = "nonzero effect, no flipped allele, |z| > 2")
+p <- plot_grid(p1,p2,p3,p4,p5,p6,nrow = 3,ncol = 2,align = "v")
+ggsave("allele_flip_diagnostic.eps",p,height = 6,width = 5)
