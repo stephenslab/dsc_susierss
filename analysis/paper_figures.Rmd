@@ -1,0 +1,26 @@
+---
+title: "Figures for simulation study"
+author: "Yuxin Zou"
+date: "6/06/2022"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+# PVE = 0.005
+
+This simulation uses UKB genotype data. We extract the genotype regions based on height GWAS result. There are 200 regions, each with ~1000 SNPs. We sample 50,000 individuals to simulate the data. We sample another 500 and 1000 samples to get reference LD matrix. We simulate data with 1,2,3 signals and PVE 0.005. We run susie_rss using L=10. We run FINEMAP v1.4 with oracle number of signals and max 5 signals. We run CAVIAR with oracle number of signals. We run DAP-G with the default setting.
+
+## Power vs FDR
+
+![](assets/susierss_paper/fig3.png)
+
+![](assets/susierss_paper/fig5.png)
+
+## CS
+
+![](assets/susierss_paper/ukb_cs_refine_033022_fixsize_fm_pure_plots.png)
+
+# Higher PVE
+
+![](assets/susierss_paper/fig6.png)
