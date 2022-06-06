@@ -9,8 +9,14 @@ editor_options:
 ---
 
 This repository contains simulation results related to SuSiE-RSS.
-    
+
 + Most recent results: 
+  
+    - [Paper](paper_figures.html)
+
++ Previous results:
+    
+    SuSiE-RSS uses $\hat{z} \sim N(R z, R)$.
     
     - [RESULT](susierss_ukb_20210324.html)
     
@@ -24,8 +30,6 @@ This repository contains simulation results related to SuSiE-RSS.
     - [20210324 result ref500 LD eg](susierss_ukb_20210324_ref500_ldref.html)
 
     - [power vs. FDR plots for paper](power_vs_fdr.html)
-
-+ Previous results:
 
     - [PIP calibration and power vs. FDR](susierss_ukb_20210218.html)
  
