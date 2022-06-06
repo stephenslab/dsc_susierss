@@ -103,8 +103,8 @@ finemap_v1.4_scores = function(cs, pure, pip, true_coef) {
 }
 
 finemap_v1.4_scores_multiple = function(res, truth) {
-  total = valid = size = total_pure = valid_pure = size_pure = vector() 
-  signal_pip = purity = avgr2 = purity_pure = avgr2_pure = list()
+  total = valid = total_pure = valid_pure = vector() 
+  size = size_pure = signal_pip = purity = avgr2 = purity_pure = avgr2_pure = list()
   pip = list()
   for (r in 1:length(res)) {
     set = res[[r]]$set
@@ -115,12 +115,12 @@ finemap_v1.4_scores_multiple = function(res, truth) {
     pip[[r]] = snps$snp_prob
     total[r] = out$total
     valid[r] = out$valid
-    size[r] = out$size
+    size[[r]] = out$size
     purity[[r]] = out$purity
     avgr2[[r]] = out$avgr2
     total_pure[r] = out$total_pure
     valid_pure[r] = out$valid_pure
-    size_pure[r] = out$size_pure
+    size_pure[[r]] = out$size_pure
     purity_pure[[r]] = out$purity_pure
     avgr2_pure[[r]] = out$avgr2_pure
     signal_pip[[r]] = out$signal_pip
