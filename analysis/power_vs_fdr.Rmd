@@ -58,7 +58,7 @@ ggsave("pip_power_vs_fdr_refine.eps",p,height=3,width=4.3)
 Create the power vs. FDR plot comparing different fine-mapping methods
 when they are provided with the "in sample" LD:
 
-```{r in-sample, fig.height=3, fig.width=4.5}
+```{r in-sample, fig.height=5, fig.width=6}
 pdat <-
   rbind(data.frame(method = "SuSiE-RSS, est sigma",
                    fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,1],
