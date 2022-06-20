@@ -4,8 +4,6 @@ author: Yuxin Zou and Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-*Add text here.*
-
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.show = "hold",fig.align = "center",dpi = 120)
@@ -21,7 +19,40 @@ library(cowplot)
 Load the results from the UK Biobank simulations:
 
 ```{r load-results}
-res = readRDS("data/roc_data.rds")
+res0.005 = readRDS("data/roc_pve005.rds")
+res0.1 = readRDS("data/roc_pve1.rds")
+res0.3 = readRDS("data/roc_pve3.rds")
+```
+
+
+Create the power vs. PDR plot comparing refinement procedure with the 'in-sample' LD:
+```{r refinement, fig.height=3, fig.width=4.5}
+pdat <-
+  rbind(data.frame(method = "without refinement",
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineFALSE-ERTRUE-LDin"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-L10-refineFALSE-ERTRUE-LDin"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-L10-refineFALSE-ERTRUE-LDin"]]$pr[,3]),
+        data.frame(method = "with refinement",
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,3]))
+rows <- with(pdat,order(method,fdr))
+pdat <- pdat[rows,]
+p <- ggplot(pdat,aes(x = fdr,y = power,color = method,linetype = method)) +
+  geom_line(orientation = "y") +
+  geom_point(data = subset(pdat,thresh == 0.95),show.legend = FALSE) +
+  scale_color_manual(values = c("orange","blue")) +
+  scale_linetype_manual(values = c("solid","solid")) +
+  scale_x_continuous(breaks = seq(0,0.3,0.05)) +
+  scale_y_continuous(breaks = seq(0,0.3,0.05)) +
+  coord_cartesian(xlim = c(0,0.3),ylim = c(0,0.3)) +
+  theme_cowplot(font_size = 12) +
+  theme(panel.grid.major = element_line(colour = "gainsboro",size = 0.3))
+print(p)
+```
+
+```{r refinement-for-paper, echo=FALSE, message=FALSE}
+ggsave("pip_power_vs_fdr_refine.eps",p,height=3,width=4.3)
 ```
 
 Create the power vs. FDR plot comparing different fine-mapping methods
@@ -29,36 +60,40 @@ when they are provided with the "in sample" LD:
 
 ```{r in-sample, fig.height=3, fig.width=4.5}
 pdat <-
-  rbind(data.frame(method = "susie-suff",
-                   fdr    = 1 - res[["susie-suff-refineTRUE"]]$pr[,1],
-			       power  = res[["susie-suff-refineTRUE"]]$pr[,2],
-			       thresh = res[["susie-suff-refineTRUE"]]$pr[,3]),
-        data.frame(method = "susie-rss",
-                   fdr    = 1 - res[["susie-rss-L10-refineTRUE-LDin"]]$pr[,1],
-                   power  = res[["susie-rss-L10-refineTRUE-LDin"]]$pr[,2],
-                   thresh = res[["susie-rss-L10-refineTRUE-LDin"]]$pr[,3]),
-        data.frame(method = "susie-rss,L=true",
-                   fdr    = 1-res[["susie-rss-oracle-refineTRUE-LDin"]]$pr[,1],
-                   power  = res[["susie-rss-oracle-refineTRUE-LDin"]]$pr[,2],
-                   thresh = res[["susie-rss-oracle-refineTRUE-LDin"]]$pr[,3]),
-        data.frame(method = "finemap",
-                   fdr    = 1 - res[["FINEMAP-L4-LDin"]]$pr[,1],
-                   power  = res[["FINEMAP-L4-LDin"]]$pr[,2],
-                   thresh = res[["FINEMAP-L4-LDin"]]$pr[,3]),
-        data.frame(method = "finemap,L=true",
-                   fdr    = 1 - res[["FINEMAP-oracle-LDin"]]$pr[,1],
-                   power  = res[["FINEMAP-oracle-LDin"]]$pr[,2],
-                   thresh = res[["FINEMAP-oracle-LDin"]]$pr[,3]),
-        data.frame(method = "dap-g",
-                   fdr    = 1 - res[["DAP-G-LDin"]]$pr[,1],
-                   power  = res[["DAP-G-LDin"]]$pr[,2],
-                   thresh = res[["DAP-G-LDin"]]$pr[,3]),
-        data.frame(method = "caviar",
-                   fdr    = 1 - res[["CAVIAR-LDin"]]$pr[,1],
-                   power  = res[["CAVIAR-LDin"]]$pr[,2],
-                   thresh = res[["CAVIAR-LDin"]]$pr[,3]))
+  rbind(data.frame(method = "SuSiE-RSS, est sigma",
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,1],
+			       power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,2],
+			       thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,3]),
+        data.frame(method = "SuSiE-RSS, sigma=1",
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDin"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDin"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDin"]]$pr[,3]),
+        data.frame(method = "SuSiE-RSS, sigma=1, L=true",
+                   fdr    = 1-res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDin"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDin"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDin"]]$pr[,3]),
+        data.frame(method = "FINEMAP",
+                   fdr    = 1-res0.005[["FINEMAP-L5-LDin"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-L5-LDin"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-L5-LDin"]]$pr[,3]), 
+        data.frame(method = "FINEMAP, L=true",
+                   fdr    = 1-res0.005[["FINEMAP-Loracle-LDin"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-Loracle-LDin"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-Loracle-LDin"]]$pr[,3]),
+        data.frame(method = "DAP-G",
+                   fdr    = 1-res0.005[["DAP-G-LDin"]]$pr[,1],
+                   power  = res0.005[["DAP-G-LDin"]]$pr[,2],
+                   thresh = res0.005[["DAP-G-LDin"]]$pr[,3]),
+        data.frame(method = "CAVIAR",
+                   fdr    = 1-res0.005[["CAVIAR-LDin"]]$pr[,1],
+                   power  = res0.005[["CAVIAR-LDin"]]$pr[,2],
+                   thresh = res0.005[["CAVIAR-LDin"]]$pr[,3]))
 rows <- with(pdat,order(method,fdr))
 pdat <- pdat[rows,]
+pdat$method = factor(pdat$method, levels = c('SuSiE-RSS, est sigma',
+                                             'SuSiE-RSS, sigma=1','SuSiE-RSS, sigma=1, L=true',
+                                             'FINEMAP', 'FINEMAP, L=true',
+                                             'DAP-G', 'CAVIAR'))
 p <- ggplot(pdat,aes(x = fdr,y = power,color = method,linetype = method)) +
   geom_line(orientation = "y") +
   geom_point(data = subset(pdat,thresh == 0.95),show.legend = FALSE) +
@@ -78,205 +113,208 @@ print(p)
 ggsave("pip_power_vs_fdr_insample.eps",p,height=3,width=4.3)
 ```
 
+Create the power vs. FDR plot comparing different fine-mapping methods
+when they are provided with the "out of sample" LD:
+
 ```{r plots-comparing-all-methods, fig.height=7, fig.width=7}
 pdat1 <-
-  rbind(data.frame(method = "SuSiE-suff (in-sample LD)",
-                   fdr    = 1 - res[["susie-suff-refineTRUE"]]$pr[,1],
-			       power  = res[["susie-suff-refineTRUE"]]$pr[,2],
-			       thresh = res[["susie-suff-refineTRUE"]]$pr[,3]),
+  rbind(data.frame(method = "SuSiE-RSS (in-sample LD)",
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,1],
+			       power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,2],
+			       thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,3]),
         data.frame(method = "in-sample LD",
-                   fdr    = 1 - res[["CAVIAR-LDin"]]$pr[,1],
-                   power  = res[["CAVIAR-LDin"]]$pr[,2],
-                   thresh = res[["CAVIAR-LDin"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["CAVIAR-LDin"]]$pr[,1],
+                   power  = res0.005[["CAVIAR-LDin"]]$pr[,2],
+                   thresh = res0.005[["CAVIAR-LDin"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=0",
-                   fdr    = 1-res[["CAVIAR-LDref1000"]]$pr[,1],
-                   power  = res[["CAVIAR-LDref1000"]]$pr[,2],
-                   thresh = res[["CAVIAR-LDref1000"]]$pr[,3]),
+                   fdr    = 1-res0.005[["CAVIAR-LDref1000"]]$pr[,1],
+                   power  = res0.005[["CAVIAR-LDref1000"]]$pr[,2],
+                   thresh = res0.005[["CAVIAR-LDref1000"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=0.001",
-                   fdr    = 1 - res[["CAVIAR-LDref1000-lambda0.001"]]$pr[,1],
-                   power  = res[["CAVIAR-LDref1000-lambda0.001"]]$pr[,2],
-                   thresh = res[["CAVIAR-LDref1000-lambda0.001"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["CAVIAR-LDref1000-lambda0.001"]]$pr[,1],
+                   power  = res0.005[["CAVIAR-LDref1000-lambda0.001"]]$pr[,2],
+                   thresh = res0.005[["CAVIAR-LDref1000-lambda0.001"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=estimated",
-                   fdr    = 1-res[["CAVIAR-LDref1000-lambdaEstimate"]]$pr[,1],
-                   power  = res[["CAVIAR-LDref1000-lambdaEstimate"]]$pr[,2],
-                   thresh = res[["CAVIAR-LDref1000-lambdaEstimate"]]$pr[,3]),
+                   fdr    = 1-res0.005[["CAVIAR-LDref1000-lambdaEstimate"]]$pr[,1],
+                   power  = res0.005[["CAVIAR-LDref1000-lambdaEstimate"]]$pr[,2],
+                   thresh = res0.005[["CAVIAR-LDref1000-lambdaEstimate"]]$pr[,3]),
         data.frame(method = "n=500,lambda=0",
-                   fdr    = 1 - res[["CAVIAR-LDref500"]]$pr[,1],
-                   power  = res[["CAVIAR-LDref500"]]$pr[,2],
-                   thresh = res[["CAVIAR-LDref500"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["CAVIAR-LDref500"]]$pr[,1],
+                   power  = res0.005[["CAVIAR-LDref500"]]$pr[,2],
+                   thresh = res0.005[["CAVIAR-LDref500"]]$pr[,3]),
         data.frame(method = "n=500,lambda=0.001",
-                   fdr    = 1 - res[["CAVIAR-LDref500-lambda0.001"]]$pr[,1],
-                   power  = res[["CAVIAR-LDref500-lambda0.001"]]$pr[,2],
-                   thresh = res[["CAVIAR-LDref500-lambda0.001"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["CAVIAR-LDref500-lambda0.001"]]$pr[,1],
+                   power  = res0.005[["CAVIAR-LDref500-lambda0.001"]]$pr[,2],
+                   thresh = res0.005[["CAVIAR-LDref500-lambda0.001"]]$pr[,3]),
         data.frame(method = "n=500,lambda=estimated",
-                   fdr    = 1 - res[["CAVIAR-LDref500-lambdaEstimate"]]$pr[,1],
-                   power  = res[["CAVIAR-LDref500-lambdaEstimate"]]$pr[,2],
-                   thresh = res[["CAVIAR-LDref500-lambdaEstimate"]]$pr[,3]))
+                   fdr    = 1 - res0.005[["CAVIAR-LDref500-lambdaEstimate"]]$pr[,1],
+                   power  = res0.005[["CAVIAR-LDref500-lambdaEstimate"]]$pr[,2],
+                   thresh = res0.005[["CAVIAR-LDref500-lambdaEstimate"]]$pr[,3]))
 pdat2 <-
-  rbind(data.frame(method = "SuSiE-suff (in-sample LD)",
-                   fdr    = 1 - res[["susie-suff-refineTRUE"]]$pr[,1],
-			       power  = res[["susie-suff-refineTRUE"]]$pr[,2],
-			       thresh = res[["susie-suff-refineTRUE"]]$pr[,3]),
+  rbind(data.frame(method = "SuSiE-RSS (in-sample LD)",
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,1],
+			       power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,2],
+			       thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,3]),
         data.frame(method = "in-sample LD",
-                   fdr    = 1 - res[["DAP-G-LDin"]]$pr[,1],
-                   power  = res[["DAP-G-LDin"]]$pr[,2],
-                   thresh = res[["DAP-G-LDin"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["DAP-G-LDin"]]$pr[,1],
+                   power  = res0.005[["DAP-G-LDin"]]$pr[,2],
+                   thresh = res0.005[["DAP-G-LDin"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=0",
-                   fdr    = 1-res[["DAP-G-LDref1000"]]$pr[,1],
-                   power  = res[["DAP-G-LDref1000"]]$pr[,2],
-                   thresh = res[["DAP-G-LDref1000"]]$pr[,3]),
+                   fdr    = 1-res0.005[["DAP-G-LDref1000"]]$pr[,1],
+                   power  = res0.005[["DAP-G-LDref1000"]]$pr[,2],
+                   thresh = res0.005[["DAP-G-LDref1000"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=0.001",
-                   fdr    = 1 - res[["DAP-G-LDref1000-lambda0.001"]]$pr[,1],
-                   power  = res[["DAP-G-LDref1000-lambda0.001"]]$pr[,2],
-                   thresh = res[["DAP-G-LDref1000-lambda0.001"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["DAP-G-LDref1000-lambda0.001"]]$pr[,1],
+                   power  = res0.005[["DAP-G-LDref1000-lambda0.001"]]$pr[,2],
+                   thresh = res0.005[["DAP-G-LDref1000-lambda0.001"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=estimated",
-                   fdr    = 1-res[["DAP-G-LDref1000-lambdaEstimate"]]$pr[,1],
-                   power  = res[["DAP-G-LDref1000-lambdaEstimate"]]$pr[,2],
-                   thresh = res[["DAP-G-LDref1000-lambdaEstimate"]]$pr[,3]),
+                   fdr    = 1-res0.005[["DAP-G-LDref1000-lambdaEstimate"]]$pr[,1],
+                   power  = res0.005[["DAP-G-LDref1000-lambdaEstimate"]]$pr[,2],
+                   thresh = res0.005[["DAP-G-LDref1000-lambdaEstimate"]]$pr[,3]),
         data.frame(method = "n=500,lambda=0",
-                   fdr    = 1 - res[["DAP-G-LDref500"]]$pr[,1],
-                   power  = res[["DAP-G-LDref500"]]$pr[,2],
-                   thresh = res[["DAP-G-LDref500"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["DAP-G-LDref500"]]$pr[,1],
+                   power  = res0.005[["DAP-G-LDref500"]]$pr[,2],
+                   thresh = res0.005[["DAP-G-LDref500"]]$pr[,3]),
         data.frame(method = "n=500,lambda=0.001",
-                   fdr    = 1 - res[["DAP-G-LDref500-lambda0.001"]]$pr[,1],
-                   power  = res[["DAP-G-LDref500-lambda0.001"]]$pr[,2],
-                   thresh = res[["DAP-G-LDref500-lambda0.001"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["DAP-G-LDref500-lambda0.001"]]$pr[,1],
+                   power  = res0.005[["DAP-G-LDref500-lambda0.001"]]$pr[,2],
+                   thresh = res0.005[["DAP-G-LDref500-lambda0.001"]]$pr[,3]),
         data.frame(method = "n=500,lambda=estimated",
-                   fdr    = 1 - res[["DAP-G-LDref500-lambdaEstimate"]]$pr[,1],
-                   power  = res[["DAP-G-LDref500-lambdaEstimate"]]$pr[,2],
-                   thresh = res[["DAP-G-LDref500-lambdaEstimate"]]$pr[,3]))
+                   fdr    = 1 - res0.005[["DAP-G-LDref500-lambdaEstimate"]]$pr[,1],
+                   power  = res0.005[["DAP-G-LDref500-lambdaEstimate"]]$pr[,2],
+                   thresh = res0.005[["DAP-G-LDref500-lambdaEstimate"]]$pr[,3]))
 pdat3 <-
-  rbind(data.frame(method = "SuSiE-suff (in-sample LD)",
-                   fdr    = 1 - res[["susie-suff-refineTRUE"]]$pr[,1],
-			       power  = res[["susie-suff-refineTRUE"]]$pr[,2],
-			       thresh = res[["susie-suff-refineTRUE"]]$pr[,3]),
+  rbind(data.frame(method = "SuSiE-RSS (in-sample LD)",
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,1],
+			       power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,2],
+			       thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,3]),
         data.frame(method = "in-sample LD",
-                   fdr    = 1 - res[["FINEMAP-oracle-LDin"]]$pr[,1],
-                   power  = res[["FINEMAP-oracle-LDin"]]$pr[,2],
-                   thresh = res[["FINEMAP-oracle-LDin"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["FINEMAP-Loracle-LDin"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-Loracle-LDin"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-Loracle-LDin"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=0",
-                   fdr    = 1-res[["FINEMAP-oracle-LDref1000"]]$pr[,1],
-                   power  = res[["FINEMAP-oracle-LDref1000"]]$pr[,2],
-                   thresh = res[["FINEMAP-oracle-LDref1000"]]$pr[,3]),
+                   fdr    = 1-res0.005[["FINEMAP-Loracle-LDref1000"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-Loracle-LDref1000"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-Loracle-LDref1000"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=0.001",
-                   fdr    = 1 - res[["FINEMAP-oracle-LDref1000-lambda0.001"]]$pr[,1],
-                   power  = res[["FINEMAP-oracle-LDref1000-lambda0.001"]]$pr[,2],
-                   thresh = res[["FINEMAP-oracle-LDref1000-lambda0.001"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["FINEMAP-Loracle-LDref1000-lambda0.001"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-Loracle-LDref1000-lambda0.001"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-Loracle-LDref1000-lambda0.001"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=estimated",
-                   fdr    = 1-res[["FINEMAP-oracle-LDref1000-lambdaEstimate"]]$pr[,1],
-                   power  = res[["FINEMAP-oracle-LDref1000-lambdaEstimate"]]$pr[,2],
-                   thresh = res[["FINEMAP-oracle-LDref1000-lambdaEstimate"]]$pr[,3]),
+                   fdr    = 1-res0.005[["FINEMAP-Loracle-LDref1000-lambdaEstimate"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-Loracle-LDref1000-lambdaEstimate"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-Loracle-LDref1000-lambdaEstimate"]]$pr[,3]),
         data.frame(method = "n=500,lambda=0",
-                   fdr    = 1 - res[["FINEMAP-oracle-LDref500"]]$pr[,1],
-                   power  = res[["FINEMAP-oracle-LDref500"]]$pr[,2],
-                   thresh = res[["FINEMAP-oracle-LDref500"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["FINEMAP-Loracle-LDref500"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-Loracle-LDref500"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-Loracle-LDref500"]]$pr[,3]),
         data.frame(method = "n=500,lambda=0.001",
-                   fdr    = 1 - res[["FINEMAP-oracle-LDref500-lambda0.001"]]$pr[,1],
-                   power  = res[["FINEMAP-oracle-LDref500-lambda0.001"]]$pr[,2],
-                   thresh = res[["FINEMAP-oracle-LDref500-lambda0.001"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["FINEMAP-Loracle-LDref500-lambda0.001"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-Loracle-LDref500-lambda0.001"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-Loracle-LDref500-lambda0.001"]]$pr[,3]),
         data.frame(method = "n=500,lambda=estimated",
-                   fdr    = 1 - res[["FINEMAP-oracle-LDref500-lambdaEstimate"]]$pr[,1],
-                   power  = res[["FINEMAP-oracle-LDref500-lambdaEstimate"]]$pr[,2],
-                   thresh = res[["FINEMAP-oracle-LDref500-lambdaEstimate"]]$pr[,3]))
+                   fdr    = 1 - res0.005[["FINEMAP-Loracle-LDref500-lambdaEstimate"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-Loracle-LDref500-lambdaEstimate"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-Loracle-LDref500-lambdaEstimate"]]$pr[,3]))
 pdat4 <-
-  rbind(data.frame(method = "SuSiE-suff (in-sample LD)",
-                   fdr    = 1 - res[["susie-suff-refineTRUE"]]$pr[,1],
-			       power  = res[["susie-suff-refineTRUE"]]$pr[,2],
-			       thresh = res[["susie-suff-refineTRUE"]]$pr[,3]),
+  rbind(data.frame(method = "SuSiE-RSS (in-sample LD)",
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,1],
+			       power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,2],
+			       thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,3]),
         data.frame(method = "in-sample LD",
-                   fdr    = 1 - res[["FINEMAP-L4-LDin"]]$pr[,1],
-                   power  = res[["FINEMAP-L4-LDin"]]$pr[,2],
-                   thresh = res[["FINEMAP-L4-LDin"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["FINEMAP-L5-LDin"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-L5-LDin"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-L5-LDin"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=0",
-                   fdr    = 1-res[["FINEMAP-L4-LDref1000"]]$pr[,1],
-                   power  = res[["FINEMAP-L4-LDref1000"]]$pr[,2],
-                   thresh = res[["FINEMAP-L4-LDref1000"]]$pr[,3]),
+                   fdr    = 1-res0.005[["FINEMAP-L5-LDref1000"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-L5-LDref1000"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-L5-LDref1000"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=0.001",
-                   fdr    = 1 - res[["FINEMAP-L4-LDref1000-lambda0.001"]]$pr[,1],
-                   power  = res[["FINEMAP-L4-LDref1000-lambda0.001"]]$pr[,2],
-                   thresh = res[["FINEMAP-L4-LDref1000-lambda0.001"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["FINEMAP-L5-LDref1000-lambda0.001"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-L5-LDref1000-lambda0.001"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-L5-LDref1000-lambda0.001"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=estimated",
-                   fdr    = 1-res[["FINEMAP-L4-LDref1000-lambdaEstimate"]]$pr[,1],
-                   power  = res[["FINEMAP-L4-LDref1000-lambdaEstimate"]]$pr[,2],
-                   thresh = res[["FINEMAP-L4-LDref1000-lambdaEstimate"]]$pr[,3]),
+                   fdr    = 1-res0.005[["FINEMAP-L5-LDref1000-lambdaEstimate"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-L5-LDref1000-lambdaEstimate"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-L5-LDref1000-lambdaEstimate"]]$pr[,3]),
         data.frame(method = "n=500,lambda=0",
-                   fdr    = 1 - res[["FINEMAP-L4-LDref500"]]$pr[,1],
-                   power  = res[["FINEMAP-L4-LDref500"]]$pr[,2],
-                   thresh = res[["FINEMAP-L4-LDref500"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["FINEMAP-L5-LDref500"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-L5-LDref500"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-L5-LDref500"]]$pr[,3]),
         data.frame(method = "n=500,lambda=0.001",
-                   fdr    = 1 - res[["FINEMAP-L4-LDref500-lambda0.001"]]$pr[,1],
-                   power  = res[["FINEMAP-L4-LDref500-lambda0.001"]]$pr[,2],
-                   thresh = res[["FINEMAP-L4-LDref500-lambda0.001"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["FINEMAP-L5-LDref500-lambda0.001"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-L5-LDref500-lambda0.001"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-L5-LDref500-lambda0.001"]]$pr[,3]),
         data.frame(method = "n=500,lambda=estimated",
-                   fdr    = 1 - res[["FINEMAP-L4-LDref500-lambdaEstimate"]]$pr[,1],
-                   power  = res[["FINEMAP-L4-LDref500-lambdaEstimate"]]$pr[,2],
-                   thresh = res[["FINEMAP-L4-LDref500-lambdaEstimate"]]$pr[,3]))
+                   fdr    = 1 - res0.005[["FINEMAP-L5-LDref500-lambdaEstimate"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-L5-LDref500-lambdaEstimate"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-L5-LDref500-lambdaEstimate"]]$pr[,3]))
 pdat5 <-
-  rbind(data.frame(method = "SuSiE-suff (in-sample LD)",
-                   fdr    = 1 - res[["susie-suff-refineTRUE"]]$pr[,1],
-			       power  = res[["susie-suff-refineTRUE"]]$pr[,2],
-			       thresh = res[["susie-suff-refineTRUE"]]$pr[,3]),
+  rbind(data.frame(method = "SuSiE-RSS (in-sample LD)",
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,1],
+			       power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,2],
+			       thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,3]),
         data.frame(method = "in-sample LD",
-                   fdr    = 1 - res[["susie-rss-oracle-refineTRUE-LDin"]]$pr[,1],
-                   power  = res[["susie-rss-oracle-refineTRUE-LDin"]]$pr[,2],
-                   thresh = res[["susie-rss-oracle-refineTRUE-LDin"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDin"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDin"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDin"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=0",
-                   fdr    = 1-res[["susie-rss-oracle-refineTRUE-LDref1000"]]$pr[,1],
-                   power  = res[["susie-rss-oracle-refineTRUE-LDref1000"]]$pr[,2],
-                   thresh = res[["susie-rss-oracle-refineTRUE-LDref1000"]]$pr[,3]),
+                   fdr    = 1-res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=0.001",
-                   fdr    = 1 - res[["susie-rss-oracle-refineTRUE-LDref1000-lambda0.001"]]$pr[,1],
-                   power  = res[["susie-rss-oracle-refineTRUE-LDref1000-lambda0.001"]]$pr[,2],
-                   thresh = res[["susie-rss-oracle-refineTRUE-LDref1000-lambda0.001"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000-lambda0.001"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000-lambda0.001"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000-lambda0.001"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=estimated",
-                   fdr    = 1-res[["susie-rss-oracle-refineTRUE-LDref1000-lambdaEstimate"]]$pr[,1],
-                   power  = res[["susie-rss-oracle-refineTRUE-LDref1000-lambdaEstimate"]]$pr[,2],
-                   thresh = res[["susie-rss-oracle-refineTRUE-LDref1000-lambdaEstimate"]]$pr[,3]),
+                   fdr    = 1-res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000-lambdaEstimate"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000-lambdaEstimate"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000-lambdaEstimate"]]$pr[,3]),
         data.frame(method = "n=500,lambda=0",
-                   fdr    = 1 - res[["susie-rss-oracle-refineTRUE-LDref500"]]$pr[,1],
-                   power  = res[["susie-rss-oracle-refineTRUE-LDref500"]]$pr[,2],
-                   thresh = res[["susie-rss-oracle-refineTRUE-LDref500"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref500"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref500"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref500"]]$pr[,3]),
         data.frame(method = "n=500,lambda=0.001",
-                   fdr    = 1 - res[["susie-rss-oracle-refineTRUE-LDref500-lambda0.001"]]$pr[,1],
-                   power  = res[["susie-rss-oracle-refineTRUE-LDref500-lambda0.001"]]$pr[,2],
-                   thresh = res[["susie-rss-oracle-refineTRUE-LDref500-lambda0.001"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref500-lambda0.001"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref500-lambda0.001"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref500-lambda0.001"]]$pr[,3]),
         data.frame(method = "n=500,lambda=estimated",
-                   fdr    = 1 - res[["susie-rss-oracle-refineTRUE-LDref500-lambdaEstimate"]]$pr[,1],
-                   power  = res[["susie-rss-oracle-refineTRUE-LDref500-lambdaEstimate"]]$pr[,2],
-                   thresh = res[["susie-rss-oracle-refineTRUE-LDref500-lambdaEstimate"]]$pr[,3]))
+                   fdr    = 1 - res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref500-lambdaEstimate"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref500-lambdaEstimate"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref500-lambdaEstimate"]]$pr[,3]))
 pdat6 <-
-  rbind(data.frame(method = "SuSiE-suff (in-sample LD)",
-                   fdr    = 1 - res[["susie-suff-refineTRUE"]]$pr[,1],
-			       power  = res[["susie-suff-refineTRUE"]]$pr[,2],
-			       thresh = res[["susie-suff-refineTRUE"]]$pr[,3]),
+  rbind(data.frame(method = "SuSiE-RSS (in-sample LD)",
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,1],
+			       power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,2],
+			       thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,3]),
         data.frame(method = "in-sample LD",
-                   fdr    = 1 - res[["susie-rss-L10-refineTRUE-LDin"]]$pr[,1],
-                   power  = res[["susie-rss-L10-refineTRUE-LDin"]]$pr[,2],
-                   thresh = res[["susie-rss-L10-refineTRUE-LDin"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDin"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDin"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDin"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=0",
-                   fdr    = 1-res[["susie-rss-L10-refineTRUE-LDref1000"]]$pr[,1],
-                   power  = res[["susie-rss-L10-refineTRUE-LDref1000"]]$pr[,2],
-                   thresh = res[["susie-rss-L10-refineTRUE-LDref1000"]]$pr[,3]),
+                   fdr    = 1-res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=0.001",
-                   fdr    = 1 - res[["susie-rss-L10-refineTRUE-LDref1000-lambda0.001"]]$pr[,1],
-                   power  = res[["susie-rss-L10-refineTRUE-LDref1000-lambda0.001"]]$pr[,2],
-                   thresh = res[["susie-rss-L10-refineTRUE-LDref1000-lambda0.001"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000-lambda0.001"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000-lambda0.001"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000-lambda0.001"]]$pr[,3]),
         data.frame(method = "n=1000,lambda=estimated",
-                   fdr    = 1-res[["susie-rss-L10-refineTRUE-LDref1000-lambdaEstimate"]]$pr[,1],
-                   power  = res[["susie-rss-L10-refineTRUE-LDref1000-lambdaEstimate"]]$pr[,2],
-                   thresh = res[["susie-rss-L10-refineTRUE-LDref1000-lambdaEstimate"]]$pr[,3]),
+                   fdr    = 1-res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000-lambdaEstimate"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000-lambdaEstimate"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000-lambdaEstimate"]]$pr[,3]),
         data.frame(method = "n=500,lambda=0",
-                   fdr    = 1 - res[["susie-rss-L10-refineTRUE-LDref500"]]$pr[,1],
-                   power  = res[["susie-rss-L10-refineTRUE-LDref500"]]$pr[,2],
-                   thresh = res[["susie-rss-L10-refineTRUE-LDref500"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref500"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref500"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref500"]]$pr[,3]),
         data.frame(method = "n=500,lambda=0.001",
-                   fdr    = 1 - res[["susie-rss-L10-refineTRUE-LDref500-lambda0.001"]]$pr[,1],
-                   power  = res[["susie-rss-L10-refineTRUE-LDref500-lambda0.001"]]$pr[,2],
-                   thresh = res[["susie-rss-L10-refineTRUE-LDref500-lambda0.001"]]$pr[,3]),
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref500-lambda0.001"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref500-lambda0.001"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref500-lambda0.001"]]$pr[,3]),
         data.frame(method = "n=500,lambda=estimated",
-                   fdr    = 1 - res[["susie-rss-L10-refineTRUE-LDref500-lambdaEstimate"]]$pr[,1],
-                   power  = res[["susie-rss-L10-refineTRUE-LDref500-lambdaEstimate"]]$pr[,2],
-                   thresh = res[["susie-rss-L10-refineTRUE-LDref500-lambdaEstimate"]]$pr[,3]))
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref500-lambdaEstimate"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref500-lambdaEstimate"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref500-lambdaEstimate"]]$pr[,3]))
 pdat <- rbind(cbind(row = 1,col = 1,pdat1),
               cbind(row = 1,col = 2,pdat2),
 			  cbind(row = 2,col = 1,pdat3),
@@ -285,6 +323,14 @@ pdat <- rbind(cbind(row = 1,col = 1,pdat1),
 			  cbind(row = 3,col = 2,pdat6))
 rows <- with(pdat,order(row,col,method,fdr))
 pdat <- pdat[rows,]
+pdat$method = factor(pdat$method, levels = c('SuSiE-RSS (in-sample LD)',
+                                             'in-sample LD',
+                                             'n=1000,lambda=0',
+                                             'n=1000,lambda=0.001', 
+                                             'n=1000,lambda=estimated',
+                                             'n=500,lambda=0',
+                                             'n=500,lambda=0.001',
+                                             'n=500,lambda=estimated'))
 p <- ggplot(pdat,aes(x = fdr,y = power,color = method,linetype = method,
                      size = method)) +
   facet_grid(rows = vars(row),cols = vars(col)) +
@@ -308,4 +354,129 @@ print(p)
 
 ```{r plots-comparing-all-methods-for-paper, echo=FALSE, message=FALSE}
 ggsave("pip_power_vs_fdr_outofsample.eps",p,height=7,width=6.75)
+```
+
+Create the power vs. FDR plot comparing different fine-mapping methods
+when they are provided with the "out of sample" LD with higher PVE:
+
+```{r higher-pve, fig.height=5, fig.width=15}
+pdat1 <-
+  rbind(data.frame(method = "SuSiE-RSS, est sigma (in-sample LD)",
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,1],
+			       power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,2],
+			       thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,3]),
+        data.frame(method = "SuSiE-RSS, sigma=1",
+                   fdr    = 1 - res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000"]]$pr[,3]),
+        data.frame(method = "SuSiE-RSS, sigma=1, L=TRUE",
+                   fdr    = 1-res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000"]]$pr[,1],
+                   power  = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000"]]$pr[,2],
+                   thresh = res0.005[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000"]]$pr[,3]),
+        data.frame(method = "FINEMAP",
+                   fdr    = 1 - res0.005[["FINEMAP-L5-LDref1000"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-L5-LDref1000"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-L5-LDref1000"]]$pr[,3]),
+        data.frame(method = "FINEMAP, L=TRUE",
+                   fdr    = 1-res0.005[["FINEMAP-Loracle-LDref1000"]]$pr[,1],
+                   power  = res0.005[["FINEMAP-Loracle-LDref1000"]]$pr[,2],
+                   thresh = res0.005[["FINEMAP-Loracle-LDref1000"]]$pr[,3]),
+        data.frame(method = "DAP-G",
+                   fdr    = 1 - res0.005[["DAP-G-LDref1000"]]$pr[,1],
+                   power  = res0.005[["DAP-G-LDref1000"]]$pr[,2],
+                   thresh = res0.005[["DAP-G-LDref1000"]]$pr[,3]),
+        data.frame(method = "CAVIAR",
+                   fdr    = 1 - res0.005[["CAVIAR-LDref1000"]]$pr[,1],
+                   power  = res0.005[["CAVIAR-LDref1000"]]$pr[,2],
+                   thresh = res0.005[["CAVIAR-LDref1000"]]$pr[,3]))
+pdat2 <-
+  rbind(data.frame(method = "SuSiE-RSS, est sigma (in-sample LD)",
+                   fdr    = 1 - res0.1[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,1],
+			       power  = res0.1[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,2],
+			       thresh = res0.1[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,3]),
+        data.frame(method = "SuSiE-RSS, sigma=1",
+                   fdr    = 1 - res0.1[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000"]]$pr[,1],
+                   power  = res0.1[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000"]]$pr[,2],
+                   thresh = res0.1[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000"]]$pr[,3]),
+        data.frame(method = "SuSiE-RSS, sigma=1, L=TRUE",
+                   fdr    = 1-res0.1[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000"]]$pr[,1],
+                   power  = res0.1[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000"]]$pr[,2],
+                   thresh = res0.1[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000"]]$pr[,3]),
+        data.frame(method = "FINEMAP",
+                   fdr    = 1 - res0.1[["FINEMAP-L5-LDref1000"]]$pr[,1],
+                   power  = res0.1[["FINEMAP-L5-LDref1000"]]$pr[,2],
+                   thresh = res0.1[["FINEMAP-L5-LDref1000"]]$pr[,3]),
+        data.frame(method = "FINEMAP, L=TRUE",
+                   fdr    = 1-res0.1[["FINEMAP-Loracle-LDref1000"]]$pr[,1],
+                   power  = res0.1[["FINEMAP-Loracle-LDref1000"]]$pr[,2],
+                   thresh = res0.1[["FINEMAP-Loracle-LDref1000"]]$pr[,3]),
+        data.frame(method = "DAP-G",
+                   fdr    = 1 - res0.1[["DAP-G-LDref1000"]]$pr[,1],
+                   power  = res0.1[["DAP-G-LDref1000"]]$pr[,2],
+                   thresh = res0.1[["DAP-G-LDref1000"]]$pr[,3]),
+        data.frame(method = "CAVIAR",
+                   fdr    = 1 - res0.1[["CAVIAR-LDref1000"]]$pr[,1],
+                   power  = res0.1[["CAVIAR-LDref1000"]]$pr[,2],
+                   thresh = res0.1[["CAVIAR-LDref1000"]]$pr[,3]))
+pdat3 <-
+  rbind(data.frame(method = "SuSiE-RSS, est sigma (in-sample LD)",
+                   fdr    = 1 - res0.3[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,1],
+			       power  = res0.3[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,2],
+			       thresh = res0.3[["SuSiE-RSS-L10-refineTRUE-ERTRUE-LDin"]]$pr[,3]),
+        data.frame(method = "SuSiE-RSS, sigma=1",
+                   fdr    = 1 - res0.3[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000"]]$pr[,1],
+                   power  = res0.3[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000"]]$pr[,2],
+                   thresh = res0.3[["SuSiE-RSS-L10-refineTRUE-ERFALSE-LDref1000"]]$pr[,3]),
+        data.frame(method = "SuSiE-RSS, sigma=1, L=TRUE",
+                   fdr    = 1-res0.3[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000"]]$pr[,1],
+                   power  = res0.3[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000"]]$pr[,2],
+                   thresh = res0.3[["SuSiE-RSS-Ltrue-refineTRUE-ERFALSE-LDref1000"]]$pr[,3]),
+        data.frame(method = "FINEMAP",
+                   fdr    = 1 - res0.3[["FINEMAP-L5-LDref1000"]]$pr[,1],
+                   power  = res0.3[["FINEMAP-L5-LDref1000"]]$pr[,2],
+                   thresh = res0.3[["FINEMAP-L5-LDref1000"]]$pr[,3]),
+        data.frame(method = "FINEMAP, L=TRUE",
+                   fdr    = 1-res0.3[["FINEMAP-Loracle-LDref1000"]]$pr[,1],
+                   power  = res0.3[["FINEMAP-Loracle-LDref1000"]]$pr[,2],
+                   thresh = res0.3[["FINEMAP-Loracle-LDref1000"]]$pr[,3]),
+        data.frame(method = "DAP-G",
+                   fdr    = 1 - res0.3[["DAP-G-LDref1000"]]$pr[,1],
+                   power  = res0.3[["DAP-G-LDref1000"]]$pr[,2],
+                   thresh = res0.3[["DAP-G-LDref1000"]]$pr[,3]),
+        data.frame(method = "CAVIAR",
+                   fdr    = 1 - res0.3[["CAVIAR-LDref1000"]]$pr[,1],
+                   power  = res0.3[["CAVIAR-LDref1000"]]$pr[,2],
+                   thresh = res0.3[["CAVIAR-LDref1000"]]$pr[,3]))
+pdat <- rbind(cbind(row = 1,col = 0.005,pdat1),
+              cbind(row = 1,col = 0.1,pdat2),
+              cbind(row = 1,col = 0.3,pdat3))
+rows <- with(pdat,order(row,col,method,fdr))
+pdat <- pdat[rows,]
+pdat$method = factor(pdat$method, levels = c('SuSiE-RSS, est sigma (in-sample LD)',
+                                             'SuSiE-RSS, sigma=1',
+                                             'SuSiE-RSS, sigma=1, L=TRUE',
+                                             'FINEMAP', 
+                                             'FINEMAP, L=TRUE',
+                                             'DAP-G',
+                                             'CAVIAR'))
+p <- ggplot(pdat,aes(x = fdr,y = power,color = method,linetype = method)) +
+  facet_grid(rows = vars(row),cols = vars(col)) +
+  geom_line(orientation = "y") +
+  geom_point(data = subset(pdat,thresh == 0.95),
+             mapping = aes(x = fdr,y = power,color = method),
+             inherit.aes = FALSE,show.legend = FALSE) +
+  scale_color_manual(values = c("black","magenta","magenta","darkorange","darkorange",
+                                "royalblue","limegreen")) +
+  scale_linetype_manual(values = c("dotted","solid",'dashed',"solid","dashed",
+                                   "solid","solid")) +
+  scale_x_continuous(breaks = seq(0,0.3,0.05)) +
+  scale_y_continuous(breaks = seq(0,0.3,0.05)) +
+  coord_cartesian(xlim = c(0,0.3),ylim = c(0,0.3)) +
+  theme_cowplot(font_size = 10) +
+  theme(panel.grid.major = element_line(colour = "gainsboro",size = 0.3))
+print(p)
+```
+
+```{r higher-pve-for-paper, echo=FALSE, message=FALSE}
+ggsave("pip_power_vs_fdr_pve.eps",p,height=7,width=6.75)
 ```
