@@ -1,0 +1,84 @@
+---
+title: "CS plots for paper"
+author: Yuxin Zou
+output: workflowr::wflow_html
+---
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.show = "hold",fig.align = "center",dpi = 120)
+```
+
+Load some packages used to create the power vs. FDR plots:
+
+```{r load-pkgs, message=FALSE}
+library(ggplot2)
+library(cowplot)
+library(ggpubr)
+```
+
+Load the results from the UK Biobank simulations:
+
+```{r load-results}
+rates = readRDS("data/cs.rds")
+```
+
+```{r cs-plot, fig.height=7, fig.width=7}
+plot_panel = function(dat, quantity, legend = TRUE) {
+  p = ggplot(dat, aes_string(x="LD", y=quantity[1], color="Method")) +
+    scale_color_manual("Method", values = c("SuSiE-suff" = "#FFA500", "SuSiE-RSS" = "magenta",
+                                            "FINEMAP" = "#00008B", #"forestgreen",
+                                            # "FINEMAP-pure CS" = "#00008B",
+                                            "DAP-G" = "deepskyblue"),
+                       labels=c("SuSiE-suff" = expression(paste('SuSiE-RSS, est. ', sigma)),
+                                "SuSiE-RSS" = expression(paste('SuSiE-RSS, ', sigma, '=1')),
+                                "FINEMAP" = "FINEMAP",
+                                # "FINEMAP-pure CS" = "FINEMAP-pure CS",
+                                "DAP-G" = "DAP-G")) + 
+    geom_point(aes(colour=Method), position=position_dodge(.5), size=2.5)
+  if (quantity[1] == 'power'){
+    p = p + geom_errorbar(aes(ymin=power-power_se, ymax=power+power_se, color=Method),
+                          width=.2, position=position_dodge(.5))
+    p = p + ylim(0.66,0.78)
+  }
+  if (quantity[1] == 'coverage') {
+    p = p + geom_errorbar(aes(ymin=coverage-coverage_se, ymax=coverage+coverage_se, color=Method),
+                          width=.2, position=position_dodge(.5)) +
+      geom_hline(yintercept = 0.95, colour = 'gray', linetype='dotted')
+  }
+  if(quantity[1] == 'size'){
+    p = p + ylim(5,9)
+  }
+  if(quantity[1] == 'purity'){
+    p = p + ylim(0.97,1)
+  }
+  p = p + labs(x = "", y = "") + theme_cowplot() +
+    background_grid(major = "x", minor = "none") +
+    ggtitle(quantity[2]) + theme(axis.title.x = element_text(size = 10),
+                                 axis.text.x = element_text(angle = 60, size=8,hjust = 1),
+                                 plot.title = element_text(size=11))
+  p = p + scale_x_discrete(labels=c("In-sample LD" = "In-sample LD",
+                                    "LD ref1000" = expression(paste('n=1000, ', lambda, '=0')),
+                                    "LD ref1000 s=0.001" = expression(paste('n=1000, ', lambda, '=0.001')),
+                                    "LD ref1000 estimated s" = expression(paste('n=1000, est. ', hat(lambda))),
+                                    'LD ref500' = expression(paste('n=500, ', lambda, '=0')),
+                                    "LD ref500 s=0.001" = expression(paste('n=500, ', lambda, '=0.001')),
+                                    "LD ref500 estimated s" = expression(paste('n=500, est. ', hat(lambda)))))
+  if (!legend) p = p + theme(legend.position="none")
+  return(p)
+}
+
+
+p1 = plot_panel(rates, c('coverage', 'A coverage'), legend=T)
+p2 = plot_panel(rates, c('power', 'B power'), legend=T)
+p3 = plot_panel(rates, c('size', 'C median number of variables'), legend=T)
+p4 = plot_panel(rates, c('purity', 'D median of purity'), legend=T)
+
+p = ggarrange(p1,p2,p3,p4, ncol=2, nrow=2, widths=c(4,4), heights=c(4,4), common.legend = TRUE, legend="right")
+print(p)
+```
+
+```{r refinement-for-paper, echo=FALSE, message=FALSE}
+ggsave('cs_plots.eps', p, width=8, height=8)
+```
+
