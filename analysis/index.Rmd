@@ -12,7 +12,9 @@ This repository contains simulation results related to SuSiE-RSS.
 
 + Most recent results: 
   
-    - [Paper](paper_figures.html)
+    - [Paper power vs FDR](power_vs_fdr.html)
+    
+    - [Paper CS](cs_plot.html)
 
 + Previous results:
     
