@@ -12,7 +12,7 @@
 <meta name="author" content="Yuxin Zou" />
 
 
-<title>Simulation with different PVE</title>
+<title>Figures for simulation study</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -361,9 +361,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Simulation with different PVE</h1>
+<h1 class="title toc-ignore">Figures for simulation study</h1>
 <h4 class="author">Yuxin Zou</h4>
-<h4 class="date">2/18/2022</h4>
+<h4 class="date">6/06/2022</h4>
 
 </div>
 
@@ -439,15 +439,15 @@ results.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabdscsusiersstree9e0b86f97eac36d347ee82366ec1d34818763804targetblank9e0b86fa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabdscsusiersstree8878e995d62971c83c401314cb8ece2bb4467251targetblank8878e99a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/stephenslab/dsc_susierss/tree/9e0b86f97eac36d347ee82366ec1d34818763804" target="_blank">9e0b86f</a>
+<a href="https://github.com/stephenslab/dsc_susierss/tree/8878e995d62971c83c401314cb8ece2bb4467251" target="_blank">8878e99</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabdscsusiersstree9e0b86f97eac36d347ee82366ec1d34818763804targetblank9e0b86fa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabdscsusiersstree8878e995d62971c83c401314cb8ece2bb4467251targetblank8878e99a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -457,7 +457,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/stephenslab/dsc_susierss/tree/9e0b86f97eac36d347ee82366ec1d34818763804" target="_blank">9e0b86f</a>.
+<a href="https://github.com/stephenslab/dsc_susierss/tree/8878e995d62971c83c401314cb8ece2bb4467251" target="_blank">8878e99</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -494,11 +494,11 @@ have uncommitted changes.
 
 <p>
 These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/power_vs_fdr_pve.Rmd</code>) and
-HTML (<code>docs/power_vs_fdr_pve.html</code>) files. If you’ve
-configured a remote Git repository (see <code>?wflow_git_remote</code>),
-click on the hyperlinks in the table below to view the files as they
-were in that past version.
+made to the R Markdown (<code>analysis/paper_figures.Rmd</code>) and
+HTML (<code>docs/paper_figures.html</code>) files. If you’ve configured
+a remote Git repository (see <code>?wflow_git_remote</code>), click on
+the hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -524,36 +524,19 @@ Message
 <tbody>
 <tr>
 <td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/fd46b5db6e2a2ea92eb1037a895141abc6c27106/docs/power_vs_fdr_pve.html" target="_blank">fd46b5d</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2022-02-22
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephenslab/dsc_susierss/blob/89be400a4b06c2dc750467bf74a1b58679ccd259/analysis/power_vs_fdr_pve.Rmd" target="_blank">89be400</a>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/8878e995d62971c83c401314cb8ece2bb4467251/analysis/paper_figures.Rmd" target="_blank">8878e99</a>
 </td>
 <td>
-zouyuxin
+Yuxin Zou
 </td>
 <td>
-2022-02-22
+2022-06-06
 </td>
 <td>
-wflow_publish("analysis/power_vs_fdr_pve.Rmd")
+wflow_publish("analysis/paper_figures.Rmd")
 </td>
 </tr>
 </tbody>
@@ -563,33 +546,31 @@ wflow_publish("analysis/power_vs_fdr_pve.Rmd")
 </div>
 </div>
 </div>
-<p>We simulated data with pve = 0.02, 0.1 and 0.3. We reduced the sample
-size for larger PVE, n=12,500 for PVE=0.02, n=2,500 for PVE=0.1, and
-n=800 for PVE=0.3. SuSiE related methods used refinement procedure.</p>
-<p>PVE = 0.005 (from previous simulation, n = 50,000)</p>
+<div id="pve-0.005" class="section level1">
+<h1>PVE = 0.005</h1>
+<p>This simulation uses UKB genotype data. We extract the genotype
+regions based on height GWAS result. There are 200 regions, each with
+~1000 SNPs. We sample 50,000 individuals to simulate the data. We sample
+another 500 and 1000 samples to get reference LD matrix. We simulate
+data with 1,2,3 signals and PVE 0.005. We run susie_rss using L=10. We
+run FINEMAP v1.4 with oracle number of signals and max 5 signals. We run
+CAVIAR with oracle number of signals. We run DAP-G with the default
+setting.</p>
+<div id="power-vs-fdr" class="section level2">
+<h2>Power vs FDR</h2>
+<p><img src="assets/susierss_paper/fig3.png" /></p>
+<p><img src="assets/susierss_paper/fig5.png" /></p>
+</div>
+<div id="cs" class="section level2">
+<h2>CS</h2>
 <p><img
-src="assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.005_ldin_methods.png"
-style="width:45.0%" /> <img
-src="assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.005_ldref_methods.png"
-style="width:45.0%" /></p>
-<p>PVE = 0.02</p>
-<p><img
-src="assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.02_ldin_methods.png"
-style="width:45.0%" /> <img
-src="assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.02_ldref_methods.png"
-style="width:45.0%" /></p>
-<p>PVE = 0.1</p>
-<p><img
-src="assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.1_ldin_methods.png"
-style="width:45.0%" /> <img
-src="assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.1_ldref_methods.png"
-style="width:45.0%" /></p>
-<p>PVE = 0.3</p>
-<p><img
-src="assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.3_ldin_methods.png"
-style="width:45.0%" /> <img
-src="assets/susierss_ukb_20220207_REF1000_pve_n_results/ukb_roc_pve0.3_ldref_methods.png"
-style="width:45.0%" /></p>
+src="assets/susierss_paper/ukb_cs_refine_033022_fixsize_fm_pure_plots.png" /></p>
+</div>
+</div>
+<div id="higher-pve" class="section level1">
+<h1>Higher PVE</h1>
+<p><img src="assets/susierss_paper/fig6.png" /></p>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using

@@ -10,7 +10,7 @@
 # =============
 # $fitted: for diagnostics
 # $posterior: for inference
-  
+
 adjustld: adjustld.R
   sumstats: $sumstats
   ld: $ld
@@ -26,7 +26,7 @@ adjustld: adjustld.R
 
 adjustld_lamb0(adjustld):
   lamb: 0
-  
+
 adjustld_addz(adjustld):
   lamb: 0
   addz: TRUE
@@ -38,7 +38,7 @@ adjustld_n_lamb0: adjustld_lamb0_n.R
   ldmethod: "in_sample", "refout_sample"
   $z: z
   $ldinfo: ld_info
-  
+
 adjustld_insample(adjustld): R(z = sumstats$bhat/sumstats$shat;
                                ldfile = ld[[ldmethod]])
   ldmethod: "in_sample"
@@ -46,11 +46,11 @@ adjustld_insample(adjustld): R(z = sumstats$bhat/sumstats$shat;
 
 adjustld_gtex(adjustld):
   ldmethod: "in_sample", "out_sample"
-  
+
 adjustld_addz_gtex(adjustld_gtex):
   lamb: 0
   addz: TRUE
-  
+
 caviar: fit_caviar.R + R(b = $(meta)$true_coef;
                          nc = sum(b[,1]!=0);
                          if(nc > 3) nc = 3;
@@ -70,7 +70,7 @@ finemap(caviar): fit_finemap.R + R(b = $(meta)$true_coef;
   k: NULL
   N_in: $N_sample
   cache: file(FM)
-  
+
 finemapv3(caviar): fit_finemap_v3.R + R(posterior = finemap_mvar_v1.3.1(sumstats$bhat, sumstats$shat,
                                         maf[[ld_info[['ldmethod']]]], ld_info[['ldfile']], N_in, k, method, args, prefix=cache))
   sumstats: $sumstats
@@ -99,19 +99,14 @@ finemapv4(caviar): fit_finemap_v4.R + R(b = $(meta)$true_coef;
 
 finemapv4_n(finemapv4):
   N_in: $N_sample_n
-  
-finemapv4L4(finemapv4): fit_finemap_v4.R + R(posterior = finemap_mvar_v1.4(sumstats$bhat, sumstats$shat,
-                                                         maf[[ld_info[['ldmethod']]]], ld_info[['ldfile']], 
-                                                         N_in, k, method, args, prefix=cache))
-  args: '-n-causal-snps 4'
 
-finemapv4L4_n(finemapv4L4):
-  N_in: $N_sample_n
-  
 finemapv4L5(finemapv4): fit_finemap_v4.R + R(posterior = finemap_mvar_v1.4(sumstats$bhat, sumstats$shat,
-                                                         maf[[ld_info[['ldmethod']]]], ld_info[['ldfile']], 
+                                                         maf[[ld_info[['ldmethod']]]], ld_info[['ldfile']],
                                                          N_in, k, method, args, prefix=cache))
-  args: '-n-causal-snps 5'
+  args: '--n-causal-snps 5'
+
+finemapv4L5_n(finemapv4L5):
+  N_in: $N_sample_n
 
 dap_z: fit_dap.R + R(posterior = finemap_dap(z, ld_info[['ldfile']], args, cache))
   z: $z
@@ -119,7 +114,7 @@ dap_z: fit_dap.R + R(posterior = finemap_dap(z, ld_info[['ldfile']], args, cache
   args: ""
   cache: file(DAP)
   $posterior: posterior
-  
+
 paintor: fit_paintor.R + R(b = $(meta)$true_coef;
                            nc = sum(b[,1]!=0);
                            if(nc > 3) nc = 3;
@@ -154,7 +149,7 @@ susie: initialize.R + R(if(is.na(init)){
 susie_init(susie):
   init: NA, 'oracle', 'lasso'
   estimate_residual_variance: TRUE
-  
+
 #------------------------------
 # SuSiE with sufficient statistics
 #------------------------------
@@ -167,7 +162,7 @@ susie_suff: initialize.R + fit_susie_suff.R + R(if(is.na(init)){
                                                   s_init = init_lasso(X,Y,L);
                                                 };
                                                 r = as.matrix(fread(ld_info[['ldfile']]));
-                                                res = susie_suff_multiple(sumstats$bhat, sumstats$shat, 
+                                                res = susie_suff_multiple(sumstats$bhat, sumstats$shat,
                                                 r, n, L, s_init, estimate_residual_variance, refine))
   @CONF: R_libs = (susieR, data.table)
   sumstats: $sumstats
@@ -189,15 +184,15 @@ susie_suff_init(susie_suff):
 
 susie_suff_refine(susie_suff):
   refine: TRUE
-  
+
 susie_suff_refine_n(susie_suff_refine):
   X: $X_sample_n
   n: $N_sample_n
-  
+
 susie_suff_Ltrue: fit_susie_suff.R + R(b = $(meta)$true_coef;
                                     L = sum(b[,1]!=0);
                                     r = as.matrix(fread(ld_info[['ldfile']]));
-                                    res = susie_suff_multiple(sumstats$bhat, sumstats$shat, 
+                                    res = susie_suff_multiple(sumstats$bhat, sumstats$shat,
                                                 r, n, L, s_init, estimate_residual_variance, refine))
   @CONF: R_libs = (susieR, data.table)
   sumstats: $sumstats
@@ -211,7 +206,7 @@ susie_suff_Ltrue: fit_susie_suff.R + R(b = $(meta)$true_coef;
 
 susie_suff_Ltrue_n(susie_suff_Ltrue):
   n: $N_sample_n
-  
+
 #------------------------------
 # SuSiE with summary statistics
 #------------------------------
@@ -224,7 +219,7 @@ susie_rss: initialize.R + fit_susierss.R + R(if(is.na(init)){
                                                 s_init = init_rss_lasso(z,r,L);
                                               };
                                               r = as.matrix(fread(ld_info[['ldfile']]));
-                                              res = susie_rss_multiple(z, r, n, L, s_init, 
+                                              res = susie_rss_multiple(z, r, n, L, s_init,
                                               estimate_residual_variance, refine))
   @CONF: R_libs = (susieR, data.table)
   z: $z
@@ -236,11 +231,11 @@ susie_rss: initialize.R + fit_susierss.R + R(if(is.na(init)){
   estimate_residual_variance: TRUE, FALSE
   $fitted: res$fitted
   $posterior: res$posterior
-  
+
 susie_rss_Ltrue: fit_susierss.R + R(b = $(meta)$true_coef;
                                     L = sum(b[,1]!=0);
                                     r = as.matrix(fread(ld_info[['ldfile']]));
-                                    res = susie_rss_multiple(z, r, n, L, NA, 
+                                    res = susie_rss_multiple(z, r, n, L, NA,
                                     estimate_residual_variance, refine);)
   @CONF: R_libs = (susieR, data.table)
   z: $z
@@ -254,7 +249,7 @@ susie_rss_Ltrue: fit_susierss.R + R(b = $(meta)$true_coef;
 susie_rss_n(susie_rss):
   n: $N_sample_n
   refine: TRUE
-  
+
 susie_rss_Ltrue_n(susie_rss_Ltrue):
   n: $N_sample_n
-  
+
