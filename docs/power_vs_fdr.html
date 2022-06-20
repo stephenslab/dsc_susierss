@@ -510,15 +510,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabdscsusiersstreefcf79874b1575d10b9b97b9b5bdcb40d1080d1a6targetblankfcf7987a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabdscsusiersstreef36f73ec04fea11c6df07fb8cf1511a100c597ebtargetblankf36f73ea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/stephenslab/dsc_susierss/tree/fcf79874b1575d10b9b97b9b5bdcb40d1080d1a6" target="_blank">fcf7987</a>
+<a href="https://github.com/stephenslab/dsc_susierss/tree/f36f73ec04fea11c6df07fb8cf1511a100c597eb" target="_blank">f36f73e</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabdscsusiersstreefcf79874b1575d10b9b97b9b5bdcb40d1080d1a6targetblankfcf7987a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabdscsusiersstreef36f73ec04fea11c6df07fb8cf1511a100c597ebtargetblankf36f73ea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -528,7 +528,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/stephenslab/dsc_susierss/tree/fcf79874b1575d10b9b97b9b5bdcb40d1080d1a6" target="_blank">fcf7987</a>.
+<a href="https://github.com/stephenslab/dsc_susierss/tree/f36f73ec04fea11c6df07fb8cf1511a100c597eb" target="_blank">f36f73e</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -545,6 +545,13 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  cs_plots.eps
+    Untracked:  pip_power_vs_fdr_insample.eps
+    Untracked:  pip_power_vs_fdr_outofsample.eps
+    Untracked:  pip_power_vs_fdr_pve.eps
+    Untracked:  pip_power_vs_fdr_refine.eps
 
 </code></pre>
 <p>
@@ -590,6 +597,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/f36f73ec04fea11c6df07fb8cf1511a100c597eb/analysis/power_vs_fdr.Rmd" target="_blank">f36f73e</a>
+</td>
+<td>
+Yuxin Zou
+</td>
+<td>
+2022-06-20
+</td>
+<td>
+wflow_publish("analysis/power_vs_fdr.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/dsc_susierss/02c5d2315742ef1b8095cac0e7fea28dfa473e92/docs/power_vs_fdr.html" target="_blank">02c5d23</a>
+</td>
+<td>
+Yuxin Zou
+</td>
+<td>
+2022-06-20
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -833,6 +874,43 @@ p &lt;- ggplot(pdat,aes(x = fdr,y = power,color = method,linetype = method)) +
   theme(panel.grid.major = element_line(colour = &quot;gainsboro&quot;,size = 0.3))
 print(p)</code></pre>
 <p><img src="figure/power_vs_fdr.Rmd/refinement-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-refinement-1">
+Past versions of refinement-1.png
+</button>
+</p>
+<div id="fig-refinement-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/02c5d2315742ef1b8095cac0e7fea28dfa473e92/docs/figure/power_vs_fdr.Rmd/refinement-1.png" target="_blank">02c5d23</a>
+</td>
+<td>
+Yuxin Zou
+</td>
+<td>
+2022-06-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Create the power vs. FDR plot comparing different fine-mapping
 methods when they are provided with the “in sample” LD:</p>
 <pre class="r"><code>pdat &lt;-
@@ -883,7 +961,7 @@ p &lt;- ggplot(pdat,aes(x = fdr,y = power,color = method,linetype = method)) +
   theme_cowplot(font_size = 12) +
   theme(panel.grid.major = element_line(colour = &quot;gainsboro&quot;,size = 0.3))
 print(p)</code></pre>
-<p><img src="figure/power_vs_fdr.Rmd/in-sample-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p><img src="figure/power_vs_fdr.Rmd/in-sample-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-in-sample-1">
 Past versions of in-sample-1.png
@@ -906,6 +984,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/02c5d2315742ef1b8095cac0e7fea28dfa473e92/docs/figure/power_vs_fdr.Rmd/in-sample-1.png" target="_blank">02c5d23</a>
+</td>
+<td>
+Yuxin Zou
+</td>
+<td>
+2022-06-20
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/dsc_susierss/blob/45fa9879ee6d9e770edb3cac2752551797c72697/docs/figure/power_vs_fdr.Rmd/in-sample-1.png" target="_blank">45fa987</a>
@@ -1203,6 +1292,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/02c5d2315742ef1b8095cac0e7fea28dfa473e92/docs/figure/power_vs_fdr.Rmd/plots-comparing-all-methods-1.png" target="_blank">02c5d23</a>
+</td>
+<td>
+Yuxin Zou
+</td>
+<td>
+2022-06-20
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/dsc_susierss/blob/a03de314f9c6fb014b6d4fb006e67a22cddeb45a/docs/figure/power_vs_fdr.Rmd/plots-comparing-all-methods-1.png" target="_blank">a03de31</a>
 </td>
 <td>
@@ -1335,6 +1435,43 @@ p &lt;- ggplot(pdat,aes(x = fdr,y = power,color = method,linetype = method)) +
   theme(panel.grid.major = element_line(colour = &quot;gainsboro&quot;,size = 0.3))
 print(p)</code></pre>
 <p><img src="figure/power_vs_fdr.Rmd/higher-pve-1.png" width="1800" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-higher-pve-1">
+Past versions of higher-pve-1.png
+</button>
+</p>
+<div id="fig-higher-pve-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/dsc_susierss/blob/02c5d2315742ef1b8095cac0e7fea28dfa473e92/docs/figure/power_vs_fdr.Rmd/higher-pve-1.png" target="_blank">02c5d23</a>
+</td>
+<td>
+Yuxin Zou
+</td>
+<td>
+2022-06-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
